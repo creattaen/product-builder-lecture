@@ -18,43 +18,43 @@
         </div>
     </nav>
 
-    <div class="page-wrapper">
+    <main>
         <div class="container">
             <div id="capture-area" class="result-card">
                 <h2 id="result-message" style="font-size: 32px; font-weight: 900; margin-bottom: 30px;">분석 결과</h2>
                 
-                <div style="margin-bottom: 30px;">
+                <div style="margin-bottom: 30px; display: flex; justify-content: center;">
                     <img id="user-photo" src="" alt="Result" style="width: 260px; height: 260px; object-fit: cover; border-radius: 20px; border: 1.5px solid var(--border);">
                 </div>
 
-                <div style="max-width: 400px; margin: 0 auto 30px;">
+                <div style="max-width: 400px; margin: 0 auto 30px; text-align: left;">
                     <div style="margin-bottom: 20px;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 800; font-size: 14px;">
                             <span>🐶 강아지상</span>
                             <span id="dog-percent">0%</span>
                         </div>
-                        <div class="score-bar-bg"><div id="dog-bar" class="score-bar-fill" style="background: #ff9f43;"></div></div>
+                        <div class="bar-bg"><div id="dog-bar" class="bar-fill" style="background: #ff9f43; width: 0; height: 100%; transition: width 1.5s;"></div></div>
                     </div>
                     <div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 800; font-size: 14px;">
                             <span>🐱 고양이상</span>
                             <span id="cat-percent">0%</span>
                         </div>
-                        <div class="score-bar-bg"><div id="cat-bar" class="score-bar-fill" style="background: #54a0ff;"></div></div>
+                        <div class="bar-bg"><div id="cat-bar" class="bar-fill" style="background: #54a0ff; width: 0; height: 100%; transition: width 1.5s;"></div></div>
                     </div>
                 </div>
 
                 <p style="font-size: 15px; color: var(--text-sub); font-weight: 500;">
-                    AI 분석 결과, 당신의 마스크는 특정 동물과<br>매우 높은 일치율을 보이고 있습니다.
+                    AI 분석 결과, 당신의 이목구비는 특정 동물과<br>매우 높은 일치율을 보이고 있습니다.
                 </p>
             </div>
 
-            <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="margin-top: 30px; width: 100%; max-width: 450px; margin-left: auto; margin-right: auto;">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn-month" onclick="saveAsImage()">📸 이미지 저장</button>
-                    <button class="btn-today" style="margin: 0;" onclick="shareLink()">🔗 결과 공유</button>
+                    <button class="btn-primary" style="margin: 0;" onclick="saveAsImage()">📸 이미지 저장</button>
+                    <button class="btn-primary" style="margin: 0; background: #000;" onclick="shareLink()">🔗 결과 공유</button>
                 </div>
-                <button class="btn-month" style="width: 100%; border: none; background: #eee; color: #666;" onclick="location.href='animal-test.html'">다른 사진으로 하기</button>
+                <button class="btn-secondary" onclick="location.href='animal-test.html'">다른 사진으로 하기</button>
             </div>
 
             <div class="comments-container">
@@ -62,23 +62,23 @@
                 <div id="disqus_thread"></div>
             </div>
         </div>
+    </main>
 
-        <footer class="footer">
-            <p>© 2026 운명과 AI. All rights reserved.</p>
-        </footer>
-    </div>
+    <footer class="footer">
+        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+    </footer>
 
     <script>
         window.addEventListener('load', () => {
             const data = JSON.parse(localStorage.getItem('currentAnimalResult'));
             if (data) {
-                document.getElementById('result-message').innerText = data.message;
-                document.getElementById('user-photo').src = data.image;
+                document.getElementById('result-message').innerText = data.message || "분석 완료";
+                document.getElementById('user-photo').src = data.image || "";
                 setTimeout(() => {
-                    document.getElementById('dog-bar').style.width = data.dog + "%";
-                    document.getElementById('dog-percent').innerText = Math.round(data.dog) + "%";
-                    document.getElementById('cat-bar').style.width = data.cat + "%";
-                    document.getElementById('cat-percent').innerText = Math.round(data.cat) + "%";
+                    document.getElementById('dog-bar').style.width = (data.dog || 0) + "%";
+                    document.getElementById('dog-percent').innerText = Math.round(data.dog || 0) + "%";
+                    document.getElementById('cat-bar').style.width = (data.cat || 0) + "%";
+                    document.getElementById('cat-percent').innerText = Math.round(data.cat || 0) + "%";
                 }, 300);
             } else { location.href = 'animal-test.html'; }
         });
@@ -87,7 +87,7 @@
             const area = document.getElementById('capture-area');
             const canvas = await html2canvas(area, { backgroundColor: "#ffffff", scale: 2 });
             const link = document.createElement('a');
-            link.download = 'animal-test.png';
+            link.download = 'animal-result.png';
             link.href = canvas.toDataURL();
             link.click();
         }

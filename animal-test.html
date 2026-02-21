@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 동물상 테스트 - 신비한 운세</title>
+    <title>AI 동물상 테스트 - 사진 업로드</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
@@ -19,7 +19,7 @@
         </div>
     </nav>
 
-    <div class="page-wrapper">
+    <main>
         <div class="container">
             <h1>나는 어떤<br>동물상을 닮았을까? 🐶</h1>
             <p style="color: var(--text-sub); margin-bottom: 40px; font-weight: 500;">
@@ -36,18 +36,15 @@
                 <input type="file" id="file-input" accept="image/*" onchange="handleImageUpload(event)" style="display: none;">
             </div>
         </div>
+    </main>
 
-        <footer class="footer">
-            <p>© 2026 운명과 AI. All rights reserved.</p>
-        </footer>
-    </div>
+    <footer class="footer">
+        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+    </footer>
 
     <!-- 🌌 분석 오버레이 -->
     <div id="loading-overlay" class="full-screen-analysis" style="display: none;">
-        <div class="cosmic-spinner">
-            <div class="orbit"></div>
-            <div class="planet"></div>
-        </div>
+        <div class="spin-wrap"></div>
         <h2 class="analyzing-title">AI가 이목구비를 분석하고 있습니다</h2>
         <div class="analysis-steps">
             <p id="step-1" class="step">이미지 픽셀 스캔 중...</p>

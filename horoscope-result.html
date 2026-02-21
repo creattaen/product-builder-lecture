@@ -18,9 +18,8 @@
         </div>
     </nav>
 
-    <div class="page-wrapper">
-        <div class="container">
-            <!-- 📸 이미지 저장 영역 -->
+    <main>
+        <div class="container" style="max-width: 800px;">
             <div id="capture-area" class="result-card">
                 <div id="today-result-header">
                     <span class="zodiac-badge" id="res-zodiac">-</span>
@@ -29,35 +28,35 @@
                 
                 <h2 id="res-nickname-title" style="font-size: 36px; font-weight: 900; margin-bottom: 10px;"></h2>
                 <div style="margin-bottom: 30px;">
-                    <span id="res-summary-badge" class="zodiac-badge" style="background: var(--primary); font-size: 14px; padding: 6px 16px;">분석</span>
+                    <span id="res-summary-badge" class="zodiac-badge" style="background: var(--primary); font-size: 14px; padding: 6px 16px;">분석 완료</span>
                     <span id="res-sub-title" style="font-weight: 700; color: var(--primary); margin-left: 8px;">오늘의 총평</span>
                 </div>
 
-                <div class="infographic-section">
+                <div class="infographic-box">
                     <span style="font-size: 14px; font-weight: 800; color: var(--text-sub);">오늘의 행운 지수</span>
-                    <div class="score-bar-bg"><div id="luck-score-bar" class="score-bar-fill"></div></div>
+                    <div class="bar-bg"><div id="luck-score-bar" class="bar-fill"></div></div>
                     <span id="luck-score-text" style="font-size: 24px; font-weight: 900; color: var(--primary);">0점</span>
                 </div>
 
-                <p id="today-result-text" class="fortune-description"></p>
+                <div class="fortune-description" id="today-result-text"></div>
 
                 <div style="background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 30px; text-align: left; border: 1px solid var(--border);">
                     <h3 id="monthly-title" style="font-size: 16px; margin-bottom: 8px; color: var(--primary);"></h3>
-                    <p id="monthly-text" style="font-size: 14px; color: var(--text-sub); margin: 0;"></p>
+                    <p id="monthly-text" style="font-size: 14px; color: var(--text-sub); margin: 0; line-height: 1.7;"></p>
                 </div>
 
-                <div class="lucky-items-grid">
-                    <div class="lucky-item">
+                <div class="lucky-grid">
+                    <div class="lucky-box">
                         <span style="font-size: 20px; display: block; margin-bottom: 5px;">🔢</span>
                         <span class="label">행운의 숫자</span>
                         <span class="value" id="luck-num">-</span>
                     </div>
-                    <div class="lucky-item">
+                    <div class="lucky-box">
                         <span style="font-size: 20px; display: block; margin-bottom: 5px;">🎨</span>
                         <span class="label">행운의 색상</span>
                         <span class="value" id="luck-color">-</span>
                     </div>
-                    <div class="lucky-item">
+                    <div class="lucky-box">
                         <span style="font-size: 20px; display: block; margin-bottom: 5px;">📍</span>
                         <span class="label">행운의 방향</span>
                         <span class="value" id="luck-dir">-</span>
@@ -65,48 +64,43 @@
                 </div>
             </div>
 
-            <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="margin-top: 30px; width: 100%; max-width: 450px; margin-left: auto; margin-right: auto;">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn-month" onclick="saveAsImage()">📸 이미지 저장</button>
-                    <button class="btn-today" style="margin: 0;" onclick="shareLink()">🔗 링크 공유</button>
+                    <button class="btn-primary" style="margin: 0;" onclick="saveAsImage()">📸 이미지 저장</button>
+                    <button class="btn-primary" style="margin: 0; background: #000;" onclick="shareLink()">🔗 링크 공유</button>
                 </div>
-                <button class="btn-month" style="width: 100%; border: none; background: #eee; color: #666;" onclick="location.href='horoscope.html'">다시 분석하기</button>
+                <button class="btn-secondary" onclick="location.href='horoscope.html'">다시 분석하기</button>
             </div>
 
             <div class="history-container">
                 <h3>📅 나의 운세 기록</h3>
                 <div id="history-list"></div>
             </div>
-
-            <div class="comments-container">
-                <h3>💬 자유 게시판</h3>
-                <div id="disqus_thread"></div>
-            </div>
         </div>
+    </main>
 
-        <footer class="footer">
-            <p>© 2026 운명과 AI. All rights reserved.</p>
-        </footer>
-    </div>
+    <footer class="footer">
+        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+    </footer>
 
     <script src="horoscope.js"></script>
     <script>
         window.addEventListener('load', () => {
             const data = JSON.parse(localStorage.getItem('currentFortuneResult'));
             if (data) {
-                document.getElementById('res-zodiac').innerText = data.zodiac;
-                document.getElementById('res-date').innerText = data.timestamp;
-                document.getElementById('res-nickname-title').innerText = data.nickname + "님";
-                document.getElementById('res-summary-badge').innerText = data.daily.summary;
-                document.getElementById('today-result-text').innerText = data.daily.text;
-                document.getElementById('monthly-title').innerText = `${data.displayMonth}월의 기운`;
-                document.getElementById('monthly-text').innerText = data.monthly.text;
-                document.getElementById('luck-num').innerText = data.daily.lNum;
-                document.getElementById('luck-color').innerText = data.daily.lColor;
-                document.getElementById('luck-dir').innerText = data.daily.lDir;
+                document.getElementById('res-zodiac').innerText = data.zodiac || "";
+                document.getElementById('res-date').innerText = data.timestamp || "";
+                document.getElementById('res-nickname-title').innerText = (data.nickname || "사용자") + "님";
+                document.getElementById('res-summary-badge').innerText = data.daily.summary || "분석";
+                document.getElementById('today-result-text').innerText = data.daily.text || "";
+                document.getElementById('monthly-title').innerText = `${data.displayMonth || 2}월의 총운`;
+                document.getElementById('monthly-text').innerText = data.monthly.text || "";
+                document.getElementById('luck-num').innerText = data.daily.lNum || "-";
+                document.getElementById('luck-color').innerText = data.daily.lColor || "-";
+                document.getElementById('luck-dir').innerText = data.daily.lDir || "-";
                 setTimeout(() => {
-                    document.getElementById('luck-score-bar').style.width = data.daily.score + "%";
-                    document.getElementById('luck-score-text').innerText = data.daily.score + "점";
+                    document.getElementById('luck-score-bar').style.width = (data.daily.score || 0) + "%";
+                    document.getElementById('luck-score-text').innerText = (data.daily.score || 0) + "점";
                 }, 300);
             } else { location.href = 'horoscope.html'; }
         });
@@ -129,14 +123,6 @@
                 alert("링크가 복사되었습니다! ✨");
             }
         }
-    </script>
-    <script>
-        (function() { 
-        var d = document, s = d.createElement('script');
-        s.src = 'https://creattaen.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
     </script>
 </body>
 </html>

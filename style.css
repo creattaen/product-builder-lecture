@@ -1,16 +1,16 @@
-/* 🎨 깔끔한 중앙 정렬 프리미엄 디자인 시스템 */
+/* 🎨 완벽 반응형 & 중앙 집중 프리미엄 시스템 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
 :root {
     --primary: #6c5ce7;
     --primary-soft: #f3f0ff;
-    --text-main: #2d3436;
-    --text-sub: #636e72;
-    --bg: #f8f9fa;
+    --text-main: #1a1a1a;
+    --text-sub: #666666;
+    --bg: #f8fafc;
     --card-bg: #ffffff;
     --border: #edf2f7;
-    --radius: 20px;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --radius: 24px;
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -19,28 +19,35 @@
     padding: 0;
 }
 
-body {
-    font-family: 'Pretendard', -apple-system, sans-serif;
+html, body {
+    height: 100%;
     background-color: var(--bg);
-    color: var(--text-main);
-    line-height: 1.6;
-    text-align: center; /* 기본 중앙 정렬 */
 }
 
-/* 🧭 네비게이션 바 */
+body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🧭 통합 네비게이션 */
 .navbar {
-    background: white;
-    padding: 20px 0;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
     z-index: 1000;
+    padding: 15px 0;
 }
 
 .nav-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    padding: 0 15px;
     flex-wrap: wrap;
 }
 
@@ -49,9 +56,9 @@ body {
     color: var(--text-sub);
     font-weight: 700;
     font-size: 14px;
-    padding: 8px 16px;
-    border-radius: 10px;
-    transition: all 0.3s;
+    padding: 10px 16px;
+    border-radius: 12px;
+    transition: all 0.2s;
 }
 
 .nav-link.active, .nav-link:hover {
@@ -59,191 +66,199 @@ body {
     background: var(--primary-soft);
 }
 
-/* 🌟 중앙 집중형 레이아웃 */
-.page-wrapper {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px 100px;
+/* 🌟 메인 컨텐츠 래퍼 (중앙 정렬 핵심) */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 40px 20px;
 }
 
 .container {
+    width: 100%;
+    max-width: 700px; /* 모든 페이지 공통 너비 */
     background: var(--card-bg);
-    padding: 50px 40px;
+    padding: 40px;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
-    width: 100%;
 }
 
-h1 {
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 40px;
-    color: var(--text-main);
-}
-
-h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: var(--primary);
-}
-
-/* 🛠 입력 폼 스타일 (중앙 정렬) */
-.input-section {
-    max-width: 400px;
-    margin: 0 auto 30px;
+/* 🏠 홈 페이지 히어로 */
+.home-hero {
     text-align: center;
+    margin-bottom: 50px;
+}
+
+.home-hero h1 {
+    font-size: clamp(28px, 5vw, 42px); /* 해상도 맞춤 폰트 */
+    font-weight: 900;
+    margin-bottom: 16px;
+    letter-spacing: -0.03em;
+}
+
+.home-hero p {
+    color: var(--text-sub);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* 🃏 홈 그리드 */
+.test-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+}
+
+@media (min-width: 768px) {
+    .test-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.test-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.test-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(108, 92, 231, 0.1);
+}
+
+.card-icon { font-size: 50px; margin-bottom: 20px; }
+.card-info h3 { font-size: 22px; margin-bottom: 10px; font-weight: 800; }
+.card-info p { color: var(--text-sub); font-size: 15px; margin-bottom: 20px; }
+.card-btn { color: var(--primary); font-weight: 800; font-size: 14px; }
+
+/* 🛠 공통 컴포넌트 */
+.input-section {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto 30px;
 }
 
 .input-group {
-    margin-bottom: 24px;
-    text-align: left; /* 라벨은 왼쪽 정렬이 깔끔함 */
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 .input-group label {
     display: block;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 800;
     margin-bottom: 8px;
     color: var(--text-sub);
+    text-transform: uppercase;
 }
 
 .modern-input, select {
     width: 100%;
     padding: 16px;
     font-size: 16px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    border: 1.5px solid var(--border);
     outline: none;
     transition: all 0.2s;
     background: #fff;
-    font-family: inherit;
 }
 
-.modern-input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-soft);
-}
+.modern-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
 
-.birth-select-group {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 8px;
-}
+.birth-select-group { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 8px; }
 
-/* 🚀 버튼 스타일 */
-.btn-today, .btn-month, .btn-submit, .btn-retry {
+/* 🚀 버튼 */
+.btn-primary {
+    background: var(--primary);
+    color: white;
     width: 100%;
-    max-width: 400px;
-    padding: 18px;
-    font-size: 16px;
+    max-width: 450px;
+    padding: 20px;
+    border-radius: 14px;
     font-weight: 800;
-    border-radius: 12px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
     transition: all 0.3s;
-    font-family: inherit;
-    margin: 10px auto;
-    display: block;
 }
 
-.btn-today {
-    background: var(--primary);
-    color: white;
-}
-
-.btn-month {
-    background: var(--primary-soft);
-    color: var(--primary);
-    border: 1px solid var(--primary);
-}
-
-.btn-today:hover { transform: translateY(-2px); filter: brightness(1.1); }
-.btn-month:hover { background: var(--primary); color: white; }
-
-/* 🎰 결과 카드 (중앙 정렬) */
-.result-card {
-    text-align: center;
-}
-
-#today-result-header {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
+.btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    width: 100%;
+    max-width: 450px;
+    padding: 16px;
+    border-radius: 14px;
     font-weight: 700;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-.zodiac-badge {
-    background: var(--primary);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-size: 12px;
-}
+.btn-primary:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-.infographic-section {
+/* 🎰 결과창 디자인 */
+.result-card { text-align: center; }
+.infographic-box {
     background: var(--primary-soft);
-    padding: 30px;
-    border-radius: 16px;
-    margin-bottom: 30px;
-}
-
-.score-bar-bg { background: #fff; height: 10px; border-radius: 10px; overflow: hidden; margin: 15px 0; }
-.score-bar-fill { background: var(--primary); height: 100%; width: 0; transition: width 1.5s; }
-
-.fortune-description {
-    background: #fcfcfc;
     padding: 25px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    margin-bottom: 30px;
-    font-size: 16px;
-    color: var(--text-main);
+    border-radius: 18px;
+    margin: 30px 0;
 }
 
-.lucky-items-grid {
+.bar-bg { background: white; height: 10px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+.bar-fill { background: var(--primary); height: 100%; width: 0; transition: width 1.5s; }
+
+.lucky-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    margin-top: 30px;
 }
 
-.lucky-item {
-    background: white;
+.lucky-box {
+    background: #fff;
     border: 1px solid var(--border);
     padding: 15px 5px;
-    border-radius: 12px;
+    border-radius: 14px;
 }
 
-.lucky-item .label { display: block; font-size: 11px; color: var(--text-sub); }
-.lucky-item .value { font-weight: 800; font-size: 14px; color: var(--primary); }
+.lucky-box .label { display: block; font-size: 11px; color: var(--text-sub); font-weight: 700; }
+.lucky-box .value { font-weight: 800; font-size: 14px; color: var(--primary); }
 
-/* 🐶 동물상 테스트 업로드 박스 (완전 중앙) */
+/* 📸 업로드 영역 */
 .upload-area {
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     height: 300px;
-    margin: 0 auto 30px;
+    margin: 0 auto;
     border: 2px dashed #cbd5e1;
-    border-radius: 16px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     background: #f8fafc;
-    transition: all 0.3s;
+    cursor: pointer;
 }
 
-.upload-area:hover { border-color: var(--primary); background: var(--primary-soft); }
-
-/* 📱 푸터 (오른쪽 하단 정돈) */
+/* 📱 푸터 (우하단 정렬 고정 흐름) */
 .footer {
-    padding: 40px 0;
-    text-align: right;
-    max-width: 800px;
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
+    text-align: right;
 }
 
 .footer p { font-size: 12px; color: var(--text-sub); font-weight: 600; }
@@ -251,22 +266,15 @@ h3 {
 @media (max-width: 600px) {
     .container { padding: 30px 20px; }
     .birth-select-group { grid-template-columns: 1fr; }
-    .lucky-items-grid { grid-template-columns: 1fr; }
+    .lucky-grid { grid-template-columns: 1fr; }
     .footer { text-align: center; }
 }
 
-/* 🌌 분석 오버레이 */
+/* 🌌 분석 애니메이션 */
 .full-screen-analysis {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: white; z-index: 2000;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255,255,255,0.98); z-index: 2000;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
-
-.cosmic-spinner { position: relative; width: 80px; height: 80px; margin-bottom: 30px; }
-.orbit { position: absolute; width: 100%; height: 100%; border: 2px solid var(--primary-soft); border-radius: 50%; animation: spin 2s linear infinite; }
-.planet { position: absolute; top: -5px; left: 50%; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; }
+.spin-wrap { width: 60px; height: 60px; border: 4px solid var(--primary-soft); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 20px; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
-.analyzing-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
-.step { opacity: 0.3; font-size: 14px; margin-bottom: 5px; }
-.step.active { opacity: 1; font-weight: 700; color: var(--primary); }

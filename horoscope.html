@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>띠별 운세 분석 - 신비한 운세</title>
+    <title>띠별 운세 - 정보 입력</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,9 +17,9 @@
         </div>
     </nav>
 
-    <div class="page-wrapper">
+    <main>
         <div class="container">
-            <h1>운세 분석을 위해<br>정보를 입력해주세요 🔮</h1>
+            <h1>운세 분석을 위한<br>정보를 입력해주세요 🔮</h1>
             
             <div class="input-section">
                 <div class="input-group">
@@ -36,22 +36,17 @@
                 </div>
             </div>
 
-            <div style="margin-top: 20px;">
-                <button class="btn-today" onclick="startFortuneAnalysis()">나의 운세 분석하기 →</button>
-            </div>
+            <button class="btn-primary" onclick="startFortuneAnalysis()">나의 운세 분석 시작하기 →</button>
         </div>
+    </main>
 
-        <footer class="footer">
-            <p>© 2026 운명과 AI. All rights reserved.</p>
-        </footer>
-    </div>
+    <footer class="footer">
+        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+    </footer>
 
     <!-- 🌌 분석 오버레이 -->
     <div id="analysis-overlay" class="full-screen-analysis" style="display: none;">
-        <div class="cosmic-spinner">
-            <div class="orbit"></div>
-            <div class="planet"></div>
-        </div>
+        <div class="spin-wrap"></div>
         <h2 class="analyzing-title">운명의 기운을 분석하고 있습니다</h2>
         <div class="analysis-steps">
             <p id="step-1" class="step">데이터 정합성 확인 중...</p>
