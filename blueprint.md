@@ -1,30 +1,27 @@
-# 🔮 신비한 운세 & AI 테스트 - Blueprint (Structural Refinement)
+# 🔮 신비한 운세 & AI 테스트 - Blueprint (Trendy Responsive)
 
 ## Overview
 
-A refined multi-page application with specialized services. Features a simplified date display and a dedicated partnership inquiry flow to enhance professionality and user experience.
+A high-end, mobile-first responsive web application. It features a "Trendy & Sleek" UI with fluid layouts, glassmorphism, and smooth micro-interactions, providing a premium app-like experience on any device.
 
-## Page Structure
+## Design Principles
 
-*   **[Main] 🔮 띠별 운세 (index.html):** Personalized fortune telling.
-*   **[Special] 🐶 AI 동물상 테스트 (animal-test.html):** AI-powered classification.
-*   **[Support] 🤝 제휴 및 문의 (contact.html):** Dedicated inquiry page for partners.
+*   **Mobile-First:** Core layout designed for mobile usability, expanding gracefully to desktop.
+*   **App-like UI:** Sticky navigation, tactile buttons, and rounded corners (32px) for a modern look.
+*   **Motion Design:** Subtle entry animations (Fade-in, Slide-up) and responsive hover states.
+*   **Glassmorphism 2.0:** Layered semi-transparent backgrounds with refined blur effects and thin borders.
 
-## Key Refinements (Current Plan)
+## Responsive Strategy (Current Plan)
 
-1.  **Simplified Date Display:** Removed day-of-week logic and parentheses from all date displays (Result Card, History) to ensure a clean "YYYY.MM.DD" format.
-2.  **Contact Flow Redesign:** Removed the collapsible contact form from service pages. Replaced with a subtle footer text link that directs to the dedicated `contact.html`.
-3.  **Error Fixes:** Resolved UI glitches in the partnership form by isolating it into its own environment.
-
-## Implemented Features
-
-*   **Modern UI:** Glassmorphism, Pretendard typography, and high-contrast accessibility.
-*   **AI Integration:** Teachable Machine model for animal look testing.
-*   **Navigation:** Top sticky navbar for seamless page switching.
+1.  **Fluid Typography:** Scaling font sizes based on viewport width.
+2.  **Adaptive Grids:**
+    *   **Horoscope Page:** Side-by-side on desktop, stacked with logical order on mobile.
+    *   **Lucky Items:** 3 columns on desktop, 2 or 1 column on smaller screens.
+3.  **Touch Optimization:** Larger hit targets for mobile users and overflow-scrolling for long lists.
 
 ## Current Plan
 
-1.  **Create contact.html:** Build a professional standalone inquiry page.
-2.  **Refactor index & animal-test:** Remove old contact containers and add footer links.
-3.  **Update JS Logic:** Clean up date formatting and remove unused toggle functions.
-4.  **Deploy:** Push to GitHub Pages.
+1.  **CSS Overhaul:** Implement fluid responsiveness and modern motion effects in `style.css`.
+2.  **Component Refinement:** Polish all cards, inputs, and badges for a consistent "premium" feel.
+3.  **Animation Integration:** Add CSS-based entry animations to sections.
+4.  **Deployment:** Push the trendy responsive version to GitHub.
