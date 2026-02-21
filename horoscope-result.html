@@ -61,15 +61,14 @@
                 </div>
             </div>
 
-            <div style="margin-top: 48px; width: 100%; max-width: 360px; display: flex; flex-direction: column; align-items: center;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-bottom: 12px;">
-                    <button class="btn-primary" style="padding: 16px;" onclick="saveAsImage()">IMAGE SAVE</button>
-                    <button class="btn-primary" style="padding: 16px; background: #000;" onclick="shareLink()">SHARE</button>
-                </div>
-                <button class="btn-secondary" style="width: 100%;" onclick="location.href='horoscope.html'">ANALYZE AGAIN</button>
+            <!-- 🚀 3단 병렬 버튼 그룹 -->
+            <div class="result-actions">
+                <button class="btn-primary" onclick="saveAsImage()">SAVE</button>
+                <button class="btn-primary" style="background: #000;" onclick="shareLink()">SHARE</button>
+                <button class="btn-secondary" onclick="location.href='horoscope.html'">RETRY</button>
             </div>
 
-            <div class="comments-container" style="width: 100%; max-width: 800px;">
+            <div class="comments-container">
                 <div id="disqus_thread"></div>
             </div>
         </div>
@@ -95,8 +94,10 @@
                 document.getElementById('luck-color').innerText = data.daily.lColor || "-";
                 document.getElementById('luck-dir').innerText = data.daily.lDir || "-";
                 setTimeout(() => {
-                    document.getElementById('luck-score-bar').style.width = (data.daily.score || 0) + "%";
-                    document.getElementById('luck-score-text').innerText = (data.daily.score || 0) + "%";
+                    const bar = document.getElementById('luck-score-bar');
+                    const txt = document.getElementById('luck-score-text');
+                    if(bar) bar.style.width = (data.daily.score || 0) + "%";
+                    if(txt) txt.innerText = (data.daily.score || 0) + "%";
                 }, 300);
             } else { location.href = 'horoscope.html'; }
         });

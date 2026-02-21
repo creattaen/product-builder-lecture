@@ -1,4 +1,4 @@
-/* 🎨 시각적 여유와 가독성을 위한 프리미엄 시스템 */
+/* 🎨 완벽 중앙 정렬 & 트렌디 프리미엄 UI 시스템 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
@@ -6,13 +6,12 @@
     --primary: #000000;
     --accent: #6366f1;
     --bg: #ffffff;
-    --text-main: #1a1a1a;
+    --text-main: #1a1a2e;
     --text-sub: #888888;
     --border: #f2f2f2;
     --soft-bg: #f9f9f9;
     --radius-pill: 100px;
-    --radius-card: 28px;
-    --section-gap: 60px; /* 섹션 간 표준 간격 */
+    --radius-card: 24px;
 }
 
 * {
@@ -26,7 +25,7 @@ body {
     font-family: 'Pretendard', -apple-system, sans-serif;
     background-color: var(--bg);
     color: var(--text-main);
-    line-height: 1.8; /* 전체 줄 간격 확대 */
+    line-height: 1.8;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,7 +35,7 @@ body {
 /* 🧭 네비게이션 */
 .navbar {
     width: 100%;
-    padding: 32px 0;
+    padding: 24px 0;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     position: sticky;
@@ -66,7 +65,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 100px 24px 140px; /* 상하 여백 대폭 확대 */
+    padding: 60px 24px 100px;
 }
 
 .container {
@@ -90,18 +89,17 @@ main {
 h1 {
     font-family: 'Inter', 'Pretendard', sans-serif;
     font-weight: 800;
-    font-size: clamp(28px, 5vw, 38px);
-    line-height: 1.3; /* 제목 줄 간격 최적화 */
-    margin-bottom: 24px;
+    font-size: clamp(26px, 5vw, 34px);
+    line-height: 1.2;
+    margin-bottom: 16px;
     color: var(--text-main);
 }
 
 p.sub-desc {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--text-sub);
     font-weight: 500;
-    margin-bottom: var(--section-gap);
-    line-height: 1.8;
+    margin-bottom: 48px;
 }
 
 /* 🛠 폼 요소 */
@@ -110,9 +108,9 @@ p.sub-desc {
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 내부 요소 중앙 정렬 */
+    align-items: center;
     gap: 32px;
-    margin: 0 auto 56px; /* 부모 컨테이너 내에서 중앙 정렬 */
+    margin: 0 auto 56px;
 }
 
 .input-group { 
@@ -130,16 +128,16 @@ p.sub-desc {
     display: block;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    text-align: center; /* 라벨도 중앙 정렬 */
+    text-align: center;
 }
 
 .modern-input, select {
     width: 100%;
-    padding: 20px;
-    font-size: 16px;
+    padding: 18px;
+    font-size: 15px;
     font-weight: 600;
-    border-radius: 18px;
-    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    border: 1px solid var(--border);
     background: var(--soft-bg);
     text-align: center;
     outline: none;
@@ -154,19 +152,18 @@ p.sub-desc {
 .birth-select-group {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 12px;
+    gap: 8px;
 }
 
-/* 🚀 버튼 */
+/* 🚀 버튼 시스템 */
 .btn-primary {
     background: var(--primary);
     color: white;
     width: 100%;
-    max-width: 400px;
-    padding: 24px;
+    padding: 20px;
     border-radius: var(--radius-pill);
     font-weight: 800;
-    font-size: 16px;
+    font-size: 15px;
     border: none;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -177,41 +174,44 @@ p.sub-desc {
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-/* 🏠 홈 그리드 */
-.test-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px; /* 카드 사이 간격 확대 */
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
     width: 100%;
-    max-width: 1000px;
-    margin-top: 20px;
-}
-
-@media (min-width: 768px) {
-    .test-grid { grid-template-columns: 1fr 1fr; }
-}
-
-.test-card {
-    background: white;
-    padding: 80px 40px; /* 카드 내부 패딩 확대 */
-    border-radius: var(--radius-card);
-    border: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 18px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 14px;
+    border: 1.5px solid var(--primary);
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: all 0.3s;
 }
 
-.test-card:hover { border-color: var(--accent); transform: translateY(-8px); }
-.card-icon { font-size: 64px; margin-bottom: 32px; }
-.card-info h3 { font-size: 26px; font-weight: 900; margin-bottom: 16px; }
-.card-info p { color: var(--text-sub); margin-bottom: 40px; font-size: 16px; line-height: 1.7; }
+.btn-secondary:hover {
+    background: var(--primary);
+    color: white;
+}
 
-/* 🎰 결과 카드 정밀화 */
+/* 🎰 결과 페이지 버튼 그리드 */
+.result-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3단 가로 배치 */
+    gap: 12px;
+    width: 100%;
+    max-width: 520px;
+    margin: 48px auto 0;
+}
+
+@media (max-width: 600px) {
+    .result-actions {
+        grid-template-columns: 1fr; /* 모바일은 세로 */
+    }
+}
+
+/* 🎰 결과 카드 */
 .result-card {
     width: 100%;
-    padding: 80px 48px; /* 결과 카드 패딩 대폭 확대 */
+    padding: 48px 32px;
     border: 1px solid var(--primary);
     border-radius: var(--radius-card);
     display: flex;
@@ -222,33 +222,25 @@ p.sub-desc {
 .infographic-box {
     width: 100%;
     background: var(--soft-bg);
-    padding: 48px;
-    border-radius: 24px;
-    margin: 48px 0;
+    padding: 32px;
+    border-radius: 20px;
+    margin: 32px 0;
 }
 
-.bar-bg { width: 100%; height: 8px; background: #e5e5e5; border-radius: 10px; margin: 24px 0; overflow: hidden; }
+.bar-bg { width: 100%; height: 6px; background: #e5e5e5; border-radius: 10px; margin: 16px 0; overflow: hidden; }
 .bar-fill { background: var(--primary); height: 100%; width: 0; transition: width 2s cubic-bezier(0.19, 1, 0.22, 1); }
-
-.fortune-description {
-    font-size: 18px;
-    color: var(--text-main);
-    line-height: 1.9;
-    margin-bottom: 60px;
-    max-width: 520px;
-}
 
 .lucky-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 12px;
     width: 100%;
 }
 
 .lucky-box {
     border: 1px solid var(--border);
-    padding: 24px 12px;
-    border-radius: 20px;
+    padding: 16px 8px;
+    border-radius: 16px;
 }
 
 .lucky-box .label {
@@ -265,34 +257,65 @@ p.sub-desc {
     font-weight: 800;
 }
 
+/* 💬 댓글 영역 - 여백 확보 */
+.comments-container {
+    margin-top: 120px;
+    padding-top: 60px;
+    border-top: 1px solid var(--border);
+    width: 100%;
+}
+
+/* 🏠 홈 그리드 */
+.test-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .test-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.test-card {
+    background: white;
+    padding: 80px 40px;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
 /* 📸 업로드 박스 */
 .upload-area {
     width: 100%;
-    max-width: 480px;
-    height: 360px;
-    border: 1.5px solid var(--border);
+    max-width: 400px;
+    height: 300px;
+    border: 1px solid var(--border);
     border-radius: var(--radius-card);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background: var(--soft-bg);
-    transition: all 0.3s;
 }
-
-.upload-area:hover { border-color: var(--accent); background: white; }
 
 /* 📱 푸터 */
 .footer {
     width: 100%;
     max-width: 1200px;
-    padding: 80px 24px;
+    padding: 48px 24px;
     text-align: right;
 }
 .footer p { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: var(--text-sub); letter-spacing: 0.1em; }
 
 @media (max-width: 768px) {
-    main { padding: 60px 20px 100px; }
+    main { padding: 40px 20px 80px; }
     .result-card { padding: 60px 24px; }
     .infographic-box { padding: 32px 20px; }
     .birth-select-group { grid-template-columns: 1fr; }
@@ -308,5 +331,3 @@ p.sub-desc {
 }
 .spin-wrap { width: 40px; height: 40px; border: 3px solid var(--soft-bg); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 32px; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
-.analyzing-title { font-size: 22px; font-weight: 800; margin-bottom: 24px; }
-.step { font-size: 15px; margin-bottom: 8px; }

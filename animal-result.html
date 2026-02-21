@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESULT - AI ANIMAL TEST</title>
+    <title>분석 결과 - AI 동물상 테스트</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
@@ -19,7 +19,7 @@
     </nav>
 
     <main>
-        <div class="container">
+        <div class="container" style="max-width: 800px;">
             <div id="capture-area" class="result-card">
                 <h2 id="result-message" style="font-size: clamp(32px, 6vw, 42px); font-weight: 800; margin-bottom: 40px; line-height: 1.2;">분석 결과</h2>
                 
@@ -27,7 +27,7 @@
                     <img id="user-photo" src="" alt="Result" style="width: 280px; height: 280px; object-fit: cover; border-radius: 32px; border: 1px solid var(--border); background: #f8fafc;">
                 </div>
 
-                <div style="width: 100%; max-width: 400px; margin: 0 auto; text-align: left;">
+                <div style="width: 100%; max-width: 400px; margin: 0 auto 48px; text-align: left;">
                     <div style="margin-bottom: 32px;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">
                             <span>Puppy Look</span>
@@ -45,15 +45,14 @@
                 </div>
             </div>
 
-            <div style="margin-top: 48px; width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-bottom: 12px;">
-                    <button class="btn-primary" style="padding: 18px;" onclick="saveAsImage()">IMAGE SAVE</button>
-                    <button class="btn-primary" style="padding: 18px; background: #000;" onclick="shareLink()">SHARE</button>
-                </div>
-                <button class="btn-secondary" style="width: 100%;" onclick="location.href='animal-test.html'">RETRY TEST</button>
+            <!-- 🚀 3단 병렬 버튼 그룹 -->
+            <div class="result-actions">
+                <button class="btn-primary" onclick="saveAsImage()">SAVE</button>
+                <button class="btn-primary" style="background: #000;" onclick="shareLink()">SHARE</button>
+                <button class="btn-secondary" onclick="location.href='animal-test.html'">RETRY</button>
             </div>
 
-            <div class="comments-container" style="width: 100%; max-width: 800px; margin-top: 80px;">
+            <div class="comments-container">
                 <div id="disqus_thread"></div>
             </div>
         </div>
@@ -70,10 +69,14 @@
                 document.getElementById('result-message').innerText = data.message || "분석 완료";
                 document.getElementById('user-photo').src = data.image || "";
                 setTimeout(() => {
-                    document.getElementById('dog-bar').style.width = (data.dog || 0) + "%";
-                    document.getElementById('dog-percent').innerText = Math.round(data.dog || 0) + "%";
-                    document.getElementById('cat-bar').style.width = (data.cat || 0) + "%";
-                    document.getElementById('cat-percent').innerText = Math.round(data.cat || 0) + "%";
+                    const dBar = document.getElementById('dog-bar');
+                    const dPct = document.getElementById('dog-percent');
+                    const cBar = document.getElementById('cat-bar');
+                    const cPct = document.getElementById('cat-percent');
+                    if(dBar) dBar.style.width = (data.dog || 0) + "%";
+                    if(dPct) dPct.innerText = Math.round(data.dog || 0) + "%";
+                    if(cBar) cBar.style.width = (data.cat || 0) + "%";
+                    if(cPct) cPct.innerText = Math.round(data.cat || 0) + "%";
                 }, 300);
             } else { location.href = 'animal-test.html'; }
         });
