@@ -15,15 +15,15 @@ A simple and visually appealing web application that provides users with daily a
 *   **Responsive Design:** The layout adapts to different screen sizes, ensuring a good experience on both desktop and mobile devices.
 *   **Modern & Dark Theme:** The application uses a dark, mystical theme with engaging animations and color-coded results.
 *   **Fortune History Detail View:** Users can click on any record in the history list to view the full fortune details in a modal.
+*   **Dark/Light Mode Toggle:** Seamlessly switch between themes with saved preferences.
 
-## Current Plan: Dark/Light Mode Toggle & Lucky Items
+## Current Plan: Partnership Inquiry Form & Lucky Items
 
-1.  **Dark/Light Mode Toggle:** Add a theme toggle functionality to allow users to switch between the default mystical dark theme and a clean light theme.
+1.  **Partnership Inquiry Form (Formspree):** Add a simple contact form to receive partnership inquiries via Formspree.
 2.  **Daily Lucky Items (Enhancement):** Enrich the fortune results by adding personalized "Lucky Items" (Color, Number, and Direction).
 
-**Steps for Theme Toggle:**
-1.  **Define CSS Variables:** Replace hardcoded colors in `style.css` with CSS variables.
-2.  **Add Light Mode Styles:** Create a `.light-mode` class override for the CSS variables.
-3.  **Add Toggle UI:** Insert a theme toggle button in `index.html`.
-4.  **Implement Toggle Logic:** Add JavaScript to `main.js` to handle theme switching and persist the choice in `localStorage`.
-5.  **Git Push:** Commit and push the changes.
+**Steps for Inquiry Form:**
+1.  **Add Form to HTML:** Create a new container in `index.html` for the partnership inquiry form.
+2.  **Style the Form:** Add CSS rules to `style.css` to ensure the form matches the overall design.
+3.  **Formspree Integration:** Set up the form action to point to a Formspree endpoint.
+4.  **Git Push:** Commit and push the changes.
