@@ -97,9 +97,9 @@ function checkMonthFortune() {
 
     if (savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
         alert("이미 이달의 운세를 확인하셨습니다. (매월 1회만 가능) 🌙");
-        sidebar.classList.remove('highlight-red');
-        void sidebar.offsetWidth; 
+        sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
         sidebar.classList.add('highlight-red');
+        setTimeout(() => sidebar.classList.remove('highlight-red'), 1500);
         return;
     }
 
@@ -118,8 +118,9 @@ function checkMonthFortune() {
     renderMonthlySidebar();
     saveToHistory(zodiac, '이달의', selected.text);
     
+    sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
     sidebar.classList.add('highlight-red');
-    setTimeout(() => sidebar.classList.remove('highlight-red'), 1000);
+    setTimeout(() => sidebar.classList.remove('highlight-red'), 1500);
 }
 
 function renderMonthlySidebar() {
