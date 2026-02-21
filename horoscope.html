@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>정보 입력 - 신비한 띠별 운세</title>
+    <title>띠별 운세 분석 - 신비한 운세</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,55 +18,47 @@
     </nav>
 
     <div class="page-wrapper">
-        <div class="container" style="max-width: 600px;">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <span class="hero-badge" style="background: var(--primary-soft); color: var(--primary);">Personalized Analysis</span>
-                <h1 style="margin-top: 16px;">당신의 기운을<br>분석해드립니다 🔮</h1>
-                <p style="color: var(--text-sub); font-weight: 500;">정확한 분석을 위해 정보를 입력해주세요.</p>
-            </div>
+        <div class="container">
+            <h1>운세 분석을 위해<br>정보를 입력해주세요 🔮</h1>
             
-            <div class="controls">
-                <div class="input-section" style="display: flex; flex-direction: column; gap: 24px;">
-                    <div class="input-group">
-                        <label>닉네임</label>
-                        <input type="text" id="user-nickname" class="modern-input" placeholder="이름 또는 별명">
-                    </div>
-                    <div class="input-group">
-                        <label>태어난 날짜</label>
-                        <div class="birth-select-group">
-                            <select id="birth-year" class="modern-input"></select>
-                            <select id="birth-month" class="modern-input"></select>
-                            <select id="birth-day" class="modern-input"></select>
-                        </div>
-                    </div>
+            <div class="input-section">
+                <div class="input-group">
+                    <label>닉네임</label>
+                    <input type="text" id="user-nickname" class="modern-input" placeholder="이름 또는 별명">
                 </div>
-
-                <div style="margin-top: 40px;">
-                    <button class="btn-today" style="width: 100%; padding: 20px; font-size: 18px;" onclick="startFortuneAnalysis()">나의 행운 분석 시작하기 →</button>
+                <div class="input-group">
+                    <label>생년월일</label>
+                    <div class="birth-select-group">
+                        <select id="birth-year" class="modern-input"></select>
+                        <select id="birth-month" class="modern-input"></select>
+                        <select id="birth-day" class="modern-input"></select>
+                    </div>
                 </div>
             </div>
+
+            <div style="margin-top: 20px;">
+                <button class="btn-today" onclick="startFortuneAnalysis()">나의 운세 분석하기 →</button>
+            </div>
         </div>
+
+        <footer class="footer">
+            <p>© 2026 운명과 AI. All rights reserved.</p>
+        </footer>
     </div>
 
-    <!-- 🌌 전체 화면 분석 모션 그래픽 오버레이 -->
+    <!-- 🌌 분석 오버레이 -->
     <div id="analysis-overlay" class="full-screen-analysis" style="display: none;">
-        <div class="analysis-content">
-            <div class="cosmic-spinner">
-                <div class="orbit"></div>
-                <div class="planet"></div>
-            </div>
-            <h2 class="analyzing-title">우주의 기운을 모으고 있습니다</h2>
-            <div class="analysis-steps">
-                <p id="step-1" class="step">생년월일 데이터 확인 중...</p>
-                <p id="step-2" class="step">천기누설 로직 가동 중...</p>
-                <p id="step-3" class="step">맞춤형 행운 아이템 도출 중...</p>
-            </div>
+        <div class="cosmic-spinner">
+            <div class="orbit"></div>
+            <div class="planet"></div>
+        </div>
+        <h2 class="analyzing-title">운명의 기운을 분석하고 있습니다</h2>
+        <div class="analysis-steps">
+            <p id="step-1" class="step">데이터 정합성 확인 중...</p>
+            <p id="step-2" class="step">천기누설 로직 가동 중...</p>
+            <p id="step-3" class="step">개인 맞춤형 결과 도출 중...</p>
         </div>
     </div>
-
-    <footer class="footer">
-        <p style="color: var(--text-sub); font-size: 13px;">© 2026 운명과 AI. All rights reserved.</p>
-    </footer>
 
     <script src="horoscope.js"></script>
 </body>

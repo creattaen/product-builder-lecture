@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>테스트 결과 - AI 동물상 테스트</title>
+    <title>분석 결과 - AI 동물상 테스트</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
@@ -19,42 +19,42 @@
     </nav>
 
     <div class="page-wrapper">
-        <div class="container" style="max-width: 800px;">
-            <div id="capture-area" class="result-card" style="display: block; margin-top: 0; background: white; text-align: center;">
-                <h2 id="result-message" style="font-size: 32px; font-weight: 900; margin-bottom: 40px; color: var(--text-main);">분석 결과</h2>
+        <div class="container">
+            <div id="capture-area" class="result-card">
+                <h2 id="result-message" style="font-size: 32px; font-weight: 900; margin-bottom: 30px;">분석 결과</h2>
                 
-                <div style="margin-bottom: 40px;">
-                    <img id="user-photo" src="" alt="Result" style="width: 280px; height: 280px; object-fit: cover; border-radius: 24px; border: 1.5px solid var(--primary);">
+                <div style="margin-bottom: 30px;">
+                    <img id="user-photo" src="" alt="Result" style="width: 260px; height: 260px; object-fit: cover; border-radius: 20px; border: 1.5px solid var(--border);">
                 </div>
 
-                <div class="bar-container" style="max-width: 500px; margin: 0 auto 40px; text-align: left; display: flex; flex-direction: column; gap: 24px;">
-                    <div class="bar-item">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="font-weight: 800; font-size: 14px;">🐶 강아지상</span>
-                            <span id="dog-percent" style="font-weight: 800; color: var(--accent);">0%</span>
+                <div style="max-width: 400px; margin: 0 auto 30px;">
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 800; font-size: 14px;">
+                            <span>🐶 강아지상</span>
+                            <span id="dog-percent">0%</span>
                         </div>
-                        <div class="progress-bg"><div id="dog-bar" class="progress-fill" style="background: var(--accent); height: 100%; width: 0; transition: width 1.5s ease;"></div></div>
+                        <div class="score-bar-bg"><div id="dog-bar" class="score-bar-fill" style="background: #ff9f43;"></div></div>
                     </div>
-                    <div class="bar-item">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="font-weight: 800; font-size: 14px;">🐱 고양이상</span>
-                            <span id="cat-percent" style="font-weight: 800; color: var(--primary);">0%</span>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 800; font-size: 14px;">
+                            <span>🐱 고양이상</span>
+                            <span id="cat-percent">0%</span>
                         </div>
-                        <div class="progress-bg"><div id="cat-bar" class="progress-fill" style="background: var(--primary); height: 100%; width: 0; transition: width 1.5s ease;"></div></div>
+                        <div class="score-bar-bg"><div id="cat-bar" class="score-bar-fill" style="background: #54a0ff;"></div></div>
                     </div>
                 </div>
 
                 <p style="font-size: 15px; color: var(--text-sub); font-weight: 500;">
-                    AI가 분석한 당신의 이목구비는 특정 동물과 높은 일치율을 보입니다.<br>이 결과를 친구들과 공유해보세요!
+                    AI 분석 결과, 당신의 마스크는 특정 동물과<br>매우 높은 일치율을 보이고 있습니다.
                 </p>
             </div>
 
-            <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <button class="btn-month" onclick="saveAsImage()">📸 결과 이미지 저장</button>
-                <button class="btn-today" onclick="shareLink()">🔗 결과 공유하기</button>
-            </div>
-            <div style="margin-top: 16px;">
-                <button class="btn-month" style="width: 100%;" onclick="location.href='animal-test.html'">다른 사진으로 하기</button>
+            <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn-month" onclick="saveAsImage()">📸 이미지 저장</button>
+                    <button class="btn-today" style="margin: 0;" onclick="shareLink()">🔗 결과 공유</button>
+                </div>
+                <button class="btn-month" style="width: 100%; border: none; background: #eee; color: #666;" onclick="location.href='animal-test.html'">다른 사진으로 하기</button>
             </div>
 
             <div class="comments-container">
@@ -62,11 +62,11 @@
                 <div id="disqus_thread"></div>
             </div>
         </div>
-    </div>
 
-    <footer class="footer">
-        <p>© 2026 운명과 AI. All rights reserved.</p>
-    </footer>
+        <footer class="footer">
+            <p>© 2026 운명과 AI. All rights reserved.</p>
+        </footer>
+    </div>
 
     <script>
         window.addEventListener('load', () => {
@@ -74,35 +74,32 @@
             if (data) {
                 document.getElementById('result-message').innerText = data.message;
                 document.getElementById('user-photo').src = data.image;
-                
                 setTimeout(() => {
                     document.getElementById('dog-bar').style.width = data.dog + "%";
                     document.getElementById('dog-percent').innerText = Math.round(data.dog) + "%";
                     document.getElementById('cat-bar').style.width = data.cat + "%";
                     document.getElementById('cat-percent').innerText = Math.round(data.cat) + "%";
                 }, 300);
-            } else {
-                location.href = 'animal-test.html';
-            }
+            } else { location.href = 'animal-test.html'; }
         });
 
         async function saveAsImage() {
             const area = document.getElementById('capture-area');
-            const canvas = await html2canvas(area, { scale: 2 });
+            const canvas = await html2canvas(area, { backgroundColor: "#ffffff", scale: 2 });
             const link = document.createElement('a');
-            link.download = 'animal-test-result.png';
+            link.download = 'animal-test.png';
             link.href = canvas.toDataURL();
             link.click();
         }
 
         async function shareLink() {
-            const shareData = {
-                title: 'AI 동물상 테스트',
-                text: '내가 닮은 동물은 무엇일까? AI 테스트 결과를 확인해보세요! 🐶🐱',
-                url: window.location.origin + window.location.pathname.replace('animal-result.html', 'index.html')
-            };
-            if (navigator.share) { try { await navigator.share(shareData); } catch (err) {} }
-            else { navigator.clipboard.writeText(shareData.url); alert("링크가 복사되었습니다!"); }
+            const url = window.location.origin + window.location.pathname.replace('animal-result.html', 'index.html');
+            if (navigator.share) {
+                try { await navigator.share({ title: 'AI 동물상 테스트', text: '내가 닮은 동물은? 🐶🐱', url }); } catch (err) {}
+            } else {
+                navigator.clipboard.writeText(url);
+                alert("링크가 복사되었습니다! ✨");
+            }
         }
     </script>
     <script>
