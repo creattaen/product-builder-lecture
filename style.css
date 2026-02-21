@@ -1,117 +1,207 @@
-/* 🎨 완벽 반응형 & 중앙 집중 프리미엄 시스템 */
+/* 🎨 완벽 중앙 정렬 & 트렌디 프리미엄 UI 시스템 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
 
 :root {
-    --primary: #6c5ce7;
-    --primary-soft: #f3f0ff;
-    --text-main: #1a1a1a;
-    --text-sub: #666666;
-    --bg: #f8fafc;
-    --card-bg: #ffffff;
-    --border: #edf2f7;
-    --radius: 24px;
-    --shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    --primary: #000000;
+    --accent: #6366f1;
+    --bg: #ffffff;
+    --text-main: #000000;
+    --text-sub: #888888;
+    --border: #f0f0f0;
+    --soft-bg: #f9f9f9;
+    --radius-pill: 100px;
+    --radius-card: 32px;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    letter-spacing: -0.02em;
 }
 
 html, body {
-    height: 100%;
+    width: 100%;
+    min-height: 100vh;
     background-color: var(--bg);
+    overflow-x: hidden;
 }
 
 body {
     font-family: 'Pretendard', -apple-system, sans-serif;
     color: var(--text-main);
-    line-height: 1.6;
+    line-height: 1.5;
     display: flex;
     flex-direction: column;
+    align-items: center; /* 가로 중앙 정렬 강제 */
 }
 
-/* 🧭 통합 네비게이션 */
+/* 🧭 네비게이션 - 완벽 중앙 */
 .navbar {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
+    width: 100%;
+    padding: 30px 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: 15px 0;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-container {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 0 15px;
-    flex-wrap: wrap;
+    gap: 30px;
+    padding: 0 20px;
 }
 
 .nav-link {
     text-decoration: none;
-    color: var(--text-sub);
-    font-weight: 700;
-    font-size: 14px;
-    padding: 10px 16px;
-    border-radius: 12px;
-    transition: all 0.2s;
+    color: var(--text-main);
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.3;
+    transition: all 0.3s;
 }
 
 .nav-link.active, .nav-link:hover {
-    color: var(--primary);
-    background: var(--primary-soft);
+    opacity: 1;
 }
 
-/* 🌟 메인 컨텐츠 래퍼 (중앙 정렬 핵심) */
+/* 🌟 메인 레이아웃 */
 main {
-    flex: 1;
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    padding: 40px 20px;
+    padding: 80px 24px 120px;
 }
 
 .container {
     width: 100%;
-    max-width: 700px; /* 모든 페이지 공통 너비 */
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-}
-
-/* 🏠 홈 페이지 히어로 */
-.home-hero {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 내부 요소 중앙 정렬 */
     text-align: center;
-    margin-bottom: 50px;
 }
 
-.home-hero h1 {
-    font-size: clamp(28px, 5vw, 42px); /* 해상도 맞춤 폰트 */
+/* 💎 타이포그래피 */
+h1 {
+    font-family: 'Inter', 'Pretendard', sans-serif;
     font-weight: 900;
-    margin-bottom: 16px;
-    letter-spacing: -0.03em;
+    font-size: clamp(32px, 6vw, 56px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    text-align: center;
 }
 
-.home-hero p {
-    color: var(--text-sub);
+p.sub-desc {
     font-size: 18px;
+    color: var(--text-sub);
     font-weight: 500;
+    margin-bottom: 60px;
 }
 
-/* 🃏 홈 그리드 */
+/* 🛠 폼 & 입력창 - 완벽 중앙 */
+.input-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 48px;
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group label {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+}
+
+.modern-input, select {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--soft-bg);
+    text-align: center; /* 텍스트 입력도 중앙 */
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-input:focus, select:focus {
+    border-color: var(--accent);
+    background: white;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
+}
+
+.birth-select-group {
+    width: 100%;
+    max-width: 400px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 10px;
+}
+
+/* 🚀 버튼 - Pill 스타일 */
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 22px;
+    border-radius: var(--radius-pill);
+    font-weight: 800;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    width: 100%;
+    max-width: 400px;
+    padding: 18px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    border: 1.5px solid var(--primary);
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* 🏠 홈 그리드 */
 .test-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 30px;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
+    margin-top: 20px;
 }
 
 @media (min-width: 768px) {
@@ -120,175 +210,93 @@ main {
 
 .test-card {
     background: white;
-    padding: 40px 30px;
-    border-radius: var(--radius);
+    padding: 60px 40px;
+    border-radius: var(--radius-card);
     border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: border-color 0.4s;
+}
+
+.test-card:hover { border-color: var(--accent); }
+.card-icon { font-size: 60px; margin-bottom: 30px; }
+.card-info h3 { font-size: 24px; font-weight: 900; margin-bottom: 12px; }
+.card-info p { color: var(--text-sub); margin-bottom: 30px; font-size: 15px; }
+
+/* 🎰 결과 페이지 - 고도화된 중앙 정렬 */
+.result-card {
+    width: 100%;
+    padding: 60px 40px;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-card);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.test-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 40px rgba(108, 92, 231, 0.1);
-}
-
-.card-icon { font-size: 50px; margin-bottom: 20px; }
-.card-info h3 { font-size: 22px; margin-bottom: 10px; font-weight: 800; }
-.card-info p { color: var(--text-sub); font-size: 15px; margin-bottom: 20px; }
-.card-btn { color: var(--primary); font-weight: 800; font-size: 14px; }
-
-/* 🛠 공통 컴포넌트 */
-.input-section {
-    width: 100%;
-    max-width: 450px;
-    margin: 0 auto 30px;
-}
-
-.input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    color: var(--text-sub);
-    text-transform: uppercase;
-}
-
-.modern-input, select {
-    width: 100%;
-    padding: 16px;
-    font-size: 16px;
-    border-radius: 14px;
-    border: 1.5px solid var(--border);
-    outline: none;
-    transition: all 0.2s;
-    background: #fff;
-}
-
-.modern-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
-
-.birth-select-group { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 8px; }
-
-/* 🚀 버튼 */
-.btn-primary {
-    background: var(--primary);
-    color: white;
-    width: 100%;
-    max-width: 450px;
-    padding: 20px;
-    border-radius: 14px;
-    font-weight: 800;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.btn-secondary {
-    background: #f1f5f9;
-    color: #475569;
-    width: 100%;
-    max-width: 450px;
-    padding: 16px;
-    border-radius: 14px;
-    font-weight: 700;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.btn-primary:hover { transform: translateY(-2px); filter: brightness(1.1); }
-
-/* 🎰 결과창 디자인 */
-.result-card { text-align: center; }
 .infographic-box {
-    background: var(--primary-soft);
-    padding: 25px;
-    border-radius: 18px;
-    margin: 30px 0;
+    width: 100%;
+    background: var(--soft-bg);
+    padding: 40px;
+    border-radius: 24px;
+    margin: 40px 0;
 }
 
-.bar-bg { background: white; height: 10px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-.bar-fill { background: var(--primary); height: 100%; width: 0; transition: width 1.5s; }
+.bar-bg { width: 100%; height: 8px; background: #e0e0e0; border-radius: 100px; margin: 20px 0; overflow: hidden; }
+.bar-fill { background: var(--primary); height: 100%; width: 0; transition: width 2s cubic-bezier(0.19, 1, 0.22, 1); }
 
 .lucky-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 30px;
+    gap: 15px;
+    width: 100%;
 }
 
 .lucky-box {
-    background: #fff;
     border: 1px solid var(--border);
-    padding: 15px 5px;
-    border-radius: 14px;
+    padding: 20px 10px;
+    border-radius: 16px;
 }
 
-.lucky-box .label { display: block; font-size: 11px; color: var(--text-sub); font-weight: 700; }
-.lucky-box .value { font-weight: 800; font-size: 14px; color: var(--primary); }
-
-/* 📸 업로드 영역 */
+/* 📸 업로드 박스 - 완벽 중앙 */
 .upload-area {
     width: 100%;
-    max-width: 450px;
-    height: 300px;
-    margin: 0 auto;
-    border: 2px dashed #cbd5e1;
-    border-radius: 20px;
+    max-width: 500px;
+    height: 340px;
+    border: 2px dashed #ddd;
+    border-radius: var(--radius-card);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #f8fafc;
-    cursor: pointer;
+    background: var(--soft-bg);
+    margin: 0 auto;
 }
 
-/* 🤝 제휴 및 문의 페이지 전용 스타일 */
-.contact-page-wrapper {
-    width: 100%;
-    text-align: center;
-}
-
-.contact-page-wrapper .input-group label {
-    color: var(--primary);
-    font-size: 12px;
-    letter-spacing: 0.05em;
-}
-
-.contact-page-wrapper .modern-input {
-    border: 1.5px solid #f1f5f9;
-    background-color: #fcfcfc;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.contact-page-wrapper .modern-input:focus {
-    background-color: #ffffff;
-    border-color: var(--primary);
-    box-shadow: 0 10px 20px -5px rgba(108, 92, 231, 0.1);
-}
-
-/* 📱 푸터 (우하단 정렬 고정 흐름) */
+/* 📱 푸터 - 정돈된 우하단 */
 .footer {
-    padding: 30px 20px;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    padding: 60px 24px;
     text-align: right;
+    margin-top: auto;
 }
 
-.footer p { font-size: 12px; color: var(--text-sub); font-weight: 600; }
+.footer p {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-sub);
+}
 
-@media (max-width: 600px) {
-    .container { padding: 30px 20px; }
+@media (max-width: 768px) {
+    .navbar { padding: 20px 0; }
+    .nav-container { gap: 15px; }
+    main { padding: 40px 20px 80px; }
     .birth-select-group { grid-template-columns: 1fr; }
     .lucky-grid { grid-template-columns: 1fr; }
     .footer { text-align: center; }
@@ -297,8 +305,8 @@ main {
 /* 🌌 분석 애니메이션 */
 .full-screen-analysis {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255,255,255,0.98); z-index: 2000;
+    background: white; z-index: 2000;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
-.spin-wrap { width: 60px; height: 60px; border: 4px solid var(--primary-soft); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 20px; }
+.spin-wrap { width: 50px; height: 50px; border: 3px solid var(--soft-bg); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 24px; }
 @keyframes spin { 100% { transform: rotate(360deg); } }

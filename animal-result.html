@@ -19,45 +19,45 @@
     </nav>
 
     <main>
-        <div class="container">
+        <div class="container" style="max-width: 800px;">
             <div id="capture-area" class="result-card">
-                <h2 id="result-message" style="font-size: 32px; font-weight: 900; margin-bottom: 30px;">분석 결과</h2>
+                <h2 id="result-message" style="font-size: clamp(32px, 6vw, 48px); font-weight: 900; margin-bottom: 40px; line-height: 1.2;">분석 결과</h2>
                 
-                <div style="margin-bottom: 30px; display: flex; justify-content: center;">
-                    <img id="user-photo" src="" alt="Result" style="width: 260px; height: 260px; object-fit: cover; border-radius: 20px; border: 1.5px solid var(--border);">
+                <div style="margin-bottom: 48px; display: flex; justify-content: center;">
+                    <img id="user-photo" src="" alt="Result" style="width: 280px; height: 280px; object-fit: cover; border-radius: 32px; border: 1.5px solid var(--primary); background: #f8fafc;">
                 </div>
 
-                <div style="max-width: 400px; margin: 0 auto 30px; text-align: left;">
-                    <div style="margin-bottom: 20px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 800; font-size: 14px;">
-                            <span>🐶 강아지상</span>
-                            <span id="dog-percent">0%</span>
+                <div style="width: 100%; max-width: 400px; margin: 0 auto 48px; text-align: left;">
+                    <div style="margin-bottom: 32px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">
+                            <span>🐶 Puppy Look</span>
+                            <span id="dog-percent" style="color: var(--accent);">0%</span>
                         </div>
-                        <div class="bar-bg"><div id="dog-bar" class="bar-fill" style="background: #ff9f43; width: 0; height: 100%; transition: width 1.5s;"></div></div>
+                        <div class="bar-bg"><div id="dog-bar" class="bar-fill" style="background: var(--accent); width: 0; height: 100%; transition: width 1.5s;"></div></div>
                     </div>
                     <div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 800; font-size: 14px;">
-                            <span>🐱 고양이상</span>
-                            <span id="cat-percent">0%</span>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">
+                            <span>🐱 Cat Look</span>
+                            <span id="cat-percent" style="color: var(--primary);">0%</span>
                         </div>
-                        <div class="bar-bg"><div id="cat-bar" class="bar-fill" style="background: #54a0ff; width: 0; height: 100%; transition: width 1.5s;"></div></div>
+                        <div class="bar-bg"><div id="cat-bar" class="bar-fill" style="background: var(--primary); width: 0; height: 100%; transition: width 1.5s;"></div></div>
                     </div>
                 </div>
 
-                <p style="font-size: 15px; color: var(--text-sub); font-weight: 500;">
-                    AI 분석 결과, 당신의 이목구비는 특정 동물과<br>매우 높은 일치율을 보이고 있습니다.
+                <p style="font-size: 16px; color: var(--text-sub); font-weight: 600; line-height: 1.7; max-width: 400px;">
+                    AI 분석 결과, 당신의 이목구비는 특정 동물과<br>놀라울 정도로 높은 일치율을 보이고 있습니다.
                 </p>
             </div>
 
-            <div style="margin-top: 30px; width: 100%; max-width: 450px; margin-left: auto; margin-right: auto;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn-primary" style="margin: 0;" onclick="saveAsImage()">📸 이미지 저장</button>
-                    <button class="btn-primary" style="margin: 0; background: #000;" onclick="shareLink()">🔗 결과 공유</button>
+            <div style="margin-top: 48px; width: 100%; max-width: 400px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                    <button class="btn-primary" style="padding: 18px;" onclick="saveAsImage()">이미지 저장</button>
+                    <button class="btn-primary" style="padding: 18px; background: #000;" onclick="shareLink()">링크 공유</button>
                 </div>
                 <button class="btn-secondary" onclick="location.href='animal-test.html'">다른 사진으로 하기</button>
             </div>
 
-            <div class="comments-container">
+            <div class="comments-container" style="width: 100%; max-width: 800px;">
                 <h3>💬 테스트 결과 공유</h3>
                 <div id="disqus_thread"></div>
             </div>
