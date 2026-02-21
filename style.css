@@ -1,6 +1,6 @@
 /* 🎨 완벽 중앙 정렬 & 트렌디 프리미엄 UI 시스템 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
 
 :root {
     --primary: #000000;
@@ -11,7 +11,7 @@
     --border: #f2f2f2;
     --soft-bg: #f9f9f9;
     --radius-pill: 100px;
-    --radius-card: 24px;
+    --radius-card: 32px;
 }
 
 * {
@@ -35,7 +35,7 @@ body {
 /* 🧭 네비게이션 */
 .navbar {
     width: 100%;
-    padding: 24px 0;
+    padding: 32px 0;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     position: sticky;
@@ -65,7 +65,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 24px 100px;
+    padding: 100px 24px 140px;
 }
 
 .container {
@@ -77,29 +77,33 @@ main {
     text-align: center;
 }
 
-/* 💎 타이포그래피 */
+/* 💎 타이포그래피 & 3D 아이콘 */
 .title-icon {
-    font-size: 32px;
-    margin-bottom: 24px;
     display: block;
-    color: var(--accent);
-    font-weight: 400;
+    margin-bottom: 32px;
+}
+
+.title-icon img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
 }
 
 h1 {
     font-family: 'Inter', 'Pretendard', sans-serif;
     font-weight: 800;
-    font-size: clamp(26px, 5vw, 34px);
-    line-height: 1.2;
-    margin-bottom: 16px;
+    font-size: clamp(28px, 5vw, 38px);
+    line-height: 1.3;
+    margin-bottom: 24px;
     color: var(--text-main);
 }
 
 p.sub-desc {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--text-sub);
     font-weight: 500;
-    margin-bottom: 48px;
+    margin-bottom: 60px;
 }
 
 /* 🛠 폼 요소 */
@@ -133,11 +137,11 @@ p.sub-desc {
 
 .modern-input, select {
     width: 100%;
-    padding: 18px;
-    font-size: 15px;
+    padding: 20px;
+    font-size: 16px;
     font-weight: 600;
-    border-radius: 16px;
-    border: 1px solid var(--border);
+    border-radius: 18px;
+    border: 1.5px solid var(--border);
     background: var(--soft-bg);
     text-align: center;
     outline: none;
@@ -152,7 +156,7 @@ p.sub-desc {
 .birth-select-group {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 8px;
+    gap: 12px;
 }
 
 /* 🚀 버튼 시스템 */
@@ -160,10 +164,10 @@ p.sub-desc {
     background: var(--primary);
     color: white;
     width: 100%;
-    padding: 20px;
+    padding: 24px;
     border-radius: var(--radius-pill);
     font-weight: 800;
-    font-size: 15px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -195,7 +199,7 @@ p.sub-desc {
 /* 🎰 결과 페이지 버튼 그리드 */
 .result-actions {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3단 가로 배치 */
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     width: 100%;
     max-width: 520px;
@@ -204,14 +208,14 @@ p.sub-desc {
 
 @media (max-width: 600px) {
     .result-actions {
-        grid-template-columns: 1fr; /* 모바일은 세로 */
+        grid-template-columns: 1fr;
     }
 }
 
 /* 🎰 결과 카드 */
 .result-card {
     width: 100%;
-    padding: 48px 32px;
+    padding: 80px 48px;
     border: 1px solid var(--primary);
     border-radius: var(--radius-card);
     display: flex;
@@ -222,25 +226,25 @@ p.sub-desc {
 .infographic-box {
     width: 100%;
     background: var(--soft-bg);
-    padding: 32px;
-    border-radius: 20px;
-    margin: 32px 0;
+    padding: 48px;
+    border-radius: 24px;
+    margin: 48px 0;
 }
 
-.bar-bg { width: 100%; height: 6px; background: #e5e5e5; border-radius: 10px; margin: 16px 0; overflow: hidden; }
+.bar-bg { width: 100%; height: 8px; background: #e5e5e5; border-radius: 100px; margin: 24px 0; overflow: hidden; }
 .bar-fill { background: var(--primary); height: 100%; width: 0; transition: width 2s cubic-bezier(0.19, 1, 0.22, 1); }
 
 .lucky-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 20px;
     width: 100%;
 }
 
 .lucky-box {
     border: 1px solid var(--border);
-    padding: 16px 8px;
-    border-radius: 16px;
+    padding: 24px 12px;
+    border-radius: 20px;
 }
 
 .lucky-box .label {
@@ -257,7 +261,7 @@ p.sub-desc {
     font-weight: 800;
 }
 
-/* 💬 댓글 영역 - 여백 확보 */
+/* 💬 댓글 영역 */
 .comments-container {
     margin-top: 120px;
     padding-top: 60px;
@@ -291,12 +295,24 @@ p.sub-desc {
     transition: all 0.4s ease;
 }
 
+.test-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+}
+
+.card-icon img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 32px;
+}
+
 /* 📸 업로드 박스 */
 .upload-area {
     width: 100%;
-    max-width: 400px;
-    height: 300px;
-    border: 1px solid var(--border);
+    max-width: 480px;
+    height: 360px;
+    border: 1.5px solid var(--border);
     border-radius: var(--radius-card);
     display: flex;
     flex-direction: column;
@@ -309,13 +325,13 @@ p.sub-desc {
 .footer {
     width: 100%;
     max-width: 1200px;
-    padding: 48px 24px;
+    padding: 80px 24px;
     text-align: right;
 }
 .footer p { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: var(--text-sub); letter-spacing: 0.1em; }
 
 @media (max-width: 768px) {
-    main { padding: 40px 20px 80px; }
+    main { padding: 60px 20px 100px; }
     .result-card { padding: 60px 24px; }
     .infographic-box { padding: 32px 20px; }
     .birth-select-group { grid-template-columns: 1fr; }

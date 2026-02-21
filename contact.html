@@ -19,30 +19,31 @@
 
     <main>
         <div class="container">
-            <span class="title-icon">✉️</span>
+            <span class="title-icon">
+                <img src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Envelope/3D/envelope_3d.png" alt="Contact">
+            </span>
             <h1>제휴 및 문의</h1>
             <p class="sub-desc">새로운 기회와 협업 제안을 환영합니다.<br>궁금한 점을 남겨주시면 빠르게 답변해 드리겠습니다.</p>
             
-            <!-- 폼 컨테이너 자체를 중앙 정렬로 강제 -->
             <form action="https://formspree.io/f/xkovqnyn" method="POST" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-                <div class="input-section" style="width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center;">
-                    <div class="input-group" style="width: 100%;">
+                <div class="input-section">
+                    <div class="input-group">
                         <label>Name / Company</label>
                         <input type="text" name="name" class="modern-input" placeholder="성함 또는 업체명" required>
                     </div>
                     
-                    <div class="input-group" style="width: 100%;">
+                    <div class="input-group">
                         <label>Email Address</label>
                         <input type="email" name="email" class="modern-input" placeholder="example@email.com" required>
                     </div>
                     
-                    <div class="input-group" style="width: 100%;">
+                    <div class="input-group">
                         <label>Message</label>
                         <textarea name="message" class="modern-input" rows="8" placeholder="상세한 문의 내용을 입력해 주세요." style="resize: none; text-align: left;" required></textarea>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-primary" style="margin-top: 20px;">문의 전송하기 →</button>
+                <button type="submit" class="btn-primary">문의 전송하기 →</button>
             </form>
 
             <div style="margin-top: 60px;">
