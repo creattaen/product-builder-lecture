@@ -185,14 +185,59 @@ select:focus { border-color: var(--accent-color); }
     border-radius: 20px;
 }
 
-.contact-container h3, .comments-container h3 {
+.comments-container h3 {
     margin-top: 0;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 10px;
     color: var(--accent-color);
 }
 
-.contact-form { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; }
+.contact-container {
+    padding: 0; /* Header handles padding */
+    overflow: hidden;
+}
+
+.contact-header {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.contact-header:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.contact-header h3 {
+    margin: 0;
+    color: var(--accent-color);
+}
+
+#contact-arrow {
+    font-size: 14px;
+    color: var(--accent-color);
+    transition: transform 0.3s ease;
+}
+
+.contact-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease;
+    padding: 0 30px;
+}
+
+.contact-container.active .contact-content {
+    max-height: 500px; /* Adjust as needed */
+    padding-bottom: 30px;
+}
+
+.contact-container.active #contact-arrow {
+    transform: rotate(180deg);
+}
+
+.contact-form { display: flex; flex-direction: column; gap: 15px; }
 
 .form-group input, 
 .form-group textarea {

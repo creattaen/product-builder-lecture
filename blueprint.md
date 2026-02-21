@@ -15,17 +15,17 @@ A simple and visually appealing web application that provides users with daily a
 *   **Responsive Design:** The layout adapts to different screen sizes, ensuring a good experience on both desktop and mobile devices.
 *   **Soft & Bright Mystical Theme:** A unified, elegant design with soft shadows and readable typography.
 *   **Fortune History Detail View:** Users can click on any record in the history list to view the full fortune details in a modal.
-*   **Partnership Inquiry Form (Formspree):** A clean contact form integrated with Formspree for partnership inquiries.
-*   **Disqus Comments Integration:** A community section for user interaction and feedback.
+*   **Disqus Comments Integration:** Positioned above the contact form for better engagement.
+*   **Collapsible Partnership Inquiry Form:** Located at the absolute bottom, allowing users to expand it only when needed.
 
 ## Current Plan: Daily Lucky Items & Refinement
 
 1.  **Daily Lucky Items (Enhancement):** Enrich the fortune results by adding personalized "Lucky Items" (Color, Number, and Direction).
-2.  **UI Refinement:** Ensure all components (Disqus, Form, History) are perfectly polished within the new soft-bright theme.
+2.  **UI Refinement:** Fine-tune transitions for the collapsible contact form and polish the comment area layout.
 
-**Steps for Theme Update:**
-1.  **Redefine CSS Variables:** Replace dark/light variables with a single set of soft, bright colors in `style.css`.
-2.  **Cleanup HTML:** Remove the theme toggle button from `index.html`.
-3.  **Cleanup JS:** Remove theme-switching logic from `main.js`.
-4.  **Final Polish:** Adjust shadows and borders for a "soft" feel.
+**Steps for Structure Update:**
+1.  **Reorder HTML:** Move the Disqus section above the contact section in `index.html`.
+2.  **Add Collapsible Logic:** Use a toggle button and a content wrapper for the contact form.
+3.  **Style Transitions:** Add CSS for smooth expansion/collapse animations in `style.css`.
+4.  **Implement Toggle in JS:** Add a `toggleContactForm` function in `main.js`.
 5.  **Git Push:** Commit and push the changes.

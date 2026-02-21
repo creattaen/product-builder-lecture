@@ -43,22 +43,6 @@
                 <div id="history-list"></div>
             </div>
 
-            <div class="contact-container">
-                <h3>🤝 제휴 및 문의</h3>
-                <form action="https://formspree.io/f/xkovqnyn" method="POST" class="contact-form">
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="성함 또는 업체명" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="이메일 주소" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" rows="4" placeholder="문의 내용을 입력해 주세요." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">문의하기</button>
-                </form>
-            </div>
-
             <div class="comments-container">
                 <h3>💬 자유 게시판</h3>
                 <div id="disqus_thread"></div>
@@ -71,6 +55,27 @@
                     })();
                 </script>
                 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+
+            <div class="contact-container" id="contact-container">
+                <div class="contact-header" onclick="toggleContactForm()">
+                    <h3>🤝 제휴 및 문의</h3>
+                    <span id="contact-arrow">▼</span>
+                </div>
+                <div class="contact-content" id="contact-content">
+                    <form action="https://formspree.io/f/xkovqnyn" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="성함 또는 업체명" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="이메일 주소" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" rows="4" placeholder="문의 내용을 입력해 주세요." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">문의하기</button>
+                    </form>
+                </div>
             </div>
         </div>
 

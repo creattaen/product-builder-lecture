@@ -197,3 +197,8 @@ function closeFortuneModal() {
     const modal = document.getElementById('fortune-modal');
     modal.style.display = 'none';
 }
+
+function toggleContactForm() {
+    const container = document.getElementById('contact-container');
+    container.classList.toggle('active');
+}
