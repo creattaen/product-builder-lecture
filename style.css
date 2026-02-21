@@ -11,6 +11,7 @@
     --modal-overlay: rgba(0, 0, 0, 0.7);
     --input-bg: #0f3460;
     --border-color: rgba(255, 255, 255, 0.1);
+    --btn-text: #ffffff;
 }
 
 .light-mode {
@@ -21,10 +22,11 @@
     --text-color: #1a1a2e;
     --text-muted: #6c757d;
     --accent-color: #e94560;
-    --highlight-color: #d4af37;
+    --highlight-color: #b38b00; /* Darker gold for light mode contrast */
     --modal-overlay: rgba(0, 0, 0, 0.5);
     --input-bg: #ffffff;
     --border-color: rgba(0, 0, 0, 0.1);
+    --btn-text: #1a1a2e;
 }
 
 body {
@@ -38,7 +40,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 🌟 전체 레이아웃 (메인 컨텐츠 + 우측 사이드바) */
+/* 🌟 전체 레이아웃 */
 .page-wrapper {
     display: flex;
     justify-content: center;
@@ -56,17 +58,17 @@ body {
     background: var(--container-bg);
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     transition: background-color 0.3s ease;
 }
 
-/* 🌙 이달의 운세 우측 고정 사이드바 */
+/* 🌙 사이드바 */
 .monthly-sidebar {
     width: 300px;
     background: var(--sidebar-bg);
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     position: sticky;
     top: 20px;
     border: 3px solid transparent;
@@ -85,7 +87,7 @@ body {
     line-height: 1.6;
     text-align: left;
     word-break: keep-all;
-    color: var(--text-color); /* Ensure text color uses the variable */
+    color: var(--text-color);
 }
 
 /* 테마 토글 버튼 */
@@ -108,11 +110,9 @@ body {
     transition: transform 0.2s ease;
 }
 
-#theme-btn:hover {
-    transform: scale(1.1);
-}
+#theme-btn:hover { transform: scale(1.1); }
 
-/* 🚨 이미 확인한 운세 테두리 빨간색 강조 효과 */
+/* 강조 효과 */
 .highlight-red {
     border: 3px solid #ff4d4d !important;
     box-shadow: 0 0 20px rgba(255, 77, 77, 0.4) !important;
@@ -127,7 +127,7 @@ body {
 
 h1 { margin-bottom: 30px; color: var(--text-color); text-shadow: 0 0 10px var(--accent-color); }
 
-/* 컨트롤 영역 */
+/* 컨트롤 및 버튼 영역 */
 .controls { margin-bottom: 20px; }
 select {
     padding: 12px;
@@ -146,19 +146,30 @@ select {
     padding: 12px 20px;
     font-size: 16px;
     font-weight: bold;
-    border: none;
     border-radius: 10px;
     cursor: pointer;
     margin: 5px;
-    color: white;
     transition: all 0.3s ease;
+    border: none;
 }
 
-.btn-today { background: var(--accent-color); }
-.btn-month { background: var(--input-bg); border: 1px solid var(--accent-color); color: var(--text-color); }
-.btn-today:hover, .btn-month:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4); }
+.btn-group .btn-today {
+    background: var(--accent-color);
+    color: #ffffff; /* Always white for readability on red */
+}
 
-/* 🌈 오늘의 운세 결과 영역 & 애니메이션 */
+.btn-group .btn-month {
+    background: var(--input-bg);
+    border: 1px solid var(--accent-color);
+    color: var(--btn-text); /* Uses theme variable for correct visibility */
+}
+
+.btn-today:hover, .btn-month:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+}
+
+/* 운세 결과 영역 */
 #today-result-container {
     margin-top: 30px;
     padding: 30px 20px;
@@ -167,7 +178,6 @@ select {
     font-weight: bold;
     line-height: 1.5;
     display: none;
-    transition: background 0.5s ease;
     border: 3px solid transparent;
 }
 
@@ -181,7 +191,7 @@ select {
     100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* 🌈 운세 등급별 색상 변화 */
+/* 등급별 색상 */
 .color-good { background: #2a9d8f; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
 .color-normal { background: #457b9d; color: #fff; }
 .color-bad { background: #e76f51; color: #fff; }
@@ -190,7 +200,7 @@ select {
 .light-mode .color-normal { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
 .light-mode .color-bad { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
 
-/* ✨ 대박 운세 특별 스타일 */
+/* 대박 운세 */
 .color-jackpot {
     background: linear-gradient(45deg, #ffd700, #ff8c00, #ff0080);
     background-size: 200% 200%;
@@ -205,7 +215,7 @@ select {
     100% { background-position: 100% 50%; box-shadow: 0 0 30px #ff0080; }
 }
 
-/* 📅 기록 영역 */
+/* 기록 영역 */
 .history-container {
     margin-top: 40px;
     text-align: left;
@@ -216,7 +226,9 @@ select {
     overflow-y: auto;
     transition: background-color 0.3s ease;
 }
+
 .history-container h3 { margin-top: 0; border-bottom: 1px solid var(--accent-color); padding-bottom: 10px; }
+
 .history-item {
     padding: 10px;
     border-bottom: 1px solid var(--border-color);
@@ -224,14 +236,16 @@ select {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+    color: var(--text-color);
 }
+
 .history-item:hover { background: rgba(0,0,0,0.05); }
 .history-item span.date { color: var(--text-muted); font-size: 12px; }
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 4px; }
 
-/* 모달 스타일 */
+/* 모달 */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -272,19 +286,10 @@ select {
     cursor: pointer;
 }
 
-#modal-title {
-    color: var(--highlight-color);
-    margin-top: 0;
-    margin-bottom: 15px;
-}
+#modal-title { color: var(--highlight-color); margin-top: 0; margin-bottom: 15px; }
+#modal-text { font-size: 16px; line-height: 1.7; white-space: pre-wrap; color: var(--text-color); }
 
-#modal-text {
-    font-size: 16px;
-    line-height: 1.7;
-    white-space: pre-wrap;
-}
-
-/* 모바일 화면 대응 */
+/* 모바일 대응 */
 @media (max-width: 800px) {
     .page-wrapper { flex-direction: column; align-items: center; }
     .monthly-sidebar { width: 100%; box-sizing: border-box; position: static; }
