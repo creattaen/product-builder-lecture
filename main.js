@@ -19,9 +19,10 @@ const monthFortunes = [
 
 const jackpotFortune = { text: "✨ 대박 운세 ✨\n우주의 기운이 당신을 돕고 있습니다! 로또를 사거나 평소 망설이던 일에 과감하게 도전해보세요!", type: "color-jackpot" };
 
-// 🐶 동물상 AI 모델 (Teachable Machine URL - 예시 URL이며 실제 모델 연동 가능)
-// 여기서는 강아지/고양이 구분을 위한 데모 모델 로직을 구성합니다.
-const MODEL_URL = "https://teachablemachine.withgoogle.com/models/VSt_v_v_v/"; // 실제 모델 URL 필요
+// 🐶 동물상 AI 모델 (실제 Teachable Machine URL)
+const MODEL_URL = "https://teachablemachine.withgoogle.com/models/oFwbTa7Ck/"; 
+
+let model;
 
 window.onload = () => {
     renderHistory();
@@ -66,24 +67,32 @@ async function predictAnimalLook(imageElement) {
     document.getElementById('result-area').style.display = 'none';
 
     try {
-        // 실제 모델 로드 및 예측 로직 (데모를 위해 랜덤 확률 생성 로직으로 대체 가능)
-        // 만약 실제 모델 URL이 있다면 아래 주석을 해제하여 사용하세요.
-        /*
-        const model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
+        // 모델 로드 (한 번만 로드하도록 최적화 가능)
+        if (!model) {
+            model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
+        }
+        
+        // 예측 수행
         const prediction = await model.predict(imageElement);
-        */
+        
+        // 결과 처리 (강아지, 고양이 클래스 매핑)
+        let dogProb = 0;
+        let catProb = 0;
 
-        // 데모용 가상 분석 로직 (현장에서는 실제 모델 연동 권장)
-        setTimeout(() => {
-            const dogProb = Math.random() * 100;
-            const catProb = 100 - dogProb;
-            
-            displayResults(dogProb, catProb);
-        }, 2000);
+        prediction.forEach(p => {
+            if (p.className.includes("강아지") || p.className.toLowerCase().includes("dog")) {
+                dogProb = p.probability * 100;
+            } else if (p.className.includes("고양이") || p.className.toLowerCase().includes("cat")) {
+                catProb = p.probability * 100;
+            }
+        });
+
+        // 결과 표시
+        displayResults(dogProb, catProb);
 
     } catch (error) {
         console.error("AI 분석 중 오류 발생:", error);
-        alert("분석 중 오류가 발생했습니다. 다시 시도해 주세요.");
+        alert("분석 중 오류가 발생했습니다. 얼굴이 선명한 다른 사진으로 시도해 주세요.");
         retryTest();
     }
 }
@@ -107,9 +116,11 @@ function displayResults(dog, cat) {
     }, 100);
 
     if (dog > cat) {
-        resultMsg.innerText = "당신은 귀여운 '강아지상' 이시네요! 🐶";
+        resultMsg.innerText = `당신은 귀여운 '강아지상' 이시네요! (확률: ${Math.round(dog)}%) 🐶`;
+    } else if (cat > dog) {
+        resultMsg.innerText = `당신은 도도한 '고양이상' 이시네요! (확률: ${Math.round(cat)}%) 🐱`;
     } else {
-        resultMsg.innerText = "당신은 도도한 '고양이상' 이시네요! 🐱";
+        resultMsg.innerText = "당신은 강아지와 고양이를 모두 닮은 매력적인 얼굴이시네요! ✨";
     }
 }
 
