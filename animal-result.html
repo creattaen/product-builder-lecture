@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>분석 결과 - AI 동물상 테스트</title>
+    <title>RESULT - AI ANIMAL TEST</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
@@ -11,61 +11,56 @@
 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-link">🏠 홈</a>
-            <a href="horoscope.html" class="nav-link">🔮 띠별 운세</a>
-            <a href="animal-test.html" class="nav-link active">🐶 AI 동물상 테스트</a>
-            <a href="contact.html" class="nav-link">🤝 제휴 및 문의</a>
+            <a href="index.html" class="nav-link">HOME</a>
+            <a href="horoscope.html" class="nav-link">FORTUNE</a>
+            <a href="animal-test.html" class="nav-link active">AI TEST</a>
+            <a href="contact.html" class="nav-link">CONTACT</a>
         </div>
     </nav>
 
     <main>
-        <div class="container" style="max-width: 800px;">
+        <div class="container">
             <div id="capture-area" class="result-card">
-                <h2 id="result-message" style="font-size: clamp(32px, 6vw, 48px); font-weight: 900; margin-bottom: 40px; line-height: 1.2;">분석 결과</h2>
+                <h2 id="result-message" style="font-size: clamp(32px, 6vw, 42px); font-weight: 800; margin-bottom: 40px; line-height: 1.2;">분석 결과</h2>
                 
                 <div style="margin-bottom: 48px; display: flex; justify-content: center;">
-                    <img id="user-photo" src="" alt="Result" style="width: 280px; height: 280px; object-fit: cover; border-radius: 32px; border: 1.5px solid var(--primary); background: #f8fafc;">
+                    <img id="user-photo" src="" alt="Result" style="width: 280px; height: 280px; object-fit: cover; border-radius: 32px; border: 1px solid var(--border); background: #f8fafc;">
                 </div>
 
-                <div style="width: 100%; max-width: 400px; margin: 0 auto 48px; text-align: left;">
+                <div style="width: 100%; max-width: 400px; margin: 0 auto; text-align: left;">
                     <div style="margin-bottom: 32px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">
-                            <span>🐶 Puppy Look</span>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">
+                            <span>Puppy Look</span>
                             <span id="dog-percent" style="color: var(--accent);">0%</span>
                         </div>
                         <div class="bar-bg"><div id="dog-bar" class="bar-fill" style="background: var(--accent); width: 0; height: 100%; transition: width 1.5s;"></div></div>
                     </div>
                     <div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">
-                            <span>🐱 Cat Look</span>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">
+                            <span>Cat Look</span>
                             <span id="cat-percent" style="color: var(--primary);">0%</span>
                         </div>
                         <div class="bar-bg"><div id="cat-bar" class="bar-fill" style="background: var(--primary); width: 0; height: 100%; transition: width 1.5s;"></div></div>
                     </div>
                 </div>
-
-                <p style="font-size: 16px; color: var(--text-sub); font-weight: 600; line-height: 1.7; max-width: 400px;">
-                    AI 분석 결과, 당신의 이목구비는 특정 동물과<br>놀라울 정도로 높은 일치율을 보이고 있습니다.
-                </p>
             </div>
 
-            <div style="margin-top: 48px; width: 100%; max-width: 400px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-                    <button class="btn-primary" style="padding: 18px;" onclick="saveAsImage()">이미지 저장</button>
-                    <button class="btn-primary" style="padding: 18px; background: #000;" onclick="shareLink()">링크 공유</button>
+            <div style="margin-top: 48px; width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-bottom: 12px;">
+                    <button class="btn-primary" style="padding: 18px;" onclick="saveAsImage()">IMAGE SAVE</button>
+                    <button class="btn-primary" style="padding: 18px; background: #000;" onclick="shareLink()">SHARE</button>
                 </div>
-                <button class="btn-secondary" onclick="location.href='animal-test.html'">다른 사진으로 하기</button>
+                <button class="btn-secondary" style="width: 100%;" onclick="location.href='animal-test.html'">RETRY TEST</button>
             </div>
 
-            <div class="comments-container" style="width: 100%; max-width: 800px;">
-                <h3>💬 테스트 결과 공유</h3>
+            <div class="comments-container" style="width: 100%; max-width: 800px; margin-top: 80px;">
                 <div id="disqus_thread"></div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
-        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+        <p>© 2026 DESTINY & AI. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
