@@ -26,7 +26,12 @@ window.onload = () => {
     renderHistory();
     renderMonthlySidebar();
     
-    // 이전에 저장된 결과 로드 시 undefined 체크
+    // 저장된 닉네임 불러오기
+    const savedNickname = localStorage.getItem('userNickname');
+    if (savedNickname) {
+        document.getElementById('user-nickname').value = savedNickname;
+    }
+
     try {
         const savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
         if (savedTodayData && savedTodayData.dayKey) {
@@ -64,14 +69,21 @@ function initBirthSelects() {
 }
 
 function checkTodayFortune() {
+    const nickname = document.getElementById('user-nickname').value.trim();
     const year = document.getElementById('birth-year').value;
     const month = document.getElementById('birth-month').value;
     const day = document.getElementById('birth-day').value;
 
-    if (!year || !month || !day) {
-        alert("분석을 위해 생년월일을 모두 선택해주세요! 📅");
+    if (!nickname) {
+        alert("분석을 위해 닉네임을 입력해주세요! ✨");
         return;
     }
+    if (!year || !month || !day) {
+        alert("정확한 분석을 위해 생년월일을 모두 선택해주세요! 📅");
+        return;
+    }
+
+    localStorage.setItem('userNickname', nickname);
 
     const birthDateYear = parseInt(year);
     const zodiac = getZodiac(birthDateYear);
@@ -101,6 +113,7 @@ function checkTodayFortune() {
 
         const newTodayData = {
             dayKey: currentDayKey,
+            nickname: nickname,
             zodiac: zodiac || "띠",
             summary: selected.summary || "분석 완료",
             title: selected.title || "행운의 메시지",
@@ -114,7 +127,7 @@ function checkTodayFortune() {
 
         localStorage.setItem('myTodayData', JSON.stringify(newTodayData));
         displayTodayResult(newTodayData);
-        saveToHistory(zodiac, '오늘의', `${newTodayData.summary}: ${newTodayData.text}`);
+        saveToHistory(zodiac, '오늘의', `${nickname}님 - ${newTodayData.summary}: ${newTodayData.text}`);
     }, 2500);
 }
 
@@ -122,26 +135,31 @@ function displayTodayResult(data) {
     const container = document.getElementById('today-result-container');
     if (!container) return;
     
-    // 모든 필드에 대한 안전한 접근 (undefined 방지)
-    const elements = {
-        'res-zodiac': data.zodiac,
-        'res-date': data.timestamp,
-        'res-summary-badge': data.summary,
-        'res-title': data.title,
-        'today-result-text': data.text,
-        'luck-num': data.lNum,
-        'luck-color': data.lColor,
-        'luck-dir': data.lDir,
-        'luck-score-text': (data.score || 0) + "점"
-    };
-
-    for (const [id, value] of Object.entries(elements)) {
-        const el = document.getElementById(id);
-        if (el) el.innerText = value || "-";
+    const nickname = data.nickname || localStorage.getItem('userNickname') || "사용자";
+    
+    // 헤더 및 요약 정보 (닉네임 강조 버전)
+    document.getElementById('res-zodiac').innerText = data.zodiac;
+    document.getElementById('res-date').innerText = data.timestamp;
+    document.getElementById('res-summary-badge').innerText = data.summary;
+    
+    // 타이틀 리디자인 (닉네임 크게, 보조 타이틀 작게)
+    const titleBox = document.getElementById('res-title');
+    if (titleBox) {
+        titleBox.innerHTML = `
+            <div style="font-size: 28px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${nickname}님</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--primary); opacity: 0.8;">[${data.zodiac}] 오늘의 총평</div>
+        `;
     }
 
+    document.getElementById('today-result-text').innerText = data.text;
+    document.getElementById('luck-num').innerText = data.lNum;
+    document.getElementById('luck-color').innerText = data.lColor;
+    document.getElementById('luck-dir').innerText = data.lDir;
+
     const scoreBar = document.getElementById('luck-score-bar');
+    const scoreText = document.getElementById('luck-score-text');
     if (scoreBar) scoreBar.style.width = (data.score || 0) + "%";
+    if (scoreText) scoreText.innerText = (data.score || 0) + "점";
 
     container.style.display = 'block';
     container.className = 'result-card pop-in';
@@ -149,11 +167,18 @@ function displayTodayResult(data) {
 }
 
 function checkMonthFortune() {
+    const nickname = document.getElementById('user-nickname').value.trim();
     const year = document.getElementById('birth-year').value;
+    if (!nickname) {
+        alert("분석을 위해 닉네임을 먼저 입력해주세요! ✨");
+        return;
+    }
     if (!year) {
         alert("띠 계산을 위해 생년월일을 먼저 선택해주세요! 📅");
         return;
     }
+    
+    localStorage.setItem('userNickname', nickname);
     const zodiac = getZodiac(parseInt(year));
     const now = new Date();
     const currentMonthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
@@ -177,14 +202,15 @@ function checkMonthFortune() {
     
     const newMonthlyData = {
         monthKey: currentMonthKey,
-        zodiac: zodiac || "띠",
-        text: selectedText || "분석 결과를 불러올 수 없습니다.",
+        nickname: nickname,
+        zodiac: zodiac,
+        text: selectedText,
         displayMonth: now.getMonth() + 1
     };
     localStorage.setItem('myMonthlyData', JSON.stringify(newMonthlyData));
 
     renderMonthlySidebar();
-    saveToHistory(newMonthlyData.zodiac, '이달의', newMonthlyData.text);
+    saveToHistory(zodiac, '이달의', `${nickname}님 - ${newMonthlyData.text}`);
     if (sidebar) sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
@@ -195,12 +221,14 @@ function renderMonthlySidebar() {
     const resultBox = document.getElementById('monthly-result-text');
 
     if (resultBox && savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
+        const nickname = savedMonthlyData.nickname || localStorage.getItem('userNickname') || "사용자";
         resultBox.innerHTML = `
-            <div style="margin-bottom: 12px; font-weight: 800; color: var(--primary);">
-                [${savedMonthlyData.zodiac || "분석"}] ${savedMonthlyData.displayMonth || (now.getMonth()+1)}월의 총운
+            <div style="margin-bottom: 16px;">
+                <div style="font-size: 22px; font-weight: 800; color: var(--text-main); line-height: 1.2;">${nickname}님</div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--primary); opacity: 0.8;">[${savedMonthlyData.zodiac}] ${savedMonthlyData.displayMonth}월의 총운</div>
             </div>
-            <div style="padding: 20px; border-radius: 16px; font-size: 15px; color: var(--text-main); background: var(--primary-soft); border: 1px solid var(--border);">
-                ${savedMonthlyData.text || ""}
+            <div style="padding: 20px; border-radius: 16px; font-size: 15px; color: var(--text-main); background: var(--primary-soft); border: 1px solid var(--border); line-height: 1.7;">
+                ${savedMonthlyData.text}
             </div>
         `;
     }
@@ -236,7 +264,7 @@ function renderHistory() {
     }
 
     historyList.innerHTML = history.map(item => {
-        const title = `[${item.zodiac || "띠"} ${item.period || "기록"}]`;
+        const title = `[${item.zodiac} ${item.period}]`;
         const text = item.text || "";
         const shortenedText = text.length > 25 ? text.substring(0, 25) + '...' : text;
         const fullTextForAttr = text.replace(/"/g, '&quot;');
@@ -247,7 +275,7 @@ function renderHistory() {
                     <strong style="color:var(--primary); font-size:14px;">${title}</strong> 
                     <span style="font-size:14px; color:var(--text-main);">${shortenedText}</span>
                 </div>
-                <span style="color:var(--text-sub); font-size:12px;">${item.date || ""}</span>
+                <span style="color:var(--text-sub); font-size:12px;">${item.date}</span>
             </div>
         `;
     }).join('');
@@ -256,8 +284,8 @@ function renderHistory() {
 function openFortuneModal(title, text) {
     const modal = document.getElementById('fortune-modal');
     if (modal) {
-        document.getElementById('modal-title').innerText = title || "기록 보기";
-        document.getElementById('modal-text').innerText = text || "";
+        document.getElementById('modal-title').innerText = title;
+        document.getElementById('modal-text').innerText = text;
         modal.style.display = 'flex';
     }
 }
