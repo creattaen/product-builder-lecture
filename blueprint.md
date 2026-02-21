@@ -16,15 +16,14 @@ A simple and visually appealing web application that provides users with daily a
 *   **Modern & Dark Theme:** The application uses a dark, mystical theme with engaging animations and color-coded results.
 *   **Fortune History Detail View:** Users can click on any record in the history list to view the full fortune details in a modal.
 
-## Current Plan: Daily Lucky Items (Enhancement)
+## Current Plan: Dark/Light Mode Toggle & Lucky Items
 
-Enrich the fortune results by adding personalized "Lucky Items" (Color, Number, and Direction) for each reading. This adds more depth and "actionable" advice for the user.
+1.  **Dark/Light Mode Toggle:** Add a theme toggle functionality to allow users to switch between the default mystical dark theme and a clean light theme.
+2.  **Daily Lucky Items (Enhancement):** Enrich the fortune results by adding personalized "Lucky Items" (Color, Number, and Direction).
 
-**Steps:**
-
-1.  **Update Fortune Data:** Add arrays for lucky colors, numbers, and directions in `main.js`.
-2.  **Modify Fortune Logic:** Update `checkTodayFortune` and `checkMonthFortune` to randomly select and store lucky items.
-3.  **Update UI (Today's Result):** Modify `renderTodayFortune` to display the lucky items in a stylish way.
-4.  **Update UI (Monthly Sidebar):** Modify `renderMonthlySidebar` to include lucky items.
-5.  **Update History Detail:** Ensure the modal displays the lucky items when viewing history records.
-6.  **Style Lucky Items:** Add CSS for the lucky item badges/labels to make them visually distinct and appealing.
+**Steps for Theme Toggle:**
+1.  **Define CSS Variables:** Replace hardcoded colors in `style.css` with CSS variables.
+2.  **Add Light Mode Styles:** Create a `.light-mode` class override for the CSS variables.
+3.  **Add Toggle UI:** Insert a theme toggle button in `index.html`.
+4.  **Implement Toggle Logic:** Add JavaScript to `main.js` to handle theme switching and persist the choice in `localStorage`.
+5.  **Git Push:** Commit and push the changes.

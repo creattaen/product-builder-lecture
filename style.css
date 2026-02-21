@@ -1,229 +1,290 @@
 /* 🎨 기본 스타일 및 신비로운 다크 테마 */
-        body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-            background-color: #1a1a2e;
-            color: #eaeaea;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+:root {
+    --bg-color: #1a1a2e;
+    --container-bg: #16213e;
+    --sidebar-bg: #16213e;
+    --history-bg: #0f3460;
+    --text-color: #eaeaea;
+    --text-muted: #a9a9a9;
+    --accent-color: #e94560;
+    --highlight-color: #ffd700;
+    --modal-overlay: rgba(0, 0, 0, 0.7);
+    --input-bg: #0f3460;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
 
-        /* 🌟 전체 레이아웃 (메인 컨텐츠 + 우측 사이드바) */
-        .page-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            flex-wrap: wrap; /* 모바일 대응을 위해 */
-        }
+.light-mode {
+    --bg-color: #f0f2f5;
+    --container-bg: #ffffff;
+    --sidebar-bg: #ffffff;
+    --history-bg: #f8f9fa;
+    --text-color: #1a1a2e;
+    --text-muted: #6c757d;
+    --accent-color: #e94560;
+    --highlight-color: #d4af37;
+    --modal-overlay: rgba(0, 0, 0, 0.5);
+    --input-bg: #ffffff;
+    --border-color: rgba(0, 0, 0, 0.1);
+}
 
-        .container {
-            flex: 1;
-            min-width: 320px;
-            max-width: 600px;
-            background: #16213e;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-        /* 🌙 이달의 운세 우측 고정 사이드바 */
-        .monthly-sidebar {
-            width: 300px;
-            background: #16213e;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: sticky;
-            top: 20px; /* 스크롤을 내려도 화면 상단에 고정 */
-            border: 3px solid transparent;
-            transition: border 0.3s ease;
-        }
+/* 🌟 전체 레이아웃 (메인 컨텐츠 + 우측 사이드바) */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
 
-        .monthly-sidebar h3 {
-            margin-top: 0;
-            color: #ffd700;
-            border-bottom: 2px dashed #e94560;
-            padding-bottom: 10px;
-        }
+.container {
+    flex: 1;
+    min-width: 320px;
+    max-width: 600px;
+    background: var(--container-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+}
 
-        #monthly-result-text {
-            font-size: 16px;
-            line-height: 1.6;
-            text-align: left;
-            word-break: keep-all;
-        }
+/* 🌙 이달의 운세 우측 고정 사이드바 */
+.monthly-sidebar {
+    width: 300px;
+    background: var(--sidebar-bg);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 20px;
+    border: 3px solid transparent;
+    transition: border 0.3s ease, background-color 0.3s ease;
+}
 
-        /* 🚨 이미 확인한 운세 테두리 빨간색 강조 효과 */
-        .highlight-red {
-            border: 3px solid #ff4d4d !important;
-            box-shadow: 0 0 20px rgba(255, 77, 77, 0.4) !important;
-            animation: shake 0.5s ease-in-out !important;
-        }
+.monthly-sidebar h3 {
+    margin-top: 0;
+    color: var(--highlight-color);
+    border-bottom: 2px dashed var(--accent-color);
+    padding-bottom: 10px;
+}
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
-        }
+#monthly-result-text {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+    word-break: keep-all;
+}
 
-        h1 { margin-bottom: 30px; color: #fff; text-shadow: 0 0 10px #e94560; }
+/* 테마 토글 버튼 */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
 
-        /* 컨트롤 영역 */
-        .controls { margin-bottom: 20px; }
-        select {
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 10px;
-            border: 2px solid #e94560;
-            background: #0f3460;
-            color: white;
-            outline: none;
-            cursor: pointer;
-            margin-bottom: 15px;
-            width: 80%;
-        }
+#theme-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
 
-        .btn-group button {
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 5px;
-            color: white;
-            transition: all 0.3s ease;
-        }
+#theme-btn:hover {
+    transform: scale(1.1);
+}
 
-        .btn-today { background: #e94560; }
-        .btn-month { background: #0f3460; border: 1px solid #e94560; }
-        .btn-today:hover, .btn-month:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4); }
+/* 🚨 이미 확인한 운세 테두리 빨간색 강조 효과 */
+.highlight-red {
+    border: 3px solid #ff4d4d !important;
+    box-shadow: 0 0 20px rgba(255, 77, 77, 0.4) !important;
+    animation: shake 0.5s ease-in-out !important;
+}
 
-        /* 🌈 오늘의 운세 결과 영역 & 애니메이션 */
-        #today-result-container {
-            margin-top: 30px;
-            padding: 30px 20px;
-            border-radius: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            line-height: 1.5;
-            display: none;
-            transition: background 0.5s ease;
-            border: 3px solid transparent;
-        }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
 
-        .pop-in {
-            display: block !important;
-            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-        }
+h1 { margin-bottom: 30px; color: var(--text-color); text-shadow: 0 0 10px var(--accent-color); }
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.5) translateY(50px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
+/* 컨트롤 영역 */
+.controls { margin-bottom: 20px; }
+select {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 2px solid var(--accent-color);
+    background: var(--input-bg);
+    color: var(--text-color);
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 15px;
+    width: 80%;
+}
 
-        /* 🌈 운세 등급별 색상 변화 */
-        .color-good { background: #2a9d8f; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
-        .color-normal { background: #457b9d; color: #fff; }
-        .color-bad { background: #e76f51; color: #fff; }
-        
-        /* ✨ 대박 운세 특별 스타일 */
-        .color-jackpot {
-            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff0080);
-            background-size: 200% 200%;
-            color: #fff;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            animation: jackpotGlow 2s infinite alternate, popIn 0.6s forwards;
-            font-size: 24px;
-        }
+.btn-group button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+    color: white;
+    transition: all 0.3s ease;
+}
 
-        @keyframes jackpotGlow {
-            0% { background-position: 0% 50%; box-shadow: 0 0 15px #ffd700; }
-            100% { background-position: 100% 50%; box-shadow: 0 0 30px #ff0080; }
-        }
+.btn-today { background: var(--accent-color); }
+.btn-month { background: var(--input-bg); border: 1px solid var(--accent-color); color: var(--text-color); }
+.btn-today:hover, .btn-month:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4); }
 
-        /* 📅 기록 영역 */
-        .history-container {
-            margin-top: 40px;
-            text-align: left;
-            background: #0f3460;
-            padding: 20px;
-            border-radius: 10px;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-        .history-container h3 { margin-top: 0; border-bottom: 1px solid #e94560; padding-bottom: 10px; }
-        .history-item {
-            padding: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-size: 14px;
-            display: flex;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-        .history-item span.date { color: #a9a9a9; font-size: 12px; }
+/* 🌈 오늘의 운세 결과 영역 & 애니메이션 */
+#today-result-container {
+    margin-top: 30px;
+    padding: 30px 20px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+    display: none;
+    transition: background 0.5s ease;
+    border: 3px solid transparent;
+}
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: #e94560; border-radius: 4px; }
+.pop-in {
+    display: block !important;
+    animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
 
-        /* 모달 스타일 */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.5) translateY(50px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
 
-        .modal-content {
-            background: #16213e;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            width: 80%;
-            max-width: 500px;
-            position: relative;
-            animation: modalOpen 0.4s ease-out forwards;
-        }
+/* 🌈 운세 등급별 색상 변화 */
+.color-good { background: #2a9d8f; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.color-normal { background: #457b9d; color: #fff; }
+.color-bad { background: #e76f51; color: #fff; }
 
-        @keyframes modalOpen {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
+.light-mode .color-good { background: #d1fae5; color: #065f46; text-shadow: none; border: 1px solid #10b981; }
+.light-mode .color-normal { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
+.light-mode .color-bad { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
 
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            color: #fff;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+/* ✨ 대박 운세 특별 스타일 */
+.color-jackpot {
+    background: linear-gradient(45deg, #ffd700, #ff8c00, #ff0080);
+    background-size: 200% 200%;
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    animation: jackpotGlow 2s infinite alternate, popIn 0.6s forwards;
+    font-size: 24px;
+}
 
-        #modal-title {
-            color: #ffd700;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
+@keyframes jackpotGlow {
+    0% { background-position: 0% 50%; box-shadow: 0 0 15px #ffd700; }
+    100% { background-position: 100% 50%; box-shadow: 0 0 30px #ff0080; }
+}
 
-        #modal-text {
-            font-size: 16px;
-            line-height: 1.7;
-            white-space: pre-wrap;
-        }
-        
-        /* 모바일 화면 대응 */
-        @media (max-width: 800px) {
-            .page-wrapper { flex-direction: column; align-items: center; }
-            .monthly-sidebar { width: 100%; box-sizing: border-box; position: static; }
-        }
+/* 📅 기록 영역 */
+.history-container {
+    margin-top: 40px;
+    text-align: left;
+    background: var(--history-bg);
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    transition: background-color 0.3s ease;
+}
+.history-container h3 { margin-top: 0; border-bottom: 1px solid var(--accent-color); padding-bottom: 10px; }
+.history-item {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.history-item:hover { background: rgba(0,0,0,0.05); }
+.history-item span.date { color: var(--text-muted); font-size: 12px; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 4px; }
+
+/* 모달 스타일 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--modal-overlay);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--container-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    animation: modalOpen 0.4s ease-out forwards;
+    color: var(--text-color);
+}
+
+@keyframes modalOpen {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: var(--text-color);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#modal-title {
+    color: var(--highlight-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#modal-text {
+    font-size: 16px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+/* 모바일 화면 대응 */
+@media (max-width: 800px) {
+    .page-wrapper { flex-direction: column; align-items: center; }
+    .monthly-sidebar { width: 100%; box-sizing: border-box; position: static; }
+}

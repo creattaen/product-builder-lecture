@@ -20,6 +20,7 @@ const monthFortunes = [
 const jackpotFortune = { text: "✨ 대박 운세 ✨\n우주의 기운이 당신을 돕고 있습니다! 로또를 사거나 평소 망설이던 일에 과감하게 도전해보세요!", type: "color-jackpot" };
 
 window.onload = () => {
+    initTheme();
     renderHistory();
     renderMonthlySidebar();
     renderTodayFortune();
@@ -39,6 +40,29 @@ window.onload = () => {
         }
     });
 };
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('theme-btn').innerText = '🌙';
+    } else {
+        document.getElementById('theme-btn').innerText = '☀️';
+    }
+}
+
+function toggleTheme() {
+    const isLight = document.body.classList.toggle('light-mode');
+    const themeBtn = document.getElementById('theme-btn');
+    
+    if (isLight) {
+        localStorage.setItem('theme', 'light');
+        themeBtn.innerText = '🌙';
+    } else {
+        localStorage.setItem('theme', 'dark');
+        themeBtn.innerText = '☀️';
+    }
+}
 
 function checkTodayFortune() {
     const now = new Date();
