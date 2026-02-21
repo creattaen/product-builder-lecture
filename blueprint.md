@@ -2,7 +2,7 @@
 
 ## Overview
 
-A simple and visually appealing web application that provides users with daily and monthly horoscope readings based on their selected zodiac sign. The application is designed to be intuitive, responsive, and engaging, offering a unique fortune-telling experience.
+A simple and visually appealing web application that provides users with daily and monthly horoscope readings based on their selected zodiac sign. The application is designed with a soft, bright, and mystical aesthetic to provide a pleasant and intuitive fortune-telling experience.
 
 ## Implemented Features
 
@@ -13,17 +13,19 @@ A simple and visually appealing web application that provides users with daily a
     *   The monthly fortune is saved and displayed for the entire month.
 *   **Fortune History:** A log of previously viewed fortunes is maintained for the user.
 *   **Responsive Design:** The layout adapts to different screen sizes, ensuring a good experience on both desktop and mobile devices.
-*   **Modern & Dark Theme:** The application uses a dark, mystical theme with engaging animations and color-coded results.
+*   **Soft & Bright Mystical Theme:** A unified, elegant design with soft shadows and readable typography.
 *   **Fortune History Detail View:** Users can click on any record in the history list to view the full fortune details in a modal.
-*   **Dark/Light Mode Toggle:** Seamlessly switch between themes with saved preferences.
 *   **Partnership Inquiry Form (Formspree):** A clean contact form integrated with Formspree for partnership inquiries.
+*   **Disqus Comments Integration:** A community section for user interaction and feedback.
 
-## Current Plan: Disqus Comments, Daily Lucky Items & Refinement
+## Current Plan: Daily Lucky Items & Refinement
 
-1.  **Disqus Comments Integration:** Add a comment section using Disqus to foster user engagement.
-2.  **Daily Lucky Items (Enhancement):** Enrich the fortune results by adding personalized "Lucky Items" (Color, Number, and Direction).
+1.  **Daily Lucky Items (Enhancement):** Enrich the fortune results by adding personalized "Lucky Items" (Color, Number, and Direction).
+2.  **UI Refinement:** Ensure all components (Disqus, Form, History) are perfectly polished within the new soft-bright theme.
 
-**Steps for Disqus Comments:**
-1.  **Add Disqus to HTML:** Insert the Disqus thread container and script into `index.html`.
-2.  **Style Comment Section:** Add CSS in `style.css` to ensure the comment area has proper spacing and matches the theme.
-3.  **Git Push:** Commit and push the changes.
+**Steps for Theme Update:**
+1.  **Redefine CSS Variables:** Replace dark/light variables with a single set of soft, bright colors in `style.css`.
+2.  **Cleanup HTML:** Remove the theme toggle button from `index.html`.
+3.  **Cleanup JS:** Remove theme-switching logic from `main.js`.
+4.  **Final Polish:** Adjust shadows and borders for a "soft" feel.
+5.  **Git Push:** Commit and push the changes.
