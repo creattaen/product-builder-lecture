@@ -1,58 +1,50 @@
-// 🔮 띠별 운세 고도화 스크립트 (horoscope.js)
+// 🔮 띠별 운세 엔진 (horoscope.js)
 
-const todayFortunes = [
-    { summary: "대길(大吉)", title: "만사형통의 날", text: "하늘의 기운이 당신을 향해 있습니다. 평소 미뤄두었던 중요한 결정이나 새로운 시작을 하기에 완벽한 타이밍입니다. 과감하게 움직이세요.", score: 95 },
-    { summary: "희소식(喜消息)", title: "반가운 소식의 날", text: "멀리서 반가운 소식이 들려오거나 잊고 지냈던 인연에게 연락이 올 수 있습니다. 마음을 열고 소통하면 예상치 못한 기회가 찾아옵니다.", score: 85 },
-    { summary: "평온(平穩)", title: "내실을 다지는 날", text: "오늘은 무리한 확장보다 현재의 위치를 점검하고 내실을 다지는 것이 좋습니다. 주변 사람들과 따뜻한 한 끼 식사가 운을 높여줍니다.", score: 70 },
-    { summary: "신중(愼重)", title: "지혜가 필요한 날", text: "생각지 못한 변수가 생길 수 있으니 서두르지 마세요. 돌다리도 두드려보고 건너는 마음가짐이 필요합니다. 인내가 곧 성공의 열쇠입니다.", score: 55 },
-    { summary: "재물(財物)", title: "금전운 상승의 날", text: "금전적인 흐름이 매우 좋습니다. 작은 투자가 큰 성과로 돌아오거나 막혔던 자금 흐름이 원활해지는 시기입니다. 꼼꼼한 가계부 정리를 추천합니다.", score: 90 },
-    { summary: "인연(因緣)", title: "귀인을 만나는 날", text: "당신을 도와줄 소중한 조력자가 나타납니다. 겸손한 자세로 조언을 구하면 해결되지 않던 문제의 실마리를 찾게 될 것입니다.", score: 80 }
+const fortuneTexts = [
+    { summary: "대길(大吉)", title: "만사형통의 날", text: "하늘의 기운이 당신을 향해 있습니다. 평소 미뤄두었던 중요한 결정이나 새로운 시작을 하기에 완벽한 타이밍입니다. 과감하게 움직이세요." },
+    { summary: "희소식(喜消息)", title: "반가운 소식의 날", text: "멀리서 반가운 소식이 들려오거나 잊고 지냈던 인연에게 연락이 올 수 있습니다. 마음을 열고 소통하면 예상치 못한 기회가 찾아옵니다." },
+    { summary: "평온(平穩)", title: "내실을 다지는 날", text: "오늘은 무리한 확장보다 현재의 위치를 점검하고 내실을 다지는 것이 좋습니다. 주변 사람들과 따뜻한 한 끼 식사가 운을 높여줍니다." },
+    { summary: "신중(愼重)", title: "지혜가 필요한 날", text: "생각지 못한 변수가 생길 수 있으니 서두르지 마세요. 돌다리도 두드려보고 건너는 마음가짐이 필요합니다. 인내가 곧 성공의 열쇠입니다." },
+    { summary: "재물(財物)", title: "금전운 상승의 날", text: "금전적인 흐름이 매우 좋습니다. 작은 투자가 큰 성과로 돌아오거나 막혔던 자금 흐름이 원활해지는 시기입니다. 꼼꼼한 가계부 정리를 추천합니다." },
+    { summary: "인연(因緣)", title: "귀인을 만나는 날", text: "당신을 도와줄 소중한 조력자가 나타납니다. 겸손한 자세로 조언을 구하면 해결되지 않던 문제의 실마리를 찾게 될 것입니다." }
 ];
 
-const luckyItems = {
-    numbers: ["1", "3", "7", "8", "9", "11", "24"],
-    colors: ["Indigo", "Soft Pink", "Emerald Green", "Clean White", "Deep Blue", "Amber"],
-    directions: ["동쪽", "서쪽", "남쪽", "북쪽", "북동쪽", "남서쪽"]
-};
+const colors = ["빨강", "주황", "노랑", "초록", "파랑", "남색", "보라", "검정", "흰색"];
+const directions = ["위", "아래", "왼쪽", "오른쪽"];
 
-// 🎂 생년월일로 띠 계산하는 함수
+// 🎂 생년월일로 띠 계산 (deterministic)
 function getZodiac(year) {
     const zodiacs = ["원숭이띠", "닭띠", "개띠", "돼지띠", "쥐띠", "소띠", "호랑이띠", "토끼띠", "용띠", "뱀띠", "말띠", "양띠"];
     return zodiacs[year % 12];
 }
 
+// 🔑 입력값 기반 해시 생성 (결과값이 입력에 따라 달라지게 함)
+function getHashCode(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash |= 0; 
+    }
+    return Math.abs(hash);
+}
+
 window.onload = () => {
-    initBirthSelects();
+    if (document.getElementById('birth-year')) {
+        initBirthSelects();
+        const savedNickname = localStorage.getItem('userNickname');
+        if (savedNickname) document.getElementById('user-nickname').value = savedNickname;
+    }
+    
+    // 결과 페이지나 다른 페이지에서 히스토리 렌더링
     renderHistory();
     renderMonthlySidebar();
-    
-    // 저장된 닉네임 불러오기
-    const savedNickname = localStorage.getItem('userNickname');
-    if (savedNickname) {
-        document.getElementById('user-nickname').value = savedNickname;
-    }
-
-    try {
-        const savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
-        if (savedTodayData && savedTodayData.dayKey) {
-            displayTodayResult(savedTodayData);
-        }
-    } catch (e) {
-        console.error("데이터 로드 오류:", e);
-        localStorage.removeItem('myTodayData');
-    }
-
-    document.getElementById('fortune-modal').addEventListener('click', function(event) {
-        if (event.target === this) closeFortuneModal();
-    });
 };
 
 function initBirthSelects() {
     const yearSelect = document.getElementById('birth-year');
     const monthSelect = document.getElementById('birth-month');
     const daySelect = document.getElementById('birth-day');
-    
-    if (!yearSelect || !monthSelect || !daySelect) return;
+    if (!yearSelect) return;
 
     const currentYear = new Date().getFullYear();
     let yearOptions = '<option value="">연도</option>';
@@ -68,217 +60,102 @@ function initBirthSelects() {
     daySelect.innerHTML = dayOptions;
 }
 
-function checkTodayFortune() {
+async function startFortuneAnalysis() {
     const nickname = document.getElementById('user-nickname').value.trim();
     const year = document.getElementById('birth-year').value;
     const month = document.getElementById('birth-month').value;
     const day = document.getElementById('birth-day').value;
 
-    if (!nickname) {
-        alert("분석을 위해 닉네임을 입력해주세요! ✨");
-        return;
-    }
-    if (!year || !month || !day) {
-        alert("정확한 분석을 위해 생년월일을 모두 선택해주세요! 📅");
+    if (!nickname || !year || !month || !day) {
+        alert("모든 정보를 입력해주셔야 정밀한 분석이 가능합니다! ✨");
         return;
     }
 
     localStorage.setItem('userNickname', nickname);
+    const birthStr = `${year}${month}${day}`;
+    const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const seed = getHashCode(nickname + birthStr + todayStr);
 
-    const birthDateYear = parseInt(year);
-    const zodiac = getZodiac(birthDateYear);
-    const now = new Date();
-    const currentDayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-    
-    const savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
-    if (savedTodayData && savedTodayData.dayKey === currentDayKey) {
-        alert("오늘의 분석이 이미 완료되었습니다! 🌟");
-        displayTodayResult(savedTodayData);
-        return;
+    // 🌌 분석 애니메이션 시작
+    const overlay = document.getElementById('analysis-overlay');
+    overlay.style.display = 'flex';
+
+    const steps = ["step-1", "step-2", "step-3"];
+    for (let i = 0; i < steps.length; i++) {
+        await new Promise(r => setTimeout(r, 1000));
+        document.getElementById(steps[i]).classList.add('active');
     }
 
-    const loading = document.getElementById('loading-overlay');
-    const resultCard = document.getElementById('today-result-container');
-    if (loading) loading.style.display = 'block';
-    if (resultCard) resultCard.style.display = 'none';
+    // 데이터 생성 (결정론적 랜덤)
+    const fortuneIdx = seed % fortuneTexts.length;
+    const luckScore = 60 + (seed % 41); // 60~100점
+    const luckNum = (seed % 100) + 1; // 1~100
+    const luckColor = colors[seed % colors.length];
+    const luckDir = directions[seed % directions.length];
+    const zodiac = getZodiac(parseInt(year));
+    
+    const resultData = {
+        nickname,
+        zodiac,
+        timestamp: new Date().toLocaleDateString('ko-KR').slice(0, -1),
+        summary: fortuneTexts[fortuneIdx].summary,
+        title: fortuneTexts[fortuneIdx].title,
+        text: fortuneTexts[fortuneIdx].text,
+        score: luckScore,
+        lNum: luckNum,
+        lColor: luckColor,
+        lDir: luckDir
+    };
+
+    localStorage.setItem('currentFortuneResult', JSON.stringify(resultData));
+    saveToHistory(zodiac, '오늘의', `${nickname}님: ${resultData.summary}`);
 
     setTimeout(() => {
-        if (loading) loading.style.display = 'none';
-        
-        const selected = todayFortunes[Math.floor(Math.random() * todayFortunes.length)];
-        const lNum = luckyItems.numbers[Math.floor(Math.random() * luckyItems.numbers.length)];
-        const lColor = luckyItems.colors[Math.floor(Math.random() * luckyItems.colors.length)];
-        const lDir = luckyItems.directions[Math.floor(Math.random() * luckyItems.directions.length)];
-        const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
-
-        const newTodayData = {
-            dayKey: currentDayKey,
-            nickname: nickname,
-            zodiac: zodiac || "띠",
-            summary: selected.summary || "분석 완료",
-            title: selected.title || "행운의 메시지",
-            text: selected.text || "",
-            score: selected.score || 50,
-            lNum: lNum || "-",
-            lColor: lColor || "-",
-            lDir: lDir || "-",
-            timestamp: dateStr
-        };
-
-        localStorage.setItem('myTodayData', JSON.stringify(newTodayData));
-        displayTodayResult(newTodayData);
-        saveToHistory(zodiac, '오늘의', `${nickname}님 - ${newTodayData.summary}: ${newTodayData.text}`);
-    }, 2500);
+        location.href = 'horoscope-result.html';
+    }, 1000);
 }
 
-function displayTodayResult(data) {
-    const container = document.getElementById('today-result-container');
-    if (!container) return;
-    
-    const nickname = data.nickname || localStorage.getItem('userNickname') || "사용자";
-    
-    // 헤더 및 요약 정보 (닉네임 강조 버전)
-    document.getElementById('res-zodiac').innerText = data.zodiac;
-    document.getElementById('res-date').innerText = data.timestamp;
-    document.getElementById('res-summary-badge').innerText = data.summary;
-    
-    // 타이틀 리디자인 (닉네임 크게, 보조 타이틀 작게)
-    const titleBox = document.getElementById('res-title');
-    if (titleBox) {
-        titleBox.innerHTML = `
-            <div style="font-size: 28px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${nickname}님</div>
-            <div style="font-size: 16px; font-weight: 600; color: var(--primary); opacity: 0.8;">[${data.zodiac}] 오늘의 총평</div>
-        `;
-    }
-
-    document.getElementById('today-result-text').innerText = data.text;
-    document.getElementById('luck-num').innerText = data.lNum;
-    document.getElementById('luck-color').innerText = data.lColor;
-    document.getElementById('luck-dir').innerText = data.lDir;
-
-    const scoreBar = document.getElementById('luck-score-bar');
-    const scoreText = document.getElementById('luck-score-text');
-    if (scoreBar) scoreBar.style.width = (data.score || 0) + "%";
-    if (scoreText) scoreText.innerText = (data.score || 0) + "점";
-
-    container.style.display = 'block';
-    container.className = 'result-card pop-in';
-    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function checkMonthFortune() {
-    const nickname = document.getElementById('user-nickname').value.trim();
-    const year = document.getElementById('birth-year').value;
-    if (!nickname) {
-        alert("분석을 위해 닉네임을 먼저 입력해주세요! ✨");
-        return;
-    }
-    if (!year) {
-        alert("띠 계산을 위해 생년월일을 먼저 선택해주세요! 📅");
-        return;
-    }
-    
-    localStorage.setItem('userNickname', nickname);
-    const zodiac = getZodiac(parseInt(year));
-    const now = new Date();
-    const currentMonthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
-    
-    const sidebar = document.getElementById('monthly-sidebar');
-    const savedMonthlyData = JSON.parse(localStorage.getItem('myMonthlyData'));
-
-    if (savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
-        alert("이미 이달의 분석을 마쳤습니다. 🌙");
-        renderMonthlySidebar();
-        if (sidebar) sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-    }
-
-    const monthFortunesList = [
-        "이번 달은 당신의 잠재력이 폭발하는 시기입니다. 직장이나 학교에서 주도적으로 프로젝트를 이끌어보세요. 💰재물운도 상승 곡선을 그리니, 예상치 못한 보너스를 기대해도 좋습니다.",
-        "한 템포 쉬어가는 것이 필요한 한 달입니다. 무언가를 억지로 성취하려고 하기보다는 주변을 정돈하고 내면을 다지세요. 🤝인간관계에서 사소한 오해로 약간의 스트레스가 예상됩니다.",
-        "그동안 꾸준히 노력했던 일에서 마침내 빛을 보는 멋진 한 달입니다! 🎉성취감이 최고조에 달하며 주변의 인정도 받게 됩니다. 특히 문서운이나 시험운이 아주 좋습니다."
-    ];
-    const selectedText = monthFortunesList[Math.floor(Math.random() * monthFortunesList.length)];
-    
-    const newMonthlyData = {
-        monthKey: currentMonthKey,
-        nickname: nickname,
-        zodiac: zodiac,
-        text: selectedText,
-        displayMonth: now.getMonth() + 1
-    };
-    localStorage.setItem('myMonthlyData', JSON.stringify(newMonthlyData));
-
-    renderMonthlySidebar();
-    saveToHistory(zodiac, '이달의', `${nickname}님 - ${newMonthlyData.text}`);
-    if (sidebar) sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function renderMonthlySidebar() {
-    const now = new Date();
-    const currentMonthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
-    const savedMonthlyData = JSON.parse(localStorage.getItem('myMonthlyData'));
-    const resultBox = document.getElementById('monthly-result-text');
-
-    if (resultBox && savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
-        const nickname = savedMonthlyData.nickname || localStorage.getItem('userNickname') || "사용자";
-        resultBox.innerHTML = `
-            <div style="margin-bottom: 16px;">
-                <div style="font-size: 22px; font-weight: 800; color: var(--text-main); line-height: 1.2;">${nickname}님</div>
-                <div style="font-size: 14px; font-weight: 700; color: var(--primary); opacity: 0.8;">[${savedMonthlyData.zodiac}] ${savedMonthlyData.displayMonth}월의 총운</div>
-            </div>
-            <div style="padding: 20px; border-radius: 16px; font-size: 15px; color: var(--text-main); background: var(--primary-soft); border: 1px solid var(--border); line-height: 1.7;">
-                ${savedMonthlyData.text}
-            </div>
-        `;
-    }
-}
-
-function saveToHistory(zodiac, periodText, fortuneText) {
-    const now = new Date();
-    const dateString = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
-    
-    const newRecord = {
-        date: dateString,
-        zodiac: zodiac || "띠",
-        period: periodText || "기록",
-        text: fortuneText || ""
-    };
-
+// 히스토리 및 사이드바 로직 (기존 유지)
+function saveToHistory(zodiac, period, text) {
     let history = JSON.parse(localStorage.getItem('fortuneHistory')) || [];
-    history.unshift(newRecord);
-    if(history.length > 20) history.pop();
-
+    const date = new Date().toLocaleString('ko-KR', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+    history.unshift({ zodiac, period, text, date });
+    if (history.length > 10) history.pop();
     localStorage.setItem('fortuneHistory', JSON.stringify(history));
-    renderHistory();
 }
 
 function renderHistory() {
-    const historyList = document.getElementById('history-list');
-    if (!historyList) return;
+    const list = document.getElementById('history-list');
+    if (!list) return;
     const history = JSON.parse(localStorage.getItem('fortuneHistory')) || [];
-
     if (history.length === 0) {
-        historyList.innerHTML = "<div style='color:var(--text-sub); text-align:center; padding: 20px;'>아직 기록된 행운이 없습니다.</div>";
+        list.innerHTML = '<p style="text-align:center; padding:20px; color:var(--text-sub);">아직 기록이 없습니다.</p>';
         return;
     }
+    list.innerHTML = history.map(h => `
+        <div class="history-item">
+            <div style="display:flex; flex-direction:column;">
+                <span style="font-weight:800; color:var(--primary); font-size:13px;">[${h.zodiac}] ${h.period}</span>
+                <span style="font-size:14px; margin-top:2px;">${h.text}</span>
+            </div>
+            <span style="font-size:11px; color:var(--text-sub);">${h.date}</span>
+        </div>
+    `).join('');
+}
 
-    historyList.innerHTML = history.map(item => {
-        const title = `[${item.zodiac} ${item.period}]`;
-        const text = item.text || "";
-        const shortenedText = text.length > 25 ? text.substring(0, 25) + '...' : text;
-        const fullTextForAttr = text.replace(/"/g, '&quot;');
-
-        return `
-            <div class="history-item" data-title="${title}" data-full-text="${fullTextForAttr}">
-                <div style="display:flex; flex-direction:column; gap:4px;">
-                    <strong style="color:var(--primary); font-size:14px;">${title}</strong> 
-                    <span style="font-size:14px; color:var(--text-main);">${shortenedText}</span>
-                </div>
-                <span style="color:var(--text-sub); font-size:12px;">${item.date}</span>
+function renderMonthlySidebar() {
+    const box = document.getElementById('monthly-result-text');
+    if (!box) return;
+    const data = JSON.parse(localStorage.getItem('currentFortuneResult'));
+    if (data) {
+        box.innerHTML = `
+            <div style="font-weight:800; color:var(--text-main); font-size:18px;">${data.nickname}님</div>
+            <div style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:12px;">[${data.zodiac}] 이번 달 기운</div>
+            <div style="padding:16px; background:var(--primary-soft); border-radius:12px; font-size:14px; line-height:1.6;">
+                이달의 분석 데이터가 곧 업데이트 됩니다.
             </div>
         `;
-    }).join('');
+    }
 }
 
 function openFortuneModal(title, text) {

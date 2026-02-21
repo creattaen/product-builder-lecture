@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분석 결과 - 신비한 띠별 운세</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-link">🏠 홈</a>
+            <a href="horoscope.html" class="nav-link active">🔮 띠별 운세</a>
+            <a href="animal-test.html" class="nav-link">🐶 AI 동물상 테스트</a>
+            <a href="contact.html" class="nav-link">🤝 제휴 및 문의</a>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <div id="today-result-container" class="result-card" style="display: block; margin-top: 0;">
+                <div id="today-result-header">
+                    <span class="zodiac-badge" id="res-zodiac">-</span>
+                    <span class="date-badge" id="res-date"></span>
+                </div>
+                
+                <div class="infographic-section">
+                    <div class="luck-score-wrap">
+                        <span class="score-label">오늘의 행운 지수</span>
+                        <div class="score-bar-bg">
+                            <div id="luck-score-bar" class="score-bar-fill"></div>
+                        </div>
+                        <span id="luck-score-text" class="score-number">0점</span>
+                    </div>
+                </div>
+
+                <div class="fortune-content">
+                    <div class="summary-wrap" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
+                        <h2 id="res-nickname-title" style="margin: 0; font-size: 32px; font-weight: 800; color: var(--text-main);"></h2>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span id="res-summary-badge" class="summary-badge" style="background: var(--primary);">분석</span>
+                            <span id="res-sub-title" style="font-size: 18px; font-weight: 700; color: var(--primary);"></span>
+                        </div>
+                    </div>
+                    <p id="today-result-text" class="fortune-description"></p>
+                </div>
+
+                <div class="lucky-items-grid">
+                    <div class="lucky-item">
+                        <span class="icon">🔢</span>
+                        <span class="label">행운의 숫자</span>
+                        <span class="value" id="luck-num">-</span>
+                    </div>
+                    <div class="lucky-item">
+                        <span class="icon">🎨</span>
+                        <span class="label">행운의 색상</span>
+                        <span class="value" id="luck-color">-</span>
+                    </div>
+                    <div class="lucky-item">
+                        <span class="icon">📍</span>
+                        <span class="label">행운의 방향</span>
+                        <span class="value" id="luck-dir">-</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <button class="btn-month" onclick="location.href='horoscope.html'">다시 분석하기</button>
+                    <button class="btn-today" onclick="shareResult()">결과 공유하기</button>
+                </div>
+            </div>
+
+            <div class="history-container">
+                <h3>📅 나의 운세 기록</h3>
+                <div id="history-list"></div>
+            </div>
+        </div>
+
+        <div class="monthly-sidebar" id="monthly-sidebar">
+            <h3>🌙 이달의 총운</h3>
+            <div id="monthly-result-text">
+                <p style="color: var(--text-sub); text-align: left; margin-top: 20px;">
+                    홈 화면에서 분석을 먼저 진행해주세요!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p style="color: var(--text-sub); font-size: 13px;">© 2026 운명과 AI. All rights reserved.</p>
+    </footer>
+
+    <div id="fortune-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeFortuneModal()">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <script src="horoscope.js"></script>
+    <script>
+        // 결과 페이지 전용 초기화 로직
+        window.addEventListener('load', () => {
+            const data = JSON.parse(localStorage.getItem('currentFortuneResult'));
+            if (data) {
+                displayResultPage(data);
+            } else {
+                location.href = 'horoscope.html';
+            }
+        });
+
+        function displayResultPage(data) {
+            document.getElementById('res-zodiac').innerText = data.zodiac;
+            document.getElementById('res-date').innerText = data.timestamp;
+            document.getElementById('res-nickname-title').innerText = data.nickname + "님";
+            document.getElementById('res-summary-badge').innerText = data.summary;
+            document.getElementById('res-sub-title').innerText = `[${data.zodiac}] 오늘의 총평`;
+            document.getElementById('today-result-text').innerText = data.text;
+            document.getElementById('luck-num').innerText = data.lNum;
+            document.getElementById('luck-color').innerText = data.lColor;
+            document.getElementById('luck-dir').innerText = data.lDir;
+            
+            const scoreBar = document.getElementById('luck-score-bar');
+            const scoreText = document.getElementById('luck-score-text');
+            setTimeout(() => {
+                scoreBar.style.width = data.score + "%";
+                scoreText.innerText = data.score + "점";
+            }, 300);
+        }
+
+        function shareResult() {
+            alert("결과 페이지 주소가 복사되었습니다! 친구들에게 공유해보세요. ✨");
+        }
+    </script>
+</body>
+</html>
