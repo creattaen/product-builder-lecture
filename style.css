@@ -80,9 +80,11 @@ main {
 
 /* 💎 타이포그래피 */
 .title-icon {
-    font-size: 48px;
+    font-size: 32px;
     margin-bottom: 24px;
     display: block;
+    color: var(--accent);
+    font-weight: 400;
 }
 
 h1 {

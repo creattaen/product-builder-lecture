@@ -3,60 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>제휴 및 문의 - 신비한 운세</title>
+    <title>CONTACT - DESTINY & AI</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-link">🏠 홈</a>
-            <a href="horoscope.html" class="nav-link">🔮 띠별 운세</a>
-            <a href="animal-test.html" class="nav-link">🐶 AI 동물상 테스트</a>
-            <a href="contact.html" class="nav-link active">🤝 제휴 및 문의</a>
+            <a href="index.html" class="nav-link">HOME</a>
+            <a href="horoscope.html" class="nav-link">FORTUNE</a>
+            <a href="animal-test.html" class="nav-link">AI TEST</a>
+            <a href="contact.html" class="nav-link active">CONTACT</a>
         </div>
     </nav>
 
     <main>
-        <div class="container" style="max-width: 600px;">
-            <h1>🤝 제휴 및 문의</h1>
-            <p style="color: var(--text-sub); margin-bottom: 40px; font-weight: 500;">
-                협업 제안이나 서비스 문의 사항을 남겨주시면<br>전문 담당자가 확인 후 연락드리겠습니다.
-            </p>
+        <div class="container">
+            <span class="title-icon">✉️</span>
+            <h1>제휴 및 문의</h1>
+            <p class="sub-desc">새로운 기회와 협업 제안을 환영합니다.<br>궁금한 점을 남겨주시면 빠르게 답변해 드리겠습니다.</p>
             
-            <div class="contact-page-wrapper">
-                <form action="https://formspree.io/f/xkovqnyn" method="POST">
-                    <div class="input-section" style="max-width: 100%;">
-                        <div class="input-group">
-                            <label>성함 또는 업체명</label>
-                            <input type="text" name="name" class="modern-input" placeholder="이름을 입력해 주세요" required>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label>회신 받을 이메일</label>
-                            <input type="email" name="email" class="modern-input" placeholder="example@email.com" required>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label>문의 내용</label>
-                            <textarea name="message" class="modern-input" rows="8" placeholder="상세한 내용을 입력해 주세요." style="resize: none;" required></textarea>
-                        </div>
+            <form action="https://formspree.io/f/xkovqnyn" method="POST" style="width: 100%;">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label>Name / Company</label>
+                        <input type="text" name="name" class="modern-input" placeholder="성함 또는 업체명" required>
                     </div>
+                    
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" class="modern-input" placeholder="example@email.com" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Message</label>
+                        <textarea name="message" class="modern-input" rows="8" placeholder="상세한 문의 내용을 입력해 주세요." style="resize: none;" required></textarea>
+                    </div>
+                </div>
 
-                    <div style="margin-top: 20px;">
-                        <button type="submit" class="btn-primary">문의 전송하기</button>
-                    </div>
-                </form>
-            </div>
+                <button type="submit" class="btn-primary">문의 전송하기 →</button>
+            </form>
 
             <div style="margin-top: 40px;">
-                <a href="index.html" style="color: var(--text-sub); text-decoration: none; font-size: 14px; font-weight: 700;">← 홈으로 돌아가기</a>
+                <a href="index.html" style="color: var(--text-sub); text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 0.05em;">← BACK TO HOME</a>
             </div>
         </div>
     </main>
 
     <footer class="footer">
-        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+        <p>© 2026 DESTINY & AI. ALL RIGHTS RESERVED.</p>
     </footer>
 
 </body>
