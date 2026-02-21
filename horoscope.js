@@ -1,28 +1,29 @@
 // 🔮 띠별 운세 전용 스크립트 (horoscope.js)
 
 const todayFortunes = [
-    { text: "예상치 못한 곳에서 행운이 찾아옵니다! 주변을 잘 살펴보세요.", type: "color-good" },
-    { text: "오늘은 평범함 속에 행복이 숨어있습니다. 무난하고 평화로운 하루.", type: "color-normal" },
-    { text: "조금 피곤할 수 있는 하루입니다. 무리하지 말고 휴식을 취하세요.", type: "color-bad" },
-    { text: "귀인을 만날 수 있는 날! 새로운 만남을 피하지 마세요.", type: "color-good" },
-    { text: "말실수를 조심해야 하는 날입니다. 한 번 더 생각하고 말하세요.", type: "color-bad" },
-    { text: "금전운이 상승하고 있습니다. 소소한 이득이 생길 수 있어요.", type: "color-good" }
+    { summary: "대길(大吉) - 기분 좋은 행운의 날", text: "예상치 못한 곳에서 소중한 인연이나 행운이 찾아옵니다. 오늘 당신의 직감을 믿고 과감하게 행동해보세요. 주변 사람들과의 대화 속에서 큰 힌트를 얻을 수 있습니다.", type: "color-good" },
+    { summary: "평온(平穩) - 소소한 행복이 깃든 날", text: "오늘은 평범함 속에 행복이 숨어있습니다. 무리하게 일을 추진하기보다 주변을 정리하며 내실을 다지는 시간을 가져보세요. 따뜻한 차 한 잔이 큰 위로가 됩니다.", type: "color-normal" },
+    { summary: "신중(愼重) - 한 템포 쉬어가는 날", text: "조금 피곤할 수 있는 하루입니다. 무리한 일정은 피하고 충분한 휴식을 취하는 것이 좋습니다. 지금의 인내가 조만간 큰 보상으로 돌아올 것입니다.", type: "color-bad" },
+    { summary: "인연(因緣) - 귀인을 만나는 날", text: "귀인을 만날 수 있는 좋은 운의 흐름입니다. 새로운 만남을 주저하지 마세요. 당신의 친절한 태도가 상대방에게 깊은 인상을 남겨 긍정적인 결과로 이어집니다.", type: "color-good" },
+    { summary: "성찰(省察) - 말을 아껴야 하는 날", text: "말실수를 조심해야 하는 날입니다. 특히 가까운 사이일수록 예의를 지키고, 한 번 더 생각한 후 말을 꺼내세요. 침묵이 오히려 득이 되는 순간이 많습니다.", type: "color-bad" },
+    { summary: "재물(財物) - 금전운이 트이는 날", text: "금전운이 상승하고 있습니다. 소소한 이득이 생기거나 계획했던 소비에서 만족감을 얻을 수 있습니다. 투자를 고려 중이라면 오늘은 정보를 모으기에 최적의 날입니다.", type: "color-good" }
 ];
 
-const monthFortunes = [
-    { text: "이번 달은 당신의 잠재력이 폭발하는 시기입니다. 직장이나 학교에서 주도적으로 프로젝트를 이끌어보세요. 💰재물운도 상승 곡선을 그리니, 예상치 못한 보너스나 부수입을 기대해도 좋습니다. 💖애정운 또한 긍정적이어서 새로운 인연이 닿거나 기존 관계가 더욱 깊어질 것입니다. 다만, 너무 바쁘게 움직이다 위장 건강을 해칠 수 있으니 규칙적인 식사를 꼭 챙기세요.", type: "color-good" },
-    { text: "한 템포 쉬어가는 것이 필요한 한 달입니다. 무언가를 억지로 성취하려고 하기보다는 주변을 정돈하고 내면을 다지세요. 🤝인간관계에서 사소한 오해로 약간의 스트레스가 예상되니, 말을 할 때는 한 번 더 생각하는 여유가 필요합니다. 금전적으로는 충동구매를 주의하고 저축에 힘써야 하는 시기입니다. 주말에는 가벼운 산책으로 에너지를 충전하세요.", type: 'color-bad' },
-    { text: "그동안 꾸준히 노력했던 일에서 마침내 빛을 보는 멋진 한 달입니다! 🎉성취감이 최고조에 달하며 주변의 인정도 받게 됩니다. 특히 문서운이나 시험운이 아주 좋으니 중요한 계약이나 자격증 시험을 앞두고 있다면 자신감을 가져도 좋습니다. 건강운도 최상이니 평소 배우고 싶었던 스포츠나 취미 활동을 시작하기에 완벽한 타이밍입니다.", type: "color-good" },
-    { text: "평온하고 안정적인 일상이 지속되는 달입니다. 큰 기복 없이 무난하게 흘러가지만, 자칫 지루함을 느낄 수 있습니다. 이럴 때는 방 구조를 바꾸거나 새로운 스타일의 옷을 시도해 보는 등 소소한 변화를 주면 운기 상승에 큰 도움이 됩니다. 💳지출 관리에만 조금 신경 쓴다면 금전적으로도 여유로운 한 달을 보낼 수 있습니다.", type: "color-normal" },
-    { text: "귀인의 도움이 당신을 향하는 달입니다! 혼자서 해결하기 어려웠던 문제가 있다면 주변의 선배나 지인에게 적극적으로 조언을 구하세요. 💼뜻밖의 기회나 제안이 들어올 수 있으니 마음을 열고 긍정적으로 검토해 보는 것이 좋습니다. 연애운은 천천히 불타오르는 시기이므로 조급해하지 말고 상대방의 페이스에 맞춰주는 배려가 필요합니다.", type: "color-good" }
-];
-
-const jackpotFortune = { text: "✨ 대박 운세 ✨\n우주의 기운이 당신을 돕고 있습니다! 로또를 사거나 평소 망설이던 일에 과감하게 도전해보세요!", type: "color-jackpot" };
+const luckyItems = {
+    numbers: ["1", "3", "7", "8", "9", "11", "24"],
+    colors: ["Indigo", "Soft Pink", "Emerald Green", "Clean White", "Deep Blue", "Amber"],
+    directions: ["동쪽", "서쪽", "남쪽", "북쪽", "북동쪽", "남서쪽"]
+};
 
 window.onload = () => {
     renderHistory();
     renderMonthlySidebar();
-    renderTodayFortune();
+    
+    // 이전에 저장된 결과가 있다면 불러오기
+    const savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
+    if (savedTodayData) {
+        displayTodayResult(savedTodayData);
+    }
 
     document.getElementById('history-list').addEventListener('click', function(event) {
         const historyItem = event.target.closest('.history-item');
@@ -41,51 +42,77 @@ window.onload = () => {
 };
 
 function checkTodayFortune() {
+    const zodiac = document.getElementById('zodiac-select').value;
+    const birthDate = document.getElementById('birth-date').value;
+
+    if (!birthDate) {
+        alert("더 디테일한 분석을 위해 생년월일을 선택해주세요! 📅");
+        return;
+    }
+
     const now = new Date();
     const currentDayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
     
     let savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
-    const container = document.getElementById('today-result-container');
 
     if (savedTodayData && savedTodayData.dayKey === currentDayKey) {
-        alert("이미 오늘의 운세를 확인하셨습니다. 내일 다시 찾아와주세요! 🌟");
-        container.classList.remove('highlight-red');
-        void container.offsetWidth;
-        container.classList.add('highlight-red');
+        alert("이미 오늘의 운세 분석을 마쳤습니다. 내일의 행운을 기대해주세요! 🌟");
+        const container = document.getElementById('today-result-container');
+        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
 
-    const zodiac = document.getElementById('zodiac-select').value;
-    const isJackpot = Math.random() < 0.07;
-    let selected = isJackpot ? jackpotFortune : todayFortunes[Math.floor(Math.random() * todayFortunes.length)];
+    // 분석 중 애니메이션 보여주기
+    const loading = document.getElementById('loading-overlay');
+    const resultCard = document.getElementById('today-result-container');
+    loading.style.display = 'block';
+    resultCard.style.display = 'none';
 
-    const newTodayData = {
-        dayKey: currentDayKey,
-        zodiac: zodiac,
-        text: selected.text,
-        type: selected.type
-    };
-    localStorage.setItem('myTodayData', JSON.stringify(newTodayData));
+    setTimeout(() => {
+        loading.style.display = 'none';
+        
+        const selected = todayFortunes[Math.floor(Math.random() * todayFortunes.length)];
+        const lNum = luckyItems.numbers[Math.floor(Math.random() * luckyItems.numbers.length)];
+        const lColor = luckyItems.colors[Math.floor(Math.random() * luckyItems.colors.length)];
+        const lDir = luckyItems.directions[Math.floor(Math.random() * luckyItems.directions.length)];
 
-    renderTodayFortune();
-    saveToHistory(zodiac, '오늘의', selected.text);
+        const newTodayData = {
+            dayKey: currentDayKey,
+            zodiac: zodiac,
+            birth: birthDate,
+            summary: selected.summary,
+            text: selected.text,
+            type: selected.type,
+            lNum: lNum,
+            lColor: lColor,
+            lDir: lDir,
+            timestamp: `${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`
+        };
+
+        localStorage.setItem('myTodayData', JSON.stringify(newTodayData));
+        displayTodayResult(newTodayData);
+        saveToHistory(zodiac, '오늘의', `${selected.summary}: ${selected.text}`);
+    }, 2000); // 2초간 분석하는 척 함
+}
+
+function displayTodayResult(data) {
+    const container = document.getElementById('today-result-container');
+    
+    document.getElementById('res-zodiac').innerText = data.zodiac;
+    document.getElementById('res-date').innerText = data.timestamp;
+    document.getElementById('res-summary').innerText = data.summary;
+    document.getElementById('today-result-text').innerText = data.text;
+    document.getElementById('luck-num').innerText = data.lNum;
+    document.getElementById('luck-color').innerText = data.lColor;
+    document.getElementById('luck-dir').innerText = data.lDir;
+
+    container.style.display = 'block';
+    container.className = 'result-card pop-in';
+    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function renderTodayFortune() {
-    const now = new Date();
-    const currentDayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-    let savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
-
-    if (savedTodayData && savedTodayData.dayKey === currentDayKey) {
-        const container = document.getElementById('today-result-container');
-        const resultText = document.getElementById('today-result-text');
-        
-        container.className = ''; 
-        void container.offsetWidth; 
-        
-        resultText.innerText = `[${savedTodayData.zodiac} 오늘의 운세]\n\n${savedTodayData.text}`;
-        container.className = `pop-in ${savedTodayData.type}`;
-    }
+    // window.onload에서 이미 처리함
 }
 
 function checkMonthFortune() {
@@ -96,31 +123,30 @@ function checkMonthFortune() {
     let savedMonthlyData = JSON.parse(localStorage.getItem('myMonthlyData'));
 
     if (savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
-        alert("이미 이달의 운세를 확인하셨습니다. (매월 1회만 가능) 🌙");
+        alert("이미 이달의 총운 분석을 마쳤습니다. 🌙");
         sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        sidebar.classList.add('highlight-red');
-        setTimeout(() => sidebar.classList.remove('highlight-red'), 1500);
         return;
     }
 
     const zodiac = document.getElementById('zodiac-select').value;
-    const selected = monthFortunes[Math.floor(Math.random() * monthFortunes.length)];
+    const monthFortunes = [
+        "이번 달은 당신의 잠재력이 폭발하는 시기입니다. 직장이나 학교에서 주도적으로 프로젝트를 이끌어보세요. 💰재물운도 상승 곡선을 그리니, 예상치 못한 보너스를 기대해도 좋습니다.",
+        "한 템포 쉬어가는 것이 필요한 한 달입니다. 무언가를 억지로 성취하려고 하기보다는 주변을 정돈하고 내면을 다지세요. 🤝인간관계에서 사소한 오해로 약간의 스트레스가 예상됩니다.",
+        "그동안 꾸준히 노력했던 일에서 마침내 빛을 보는 멋진 한 달입니다! 🎉성취감이 최고조에 달하며 주변의 인정도 받게 됩니다. 특히 문서운이나 시험운이 아주 좋습니다."
+    ];
+    const selectedText = monthFortunes[Math.floor(Math.random() * monthFortunes.length)];
     
     const newMonthlyData = {
         monthKey: currentMonthKey,
         zodiac: zodiac,
-        text: selected.text,
-        type: selected.type,
+        text: selectedText,
         displayMonth: now.getMonth() + 1
     };
     localStorage.setItem('myMonthlyData', JSON.stringify(newMonthlyData));
 
     renderMonthlySidebar();
-    saveToHistory(zodiac, '이달의', selected.text);
-    
+    saveToHistory(zodiac, '이달의', selectedText);
     sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    sidebar.classList.add('highlight-red');
-    setTimeout(() => sidebar.classList.remove('highlight-red'), 1500);
 }
 
 function renderMonthlySidebar() {
@@ -131,10 +157,10 @@ function renderMonthlySidebar() {
 
     if (savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
         resultBox.innerHTML = `
-            <div style="margin-bottom: 10px; font-weight: bold;">
-                [${savedMonthlyData.zodiac}] ${savedMonthlyData.displayMonth}월의 운세
+            <div style="margin-bottom: 12px; font-weight: 800; color: var(--primary);">
+                [${savedMonthlyData.zodiac}] ${savedMonthlyData.displayMonth}월의 총운
             </div>
-            <div style="padding: 15px; border-radius: 10px; font-size: 15px; background: rgba(128,128,128,0.1);">
+            <div style="padding: 20px; border-radius: 16px; font-size: 15px; color: var(--text-main); background: var(--primary-soft); border: 1px solid var(--border);">
                 ${savedMonthlyData.text}
             </div>
         `;
@@ -165,23 +191,22 @@ function renderHistory() {
     const history = JSON.parse(localStorage.getItem('fortuneHistory')) || [];
 
     if (history.length === 0) {
-        historyList.innerHTML = "<div style='color:#a9a9a9; text-align:center;'>아직 저장된 운세가 없습니다.</div>";
+        historyList.innerHTML = "<div style='color:var(--text-sub); text-align:center; padding: 20px;'>아직 기록된 행운이 없습니다.</div>";
         return;
     }
 
     historyList.innerHTML = history.map(item => {
         const title = `[${item.zodiac} ${item.period}]`;
-        const displayText = item.text.replace('✨ 대박 운세 ✨\n', '✨대박✨ ');
-        const shortenedText = displayText.length > 18 ? displayText.substring(0, 18) + '...' : displayText;
+        const shortenedText = item.text.length > 25 ? item.text.substring(0, 25) + '...' : item.text;
         const fullTextForAttr = item.text.replace(/"/g, '&quot;');
 
         return `
             <div class="history-item" data-title="${title}" data-full-text="${fullTextForAttr}">
-                <div>
-                    <strong>${title}</strong> 
-                    ${shortenedText.split('\n')[0]}
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                    <strong style="color:var(--primary); font-size:14px;">${title}</strong> 
+                    <span style="font-size:14px; color:var(--text-main);">${shortenedText}</span>
                 </div>
-                <span class="date">${item.date}</span>
+                <span style="color:var(--text-sub); font-size:12px;">${item.date}</span>
             </div>
         `;
     }).join('');

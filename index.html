@@ -20,30 +20,65 @@
             <h1>오늘의 행운을<br>확인해보세요 🔮</h1>
             
             <div class="controls">
-                <h3>띠를 선택해주세요</h3>
-                <select id="zodiac-select">
-                    <option value="쥐띠">🐭 쥐띠</option>
-                    <option value="소띠">🐮 소띠</option>
-                    <option value="호랑이띠">🐯 호랑이띠</option>
-                    <option value="토끼띠">🐰 토끼띠</option>
-                    <option value="용띠">🐲 용띠</option>
-                    <option value="뱀띠">🐍 뱀띠</option>
-                    <option value="말띠">🐴 말띠</option>
-                    <option value="양띠">🐑 양띠</option>
-                    <option value="원숭이띠">🐵 원숭이띠</option>
-                    <option value="닭띠">🐔 닭띠</option>
-                    <option value="개띠">🐶 개띠</option>
-                    <option value="돼지띠">🐷 돼지띠</option>
-                </select>
+                <div class="input-section">
+                    <div class="input-group">
+                        <label>나의 띠 선택</label>
+                        <select id="zodiac-select">
+                            <option value="쥐띠">🐭 쥐띠</option>
+                            <option value="소띠">🐮 소띠</option>
+                            <option value="호랑이띠">🐯 호랑이띠</option>
+                            <option value="토끼띠">🐰 토끼띠</option>
+                            <option value="용띠">🐲 용띠</option>
+                            <option value="뱀띠">🐍 뱀띠</option>
+                            <option value="말띠">🐴 말띠</option>
+                            <option value="양띠">🐑 양띠</option>
+                            <option value="원숭이띠">🐵 원숭이띠</option>
+                            <option value="닭띠">🐔 닭띠</option>
+                            <option value="개띠">🐶 개띠</option>
+                            <option value="돼지띠">🐷 돼지띠</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>태어난 날짜</label>
+                        <input type="date" id="birth-date" class="modern-input">
+                    </div>
+                </div>
 
                 <div class="btn-group">
-                    <button class="btn-today" onclick="checkTodayFortune()">오늘의 운세</button>
-                    <button class="btn-month" onclick="checkMonthFortune()">이달의 운세</button>
+                    <button class="btn-today" onclick="checkTodayFortune()">오늘의 운세 분석</button>
+                    <button class="btn-month" onclick="checkMonthFortune()">이달의 총운</button>
                 </div>
             </div>
 
-            <div id="today-result-container">
-                <div id="today-result-text">띠를 선택하고 운세를 확인해보세요!</div>
+            <!-- 분석 중 로딩 UI -->
+            <div id="loading-overlay" class="loading-wrap" style="display: none;">
+                <div class="spinner"></div>
+                <p>생년월일과 기운을 분석 중입니다...</p>
+            </div>
+
+            <div id="today-result-container" class="result-card">
+                <div id="today-result-header">
+                    <span class="zodiac-badge" id="res-zodiac">쥐띠</span>
+                    <span class="date-badge" id="res-date">2026.02.21</span>
+                </div>
+                <div class="fortune-content">
+                    <h2 id="res-summary">대길(大吉) - 만사형통의 날</h2>
+                    <p id="today-result-text">띠를 선택하고 운세를 확인해보세요!</p>
+                </div>
+                <div class="lucky-items-grid">
+                    <div class="lucky-item">
+                        <span class="label">행운의 숫자</span>
+                        <span class="value" id="luck-num">7</span>
+                    </div>
+                    <div class="lucky-item">
+                        <span class="label">행운의 색상</span>
+                        <span class="value" id="luck-color">Indigo</span>
+                    </div>
+                    <div class="lucky-item">
+                        <span class="label">행운의 방향</span>
+                        <span class="value" id="luck-dir">동쪽</span>
+                    </div>
+                </div>
             </div>
 
             <div class="history-container">

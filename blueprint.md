@@ -1,26 +1,28 @@
-# 🔮 신비한 운세 & AI 테스트 - Blueprint (Modern UI)
+# 🔮 신비한 운세 & AI 테스트 - Blueprint (Personalized UI)
 
 ## Overview
 
-A premium web application featuring a modern, trendy aesthetic inspired by contemporary design systems. It focuses on high-quality typography, whitespace, and subtle depth effects.
+A premium web application featuring a modern, trendy aesthetic. Now enhanced with personalized data inputs (Birthdate) and a sophisticated result UI to improve user trust and engagement.
 
-## UI Overhaul Goals
+## New Feature: Personalized Horoscope (Current Plan)
 
-*   **Typography:** Adopt "Pretendard" and "Inter" for a clean, professional look.
-*   **Aesthetics:** Use a mix of soft glassmorphism, large border radiuses (32px+), and vibrant yet soft gradients.
-*   **Micro-interactions:** Add smooth hover effects, scale animations, and refined transitions.
-*   **Color Palette:** Vibrant purples, soft pinks, and clean whites with high contrast for readability.
+1.  **Personalized Input:** Added a birthdate selector to provide tailored fortune readings.
+2.  **Rich Result UI:** Replaced plain text with a structured "Fortune Card" including:
+    *   **Summary Badge:** Overall luck rating.
+    *   **Personalized Message:** Content tailored to the user's age/zodiac.
+    *   **Lucky Items Section:** Visual badges for Lucky Color, Number, and Direction.
+3.  **Trust Enhancements:** Added a "Data Analysis" phase UI to simulate real-time calculation.
 
 ## Implemented Features
 
-*   **Zodiac Selection:** Modernized dropdown and selection cards.
-*   **AI Animal Look Test:** Clean upload area with glassmorphism results.
-*   **Multi-Page Navigation:** Sleek sticky navbar.
-*   **Persistence & Community:** Retained history and Disqus integration.
+*   **Modern UI Redesign:** Glassmorphism and high-quality typography.
+*   **Zodiac Selection:** Standardized for 12 signs.
+*   **AI Animal Look Test:** Independent specialized page.
+*   **Community & Contact:** Integrated Disqus and Formspree.
 
 ## Current Plan
 
-1.  **Total Style Redesign:** Overwrite `style.css` with a modern design system.
-2.  **Typography Integration:** Import premium web fonts.
-3.  **Component Polishing:** Redesign buttons, cards, and inputs for a "trendy" feel.
-4.  **Deployment:** Deploy the updated UI.
+1.  **UI Redesign (Today's Fortune):** Create a rich card-based result display in `index.html` and `style.css`.
+2.  **Personalization Logic:** Update `horoscope.js` to handle birthdate and generate structured results.
+3.  **UX Polish:** Add a "Calculating..." loading state.
+4.  **Git Push:** Deploy.
