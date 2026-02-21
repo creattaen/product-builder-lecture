@@ -26,9 +26,15 @@ window.onload = () => {
     renderHistory();
     renderMonthlySidebar();
     
-    const savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
-    if (savedTodayData) {
-        displayTodayResult(savedTodayData);
+    // 이전에 저장된 결과 로드 시 undefined 체크
+    try {
+        const savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
+        if (savedTodayData && savedTodayData.dayKey) {
+            displayTodayResult(savedTodayData);
+        }
+    } catch (e) {
+        console.error("데이터 로드 오류:", e);
+        localStorage.removeItem('myTodayData');
     }
 
     document.getElementById('fortune-modal').addEventListener('click', function(event) {
@@ -36,7 +42,6 @@ window.onload = () => {
     });
 };
 
-// 생년월일 셀렉트 박스 초기화
 function initBirthSelects() {
     const yearSelect = document.getElementById('birth-year');
     const monthSelect = document.getElementById('birth-month');
@@ -45,26 +50,16 @@ function initBirthSelects() {
     if (!yearSelect || !monthSelect || !daySelect) return;
 
     const currentYear = new Date().getFullYear();
-    
-    // 연도 (1920 ~ 현재)
     let yearOptions = '<option value="">연도</option>';
-    for (let i = currentYear; i >= 1920; i--) {
-        yearOptions += `<option value="${i}">${i}년</option>`;
-    }
+    for (let i = currentYear; i >= 1920; i--) yearOptions += `<option value="${i}">${i}년</option>`;
     yearSelect.innerHTML = yearOptions;
 
-    // 월 (1 ~ 12)
     let monthOptions = '<option value="">월</option>';
-    for (let i = 1; i <= 12; i++) {
-        monthOptions += `<option value="${i}">${i}월</option>`;
-    }
+    for (let i = 1; i <= 12; i++) monthOptions += `<option value="${i}">${i}월</option>`;
     monthSelect.innerHTML = monthOptions;
 
-    // 일 (1 ~ 31)
     let dayOptions = '<option value="">일</option>';
-    for (let i = 1; i <= 31; i++) {
-        dayOptions += `<option value="${i}">${i}일</option>`;
-    }
+    for (let i = 1; i <= 31; i++) dayOptions += `<option value="${i}">${i}일</option>`;
     daySelect.innerHTML = dayOptions;
 }
 
@@ -78,12 +73,12 @@ function checkTodayFortune() {
         return;
     }
 
-    const zodiac = getZodiac(parseInt(year));
+    const birthDateYear = parseInt(year);
+    const zodiac = getZodiac(birthDateYear);
     const now = new Date();
     const currentDayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
     
-    let savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
-
+    const savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
     if (savedTodayData && savedTodayData.dayKey === currentDayKey) {
         alert("오늘의 분석이 이미 완료되었습니다! 🌟");
         displayTodayResult(savedTodayData);
@@ -92,57 +87,61 @@ function checkTodayFortune() {
 
     const loading = document.getElementById('loading-overlay');
     const resultCard = document.getElementById('today-result-container');
-    loading.style.display = 'block';
-    resultCard.style.display = 'none';
+    if (loading) loading.style.display = 'block';
+    if (resultCard) resultCard.style.display = 'none';
 
     setTimeout(() => {
-        loading.style.display = 'none';
+        if (loading) loading.style.display = 'none';
         
         const selected = todayFortunes[Math.floor(Math.random() * todayFortunes.length)];
         const lNum = luckyItems.numbers[Math.floor(Math.random() * luckyItems.numbers.length)];
         const lColor = luckyItems.colors[Math.floor(Math.random() * luckyItems.colors.length)];
         const lDir = luckyItems.directions[Math.floor(Math.random() * luckyItems.directions.length)];
-        
-        // 날짜 표기에서 괄호() 제거 및 포맷 최적화
         const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
 
         const newTodayData = {
             dayKey: currentDayKey,
-            zodiac: zodiac,
-            summary: selected.summary,
-            title: selected.title,
-            text: selected.text,
-            score: selected.score,
-            lNum: lNum,
-            lColor: lColor,
-            lDir: lDir,
+            zodiac: zodiac || "띠",
+            summary: selected.summary || "분석 완료",
+            title: selected.title || "행운의 메시지",
+            text: selected.text || "",
+            score: selected.score || 50,
+            lNum: lNum || "-",
+            lColor: lColor || "-",
+            lDir: lDir || "-",
             timestamp: dateStr
         };
 
         localStorage.setItem('myTodayData', JSON.stringify(newTodayData));
         displayTodayResult(newTodayData);
-        saveToHistory(zodiac, '오늘의', `${selected.summary}: ${selected.text}`);
+        saveToHistory(zodiac, '오늘의', `${newTodayData.summary}: ${newTodayData.text}`);
     }, 2500);
 }
 
 function displayTodayResult(data) {
     const container = document.getElementById('today-result-container');
+    if (!container) return;
     
-    document.getElementById('res-zodiac').innerText = data.zodiac;
-    document.getElementById('res-date').innerText = data.timestamp;
-    document.getElementById('res-summary-badge').innerText = data.summary;
-    document.getElementById('res-title').innerText = data.title;
-    document.getElementById('today-result-text').innerText = data.text;
-    document.getElementById('luck-num').innerText = data.lNum;
-    document.getElementById('luck-color').innerText = data.lColor;
-    document.getElementById('luck-dir').innerText = data.lDir;
+    // 모든 필드에 대한 안전한 접근 (undefined 방지)
+    const elements = {
+        'res-zodiac': data.zodiac,
+        'res-date': data.timestamp,
+        'res-summary-badge': data.summary,
+        'res-title': data.title,
+        'today-result-text': data.text,
+        'luck-num': data.lNum,
+        'luck-color': data.lColor,
+        'luck-dir': data.lDir,
+        'luck-score-text': (data.score || 0) + "점"
+    };
+
+    for (const [id, value] of Object.entries(elements)) {
+        const el = document.getElementById(id);
+        if (el) el.innerText = value || "-";
+    }
 
     const scoreBar = document.getElementById('luck-score-bar');
-    const scoreText = document.getElementById('luck-score-text');
-    if (scoreBar && scoreText) {
-        scoreBar.style.width = data.score + "%";
-        scoreText.innerText = data.score + "점";
-    }
+    if (scoreBar) scoreBar.style.width = (data.score || 0) + "%";
 
     container.style.display = 'block';
     container.className = 'result-card pop-in';
@@ -156,17 +155,16 @@ function checkMonthFortune() {
         return;
     }
     const zodiac = getZodiac(parseInt(year));
-
     const now = new Date();
     const currentMonthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
     
     const sidebar = document.getElementById('monthly-sidebar');
-    let savedMonthlyData = JSON.parse(localStorage.getItem('myMonthlyData'));
+    const savedMonthlyData = JSON.parse(localStorage.getItem('myMonthlyData'));
 
     if (savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
         alert("이미 이달의 분석을 마쳤습니다. 🌙");
         renderMonthlySidebar();
-        sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (sidebar) sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
 
@@ -179,30 +177,30 @@ function checkMonthFortune() {
     
     const newMonthlyData = {
         monthKey: currentMonthKey,
-        zodiac: zodiac,
-        text: selectedText,
+        zodiac: zodiac || "띠",
+        text: selectedText || "분석 결과를 불러올 수 없습니다.",
         displayMonth: now.getMonth() + 1
     };
     localStorage.setItem('myMonthlyData', JSON.stringify(newMonthlyData));
 
     renderMonthlySidebar();
-    saveToHistory(zodiac, '이달의', selectedText);
-    sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    saveToHistory(newMonthlyData.zodiac, '이달의', newMonthlyData.text);
+    if (sidebar) sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function renderMonthlySidebar() {
     const now = new Date();
     const currentMonthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
-    let savedMonthlyData = JSON.parse(localStorage.getItem('myMonthlyData'));
+    const savedMonthlyData = JSON.parse(localStorage.getItem('myMonthlyData'));
     const resultBox = document.getElementById('monthly-result-text');
 
-    if (savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
+    if (resultBox && savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
         resultBox.innerHTML = `
             <div style="margin-bottom: 12px; font-weight: 800; color: var(--primary);">
-                [${savedMonthlyData.zodiac}] ${savedMonthlyData.displayMonth}월의 총운
+                [${savedMonthlyData.zodiac || "분석"}] ${savedMonthlyData.displayMonth || (now.getMonth()+1)}월의 총운
             </div>
             <div style="padding: 20px; border-radius: 16px; font-size: 15px; color: var(--text-main); background: var(--primary-soft); border: 1px solid var(--border);">
-                ${savedMonthlyData.text}
+                ${savedMonthlyData.text || ""}
             </div>
         `;
     }
@@ -210,14 +208,13 @@ function renderMonthlySidebar() {
 
 function saveToHistory(zodiac, periodText, fortuneText) {
     const now = new Date();
-    // 기록 저장 시에도 괄호() 제거
     const dateString = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
     
     const newRecord = {
         date: dateString,
-        zodiac: zodiac,
-        period: periodText,
-        text: fortuneText
+        zodiac: zodiac || "띠",
+        period: periodText || "기록",
+        text: fortuneText || ""
     };
 
     let history = JSON.parse(localStorage.getItem('fortuneHistory')) || [];
@@ -230,6 +227,7 @@ function saveToHistory(zodiac, periodText, fortuneText) {
 
 function renderHistory() {
     const historyList = document.getElementById('history-list');
+    if (!historyList) return;
     const history = JSON.parse(localStorage.getItem('fortuneHistory')) || [];
 
     if (history.length === 0) {
@@ -238,9 +236,10 @@ function renderHistory() {
     }
 
     historyList.innerHTML = history.map(item => {
-        const title = `[${item.zodiac} ${item.period}]`;
-        const shortenedText = item.text.length > 25 ? item.text.substring(0, 25) + '...' : item.text;
-        const fullTextForAttr = item.text.replace(/"/g, '&quot;');
+        const title = `[${item.zodiac || "띠"} ${item.period || "기록"}]`;
+        const text = item.text || "";
+        const shortenedText = text.length > 25 ? text.substring(0, 25) + '...' : text;
+        const fullTextForAttr = text.replace(/"/g, '&quot;');
 
         return `
             <div class="history-item" data-title="${title}" data-full-text="${fullTextForAttr}">
@@ -248,7 +247,7 @@ function renderHistory() {
                     <strong style="color:var(--primary); font-size:14px;">${title}</strong> 
                     <span style="font-size:14px; color:var(--text-main);">${shortenedText}</span>
                 </div>
-                <span style="color:var(--text-sub); font-size:12px;">${item.date}</span>
+                <span style="color:var(--text-sub); font-size:12px;">${item.date || ""}</span>
             </div>
         `;
     }).join('');
@@ -256,12 +255,14 @@ function renderHistory() {
 
 function openFortuneModal(title, text) {
     const modal = document.getElementById('fortune-modal');
-    document.getElementById('modal-title').innerText = title;
-    document.getElementById('modal-text').innerText = text;
-    modal.style.display = 'flex';
+    if (modal) {
+        document.getElementById('modal-title').innerText = title || "기록 보기";
+        document.getElementById('modal-text').innerText = text || "";
+        modal.style.display = 'flex';
+    }
 }
 
 function closeFortuneModal() {
     const modal = document.getElementById('fortune-modal');
-    modal.style.display = 'none';
+    if (modal) modal.style.display = 'none';
 }
