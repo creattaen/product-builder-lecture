@@ -1,4 +1,5 @@
-// 🔮 오늘의 운세
+// 🔮 띠별 운세 전용 스크립트 (horoscope.js)
+
 const todayFortunes = [
     { text: "예상치 못한 곳에서 행운이 찾아옵니다! 주변을 잘 살펴보세요.", type: "color-good" },
     { text: "오늘은 평범함 속에 행복이 숨어있습니다. 무난하고 평화로운 하루.", type: "color-normal" },
@@ -8,7 +9,6 @@ const todayFortunes = [
     { text: "금전운이 상승하고 있습니다. 소소한 이득이 생길 수 있어요.", type: "color-good" }
 ];
 
-// 🌙 이달의 운세
 const monthFortunes = [
     { text: "이번 달은 당신의 잠재력이 폭발하는 시기입니다. 직장이나 학교에서 주도적으로 프로젝트를 이끌어보세요. 💰재물운도 상승 곡선을 그리니, 예상치 못한 보너스나 부수입을 기대해도 좋습니다. 💖애정운 또한 긍정적이어서 새로운 인연이 닿거나 기존 관계가 더욱 깊어질 것입니다. 다만, 너무 바쁘게 움직이다 위장 건강을 해칠 수 있으니 규칙적인 식사를 꼭 챙기세요.", type: "color-good" },
     { text: "한 템포 쉬어가는 것이 필요한 한 달입니다. 무언가를 억지로 성취하려고 하기보다는 주변을 정돈하고 내면을 다지세요. 🤝인간관계에서 사소한 오해로 약간의 스트레스가 예상되니, 말을 할 때는 한 번 더 생각하는 여유가 필요합니다. 금전적으로는 충동구매를 주의하고 저축에 힘써야 하는 시기입니다. 주말에는 가벼운 산책으로 에너지를 충전하세요.", type: 'color-bad' },
@@ -18,11 +18,6 @@ const monthFortunes = [
 ];
 
 const jackpotFortune = { text: "✨ 대박 운세 ✨\n우주의 기운이 당신을 돕고 있습니다! 로또를 사거나 평소 망설이던 일에 과감하게 도전해보세요!", type: "color-jackpot" };
-
-// 🐶 동물상 AI 모델 (실제 Teachable Machine URL)
-const MODEL_URL = "https://teachablemachine.withgoogle.com/models/oFwbTa7Ck/"; 
-
-let model;
 
 window.onload = () => {
     renderHistory();
@@ -45,95 +40,6 @@ window.onload = () => {
     });
 };
 
-// --- 동물상 테스트 로직 ---
-async function handleImageUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-        const img = document.getElementById('face-image');
-        img.src = e.target.result;
-        img.style.display = 'block';
-        document.getElementById('upload-label').style.display = 'none';
-        
-        await predictAnimalLook(img);
-    };
-    reader.readAsDataURL(file);
-}
-
-async function predictAnimalLook(imageElement) {
-    document.getElementById('loading-area').style.display = 'block';
-    document.getElementById('result-area').style.display = 'none';
-
-    try {
-        // 모델 로드 (한 번만 로드하도록 최적화 가능)
-        if (!model) {
-            model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
-        }
-        
-        // 예측 수행
-        const prediction = await model.predict(imageElement);
-        
-        // 결과 처리 (강아지, 고양이 클래스 매핑)
-        let dogProb = 0;
-        let catProb = 0;
-
-        prediction.forEach(p => {
-            if (p.className.includes("강아지") || p.className.toLowerCase().includes("dog")) {
-                dogProb = p.probability * 100;
-            } else if (p.className.includes("고양이") || p.className.toLowerCase().includes("cat")) {
-                catProb = p.probability * 100;
-            }
-        });
-
-        // 결과 표시
-        displayResults(dogProb, catProb);
-
-    } catch (error) {
-        console.error("AI 분석 중 오류 발생:", error);
-        alert("분석 중 오류가 발생했습니다. 얼굴이 선명한 다른 사진으로 시도해 주세요.");
-        retryTest();
-    }
-}
-
-function displayResults(dog, cat) {
-    document.getElementById('loading-area').style.display = 'none';
-    document.getElementById('result-area').style.display = 'block';
-
-    const dogBar = document.getElementById('dog-bar');
-    const catBar = document.getElementById('cat-bar');
-    const dogPercent = document.getElementById('dog-percent');
-    const catPercent = document.getElementById('cat-percent');
-    const resultMsg = document.getElementById('result-message');
-
-    // 바 애니메이션
-    setTimeout(() => {
-        dogBar.style.width = dog + "%";
-        catBar.style.width = cat + "%";
-        dogPercent.innerText = Math.round(dog) + "%";
-        catPercent.innerText = Math.round(cat) + "%";
-    }, 100);
-
-    if (dog > cat) {
-        resultMsg.innerText = `당신은 귀여운 '강아지상' 이시네요! (확률: ${Math.round(dog)}%) 🐶`;
-    } else if (cat > dog) {
-        resultMsg.innerText = `당신은 도도한 '고양이상' 이시네요! (확률: ${Math.round(cat)}%) 🐱`;
-    } else {
-        resultMsg.innerText = "당신은 강아지와 고양이를 모두 닮은 매력적인 얼굴이시네요! ✨";
-    }
-}
-
-function retryTest() {
-    document.getElementById('face-image').src = "";
-    document.getElementById('face-image').style.display = 'none';
-    document.getElementById('upload-label').style.display = 'block';
-    document.getElementById('result-area').style.display = 'none';
-    document.getElementById('loading-area').style.display = 'none';
-    document.getElementById('file-input').value = "";
-}
-
-// --- 기존 운세 로직 ---
 function checkTodayFortune() {
     const now = new Date();
     const currentDayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;

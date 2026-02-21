@@ -19,10 +19,40 @@ body {
     color: var(--text-color);
     text-align: center;
     margin: 0;
-    padding: 20px;
+    padding: 0; /* Updated: Navbar handles padding */
     overflow-x: hidden;
     line-height: 1.6;
 }
+
+/* 🧭 네비게이션 바 */
+.navbar {
+    background: var(--container-bg);
+    padding: 15px 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+}
+
+.nav-link:hover { color: var(--accent-color); }
+.nav-link.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
 /* 🌟 전체 레이아웃 */
 .page-wrapper {
@@ -33,6 +63,7 @@ body {
     max-width: 1100px;
     margin: 40px auto;
     flex-wrap: wrap;
+    padding: 0 20px;
 }
 
 .container {
@@ -53,7 +84,7 @@ body {
     border-radius: 30px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.05);
     position: sticky;
-    top: 40px;
+    top: 100px; /* Adjusted for navbar */
     border: 1px solid var(--border-color);
     text-align: left;
 }
@@ -81,6 +112,8 @@ h1 {
 
 /* 컨트롤 및 버튼 */
 .controls { margin-bottom: 30px; }
+.controls h3 { color: var(--accent-color); font-size: 20px; margin-bottom: 15px; }
+
 select {
     padding: 14px;
     font-size: 16px;
@@ -454,6 +487,9 @@ select:focus { border-color: var(--accent-color); }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
 @media (max-width: 800px) {
+    .navbar { padding: 10px 0; }
+    .nav-container { gap: 15px; }
+    .nav-link { font-size: 14px; }
     .page-wrapper { margin: 20px auto; }
-    .monthly-sidebar { width: 100%; position: static; }
+    .monthly-sidebar { width: 100%; position: static; margin-top: 20px; }
 }

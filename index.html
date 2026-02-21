@@ -3,57 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔮 신비한 띠별 운세 & 동물상 테스트 🔮</title>
+    <title>🔮 신비한 띠별 운세 🔮</title>
     <link rel="stylesheet" href="style.css">
-    <!-- TensorFlow.js and Teachable Machine -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
 
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-link active">🔮 띠별 운세</a>
+            <a href="animal-test.html" class="nav-link">🐶 AI 동물상 테스트</a>
+        </div>
+    </nav>
+
     <div class="page-wrapper">
         <div class="container">
-            <h1>🔮 신비한 운세 & AI 테스트 🔮</h1>
+            <h1>🔮 신비한 띠별 운세 🔮</h1>
             
-            <!-- 🐶 동물상 테스트 섹션 -->
-            <div class="animal-test-container">
-                <h3>🐶 AI 동물상 테스트 (강아지 vs 고양이)</h3>
-                <p class="test-desc">얼굴 사진을 올려보세요. AI가 당신의 동물상을 분석합니다!</p>
-                
-                <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
-                    <div id="upload-label">
-                        <span class="upload-icon">📸</span>
-                        <p>사진을 클릭하거나 드래그하여 업로드</p>
-                    </div>
-                    <img id="face-image" src="" alt="Face Image" style="display: none;">
-                    <input type="file" id="file-input" accept="image/*" onchange="handleImageUpload(event)" style="display: none;">
-                </div>
-
-                <div id="loading-area" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>AI가 분석 중입니다...</p>
-                </div>
-
-                <div id="result-area" style="display: none;">
-                    <div class="result-message" id="result-message"></div>
-                    <div class="bar-container">
-                        <div class="bar-item">
-                            <span>강아지상</span>
-                            <div class="progress-bg"><div id="dog-bar" class="progress-fill dog-color"></div></div>
-                            <span id="dog-percent">0%</span>
-                        </div>
-                        <div class="bar-item">
-                            <span>고양이상</span>
-                            <div class="progress-bg"><div id="cat-bar" class="progress-fill cat-color"></div></div>
-                            <span id="cat-percent">0%</span>
-                        </div>
-                    </div>
-                    <button class="btn-retry" onclick="retryTest()">다시 하기</button>
-                </div>
-            </div>
-
             <div class="controls">
-                <h3>📅 띠별 운세 확인</h3>
+                <h3>📅 나의 띠 선택</h3>
                 <select id="zodiac-select">
                     <option value="쥐띠">🐭 쥐띠</option>
                     <option value="소띠">🐮 소띠</option>
@@ -139,6 +106,6 @@
         </div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="horoscope.js"></script>
 </body>
 </html>

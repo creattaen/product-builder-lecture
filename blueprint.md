@@ -1,28 +1,32 @@
-# 🔮 신비한 띠별 운세 & 동물상 테스트 🔮 - Blueprint
+# 🔮 신비한 운세 & AI 테스트 - Blueprint (Multi-Page)
 
 ## Overview
 
-A polished web application that combines traditional horoscope readings with modern AI technology. It offers daily/monthly fortunes and an AI-powered "Animal Look Test" to classify users as "Puppy" or "Cat" looks based on their photos.
+The application is split into two distinct specialized pages: a traditional Horoscope service and an AI-powered Animal Look Test. Both share a consistent soft-bright mystical aesthetic.
 
-## Implemented Features
+## Page 1: 🔮 띠별 운세 (index.html)
 
-*   **Zodiac Selection:** Dropdown for selecting zodiac signs.
-*   **Persistent Fortunes:** Daily and monthly readings saved in LocalStorage.
-*   **Fortune History:** Detailed history view via modal.
-*   **Soft & Bright Mystical Theme:** Unified, elegant design.
-*   **Disqus Community:** Integrated comments.
-*   **Collapsible Partnership Form:** Formspree-powered contact form.
-*   **Mobile UX:** Auto-scroll and responsive layout.
+*   **Zodiac Selection:** 12 zodiac signs.
+*   **Daily/Monthly Fortunes:** Persistent readings using LocalStorage.
+*   **History:** Detailed history modal.
+*   **Community:** Disqus comments & Contact form.
 
-## New Feature: AI Animal Look Test (Current Plan)
+## Page 2: 🐶 AI 동물상 테스트 (animal-test.html)
 
-1.  **Image Upload UI:** Drag-and-drop or file selection area for user photos.
-2.  **AI Analysis logic:** Integration with TensorFlow.js and a classification model (Teachable Machine).
-3.  **Result Display:** Visually appealing result cards showing the percentage of "Puppy" vs "Cat" look.
-4.  **Refinement:** Ensure the UI matches the existing soft-bright theme.
+*   **AI Analysis:** Puppy vs Cat classification using Teachable Machine.
+*   **Interactive UI:** Image upload, progress bars, and custom results.
+*   **Community:** Disqus comments & Contact form.
 
-**Steps:**
-1.  **Update HTML:** Add the test section and include TensorFlow.js/Teachable Machine libraries.
-2.  **Update CSS:** Style the upload box, image preview, and result progress bars.
-3.  **Update JS:** Implement image handling and model prediction logic.
-4.  **Git Push:** Deploy the new feature.
+## Shared Components
+
+*   **Design:** Unified soft-bright mystical theme (`style.css`).
+*   **Navigation:** Top navigation bar to switch between Fortune and AI Test.
+*   **Integrations:** Disqus and Formspree available on both pages.
+
+## Current Plan
+
+1.  **Refactor Structure:** Split `index.html` and create `animal-test.html`.
+2.  **Split Logic:** Create `horoscope.js` and `animal.js`.
+3.  **Navigation UI:** Add a navigation bar to both pages.
+4.  **Final Polish:** Ensure both pages are fully functional and responsive.
+5.  **Git Push:** Deploy the separated pages.

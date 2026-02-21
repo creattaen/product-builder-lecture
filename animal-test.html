@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐶 AI 동물상 테스트 🐱</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- TensorFlow.js and Teachable Machine -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-link">🔮 띠별 운세</a>
+            <a href="animal-test.html" class="nav-link active">🐶 AI 동물상 테스트</a>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <h1>🐶 AI 동물상 테스트 🐱</h1>
+            
+            <div class="animal-test-container">
+                <h3>🐾 당신의 동물상은?</h3>
+                <p class="test-desc">얼굴 사진을 업로드하면 AI가 강아지상인지 고양이상인지 분석해 드립니다!</p>
+                
+                <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
+                    <div id="upload-label">
+                        <span class="upload-icon">📸</span>
+                        <p>사진을 클릭하거나 드래그하여 업로드</p>
+                    </div>
+                    <img id="face-image" src="" alt="Face Image" style="display: none;">
+                    <input type="file" id="file-input" accept="image/*" onchange="handleImageUpload(event)" style="display: none;">
+                </div>
+
+                <div id="loading-area" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>AI가 당신의 얼굴을 분석하고 있습니다...</p>
+                </div>
+
+                <div id="result-area" style="display: none;">
+                    <div class="result-message" id="result-message"></div>
+                    <div class="bar-container">
+                        <div class="bar-item">
+                            <span>강아지상</span>
+                            <div class="progress-bg"><div id="dog-bar" class="progress-fill dog-color"></div></div>
+                            <span id="dog-percent">0%</span>
+                        </div>
+                        <div class="bar-item">
+                            <span>고양이상</span>
+                            <div class="progress-bg"><div id="cat-bar" class="progress-fill cat-color"></div></div>
+                            <span id="cat-percent">0%</span>
+                        </div>
+                    </div>
+                    <button class="btn-retry" onclick="retryTest()">다시 하기</button>
+                </div>
+            </div>
+
+            <div class="comments-container">
+                <h3>💬 테스트 결과 공유하기</h3>
+                <div id="disqus_thread"></div>
+                <script>
+                    (function() { 
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://creattaen.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+
+            <div class="contact-container" id="contact-container">
+                <div class="contact-header" onclick="toggleContactForm()">
+                    <h3>🤝 제휴 및 문의</h3>
+                    <span id="contact-arrow">▼</span>
+                </div>
+                <div class="contact-content" id="contact-content">
+                    <form action="https://formspree.io/f/xkovqnyn" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="성함 또는 업체명" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="이메일 주소" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" rows="4" placeholder="문의 내용을 입력해 주세요." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">문의하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="animal.js"></script>
+</body>
+</html>
