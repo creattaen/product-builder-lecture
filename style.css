@@ -266,6 +266,16 @@ select {
     gap: 15px;
 }
 
+/* 💬 댓글 영역 */
+.comments-container {
+    margin-top: 40px;
+    background: var(--history-bg);
+    padding: 25px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease;
+    text-align: left;
+}
+
 .form-group input, 
 .form-group textarea {
     width: 100%;

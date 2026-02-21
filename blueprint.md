@@ -16,14 +16,14 @@ A simple and visually appealing web application that provides users with daily a
 *   **Modern & Dark Theme:** The application uses a dark, mystical theme with engaging animations and color-coded results.
 *   **Fortune History Detail View:** Users can click on any record in the history list to view the full fortune details in a modal.
 *   **Dark/Light Mode Toggle:** Seamlessly switch between themes with saved preferences.
+*   **Partnership Inquiry Form (Formspree):** A clean contact form integrated with Formspree for partnership inquiries.
 
-## Current Plan: Partnership Inquiry Form & Lucky Items
+## Current Plan: Disqus Comments, Daily Lucky Items & Refinement
 
-1.  **Partnership Inquiry Form (Formspree):** Add a simple contact form to receive partnership inquiries via Formspree.
+1.  **Disqus Comments Integration:** Add a comment section using Disqus to foster user engagement.
 2.  **Daily Lucky Items (Enhancement):** Enrich the fortune results by adding personalized "Lucky Items" (Color, Number, and Direction).
 
-**Steps for Inquiry Form:**
-1.  **Add Form to HTML:** Create a new container in `index.html` for the partnership inquiry form.
-2.  **Style the Form:** Add CSS rules to `style.css` to ensure the form matches the overall design.
-3.  **Formspree Integration:** Set up the form action to point to a Formspree endpoint.
-4.  **Git Push:** Commit and push the changes.
+**Steps for Disqus Comments:**
+1.  **Add Disqus to HTML:** Insert the Disqus thread container and script into `index.html`.
+2.  **Style Comment Section:** Add CSS in `style.css` to ensure the comment area has proper spacing and matches the theme.
+3.  **Git Push:** Commit and push the changes.
