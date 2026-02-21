@@ -1,28 +1,30 @@
-# 🔮 신비한 운세 & AI 테스트 - Blueprint (Personalized UI)
+# 🔮 신비한 운세 & AI 테스트 - Blueprint (Structural Refinement)
 
 ## Overview
 
-A premium web application featuring a modern, trendy aesthetic. Now enhanced with personalized data inputs (Birthdate) and a sophisticated result UI to improve user trust and engagement.
+A refined multi-page application with specialized services. Features a simplified date display and a dedicated partnership inquiry flow to enhance professionality and user experience.
 
-## New Feature: Personalized Horoscope (Current Plan)
+## Page Structure
 
-1.  **Personalized Input:** Added a birthdate selector to provide tailored fortune readings.
-2.  **Rich Result UI:** Replaced plain text with a structured "Fortune Card" including:
-    *   **Summary Badge:** Overall luck rating.
-    *   **Personalized Message:** Content tailored to the user's age/zodiac.
-    *   **Lucky Items Section:** Visual badges for Lucky Color, Number, and Direction.
-3.  **Trust Enhancements:** Added a "Data Analysis" phase UI to simulate real-time calculation.
+*   **[Main] 🔮 띠별 운세 (index.html):** Personalized fortune telling.
+*   **[Special] 🐶 AI 동물상 테스트 (animal-test.html):** AI-powered classification.
+*   **[Support] 🤝 제휴 및 문의 (contact.html):** Dedicated inquiry page for partners.
+
+## Key Refinements (Current Plan)
+
+1.  **Simplified Date Display:** Removed day-of-week logic and parentheses from all date displays (Result Card, History) to ensure a clean "YYYY.MM.DD" format.
+2.  **Contact Flow Redesign:** Removed the collapsible contact form from service pages. Replaced with a subtle footer text link that directs to the dedicated `contact.html`.
+3.  **Error Fixes:** Resolved UI glitches in the partnership form by isolating it into its own environment.
 
 ## Implemented Features
 
-*   **Modern UI Redesign:** Glassmorphism and high-quality typography.
-*   **Zodiac Selection:** Standardized for 12 signs.
-*   **AI Animal Look Test:** Independent specialized page.
-*   **Community & Contact:** Integrated Disqus and Formspree.
+*   **Modern UI:** Glassmorphism, Pretendard typography, and high-contrast accessibility.
+*   **AI Integration:** Teachable Machine model for animal look testing.
+*   **Navigation:** Top sticky navbar for seamless page switching.
 
 ## Current Plan
 
-1.  **UI Redesign (Today's Fortune):** Create a rich card-based result display in `index.html` and `style.css`.
-2.  **Personalization Logic:** Update `horoscope.js` to handle birthdate and generate structured results.
-3.  **UX Polish:** Add a "Calculating..." loading state.
-4.  **Git Push:** Deploy.
+1.  **Create contact.html:** Build a professional standalone inquiry page.
+2.  **Refactor index & animal-test:** Remove old contact containers and add footer links.
+3.  **Update JS Logic:** Clean up date formatting and remove unused toggle functions.
+4.  **Deploy:** Push to GitHub Pages.

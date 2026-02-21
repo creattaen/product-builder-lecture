@@ -89,8 +89,3 @@ function retryTest() {
     document.getElementById('loading-area').style.display = 'none';
     document.getElementById('file-input').value = "";
 }
-
-function toggleContactForm() {
-    const container = document.getElementById('contact-container');
-    container.classList.toggle('active');
-}

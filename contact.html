@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제휴 및 문의</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-link">🔮 띠별 운세</a>
+            <a href="animal-test.html" class="nav-link">🐶 AI 동물상 테스트</a>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="container" style="max-width: 600px;">
+            <h1>🤝 제휴 및 문의</h1>
+            <p style="color: var(--text-sub); margin-bottom: 40px; text-align: center;">
+                광고 문의, 서비스 제휴 등 궁금한 점을 남겨주시면<br>확인 후 빠르게 답변해 드리겠습니다.
+            </p>
+            
+            <div class="contact-page-form">
+                <form action="https://formspree.io/f/xkovqnyn" method="POST" class="contact-form">
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; font-weight: 700; margin-bottom: 8px; font-size: 14px; color: var(--text-main);">성함 또는 업체명</label>
+                        <input type="text" name="name" placeholder="분석 결과 전송을 위한 이름" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; font-weight: 700; margin-bottom: 8px; font-size: 14px; color: var(--text-main);">회신 받을 이메일</label>
+                        <input type="email" name="email" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 30px;">
+                        <label style="display: block; font-weight: 700; margin-bottom: 8px; font-size: 14px; color: var(--text-main);">문의 내용</label>
+                        <textarea name="message" rows="8" placeholder="상세한 제휴 제안 또는 문의 사항을 적어주세요." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="width: 100%; padding: 18px;">문의 전송하기</button>
+                </form>
+            </div>
+
+            <div style="margin-top: 40px; text-align: center;">
+                <a href="index.html" style="color: var(--text-sub); text-decoration: none; font-size: 14px;">← 홈으로 돌아가기</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -6,7 +6,7 @@ const todayFortunes = [
     { summary: "신중(愼重) - 한 템포 쉬어가는 날", text: "조금 피곤할 수 있는 하루입니다. 무리한 일정은 피하고 충분한 휴식을 취하는 것이 좋습니다. 지금의 인내가 조만간 큰 보상으로 돌아올 것입니다.", type: "color-bad" },
     { summary: "인연(因緣) - 귀인을 만나는 날", text: "귀인을 만날 수 있는 좋은 운의 흐름입니다. 새로운 만남을 주저하지 마세요. 당신의 친절한 태도가 상대방에게 깊은 인상을 남겨 긍정적인 결과로 이어집니다.", type: "color-good" },
     { summary: "성찰(省察) - 말을 아껴야 하는 날", text: "말실수를 조심해야 하는 날입니다. 특히 가까운 사이일수록 예의를 지키고, 한 번 더 생각한 후 말을 꺼내세요. 침묵이 오히려 득이 되는 순간이 많습니다.", type: "color-bad" },
-    { summary: "재물(財物) - 금전운이 트이는 날", text: "금전운이 상승하고 있습니다. 소소한 이득이 생기거나 계획했던 소비에서 만족감을 얻을 수 있습니다. 투자를 고려 중이라면 오늘은 정보를 모으기에 최적의 날입니다.", type: "color-good" }
+    { summary: "재물(財物) - 금전운이 트이는 날", text: "금전운이 상승하고 있습니다. 소소한 이득이 생길 수 있어요.", type: "color-good" }
 ];
 
 const luckyItems = {
@@ -19,7 +19,6 @@ window.onload = () => {
     renderHistory();
     renderMonthlySidebar();
     
-    // 이전에 저장된 결과가 있다면 불러오기
     const savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
     if (savedTodayData) {
         displayTodayResult(savedTodayData);
@@ -51,6 +50,7 @@ function checkTodayFortune() {
     }
 
     const now = new Date();
+    // Simplified Date Format: YYYY.MM.DD (No day of week)
     const currentDayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
     
     let savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
@@ -62,7 +62,6 @@ function checkTodayFortune() {
         return;
     }
 
-    // 분석 중 애니메이션 보여주기
     const loading = document.getElementById('loading-overlay');
     const resultCard = document.getElementById('today-result-container');
     loading.style.display = 'block';
@@ -76,6 +75,9 @@ function checkTodayFortune() {
         const lColor = luckyItems.colors[Math.floor(Math.random() * luckyItems.colors.length)];
         const lDir = luckyItems.directions[Math.floor(Math.random() * luckyItems.directions.length)];
 
+        // Create clean date string
+        const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+
         const newTodayData = {
             dayKey: currentDayKey,
             zodiac: zodiac,
@@ -86,20 +88,20 @@ function checkTodayFortune() {
             lNum: lNum,
             lColor: lColor,
             lDir: lDir,
-            timestamp: `${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`
+            timestamp: dateStr
         };
 
         localStorage.setItem('myTodayData', JSON.stringify(newTodayData));
         displayTodayResult(newTodayData);
         saveToHistory(zodiac, '오늘의', `${selected.summary}: ${selected.text}`);
-    }, 2000); // 2초간 분석하는 척 함
+    }, 2000);
 }
 
 function displayTodayResult(data) {
     const container = document.getElementById('today-result-container');
     
     document.getElementById('res-zodiac').innerText = data.zodiac;
-    document.getElementById('res-date').innerText = data.timestamp;
+    document.getElementById('res-date').innerText = data.timestamp; // Clean date
     document.getElementById('res-summary').innerText = data.summary;
     document.getElementById('today-result-text').innerText = data.text;
     document.getElementById('luck-num').innerText = data.lNum;
@@ -109,10 +111,6 @@ function displayTodayResult(data) {
     container.style.display = 'block';
     container.className = 'result-card pop-in';
     container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function renderTodayFortune() {
-    // window.onload에서 이미 처리함
 }
 
 function checkMonthFortune() {
@@ -129,12 +127,12 @@ function checkMonthFortune() {
     }
 
     const zodiac = document.getElementById('zodiac-select').value;
-    const monthFortunes = [
+    const monthFortunesList = [
         "이번 달은 당신의 잠재력이 폭발하는 시기입니다. 직장이나 학교에서 주도적으로 프로젝트를 이끌어보세요. 💰재물운도 상승 곡선을 그리니, 예상치 못한 보너스를 기대해도 좋습니다.",
         "한 템포 쉬어가는 것이 필요한 한 달입니다. 무언가를 억지로 성취하려고 하기보다는 주변을 정돈하고 내면을 다지세요. 🤝인간관계에서 사소한 오해로 약간의 스트레스가 예상됩니다.",
         "그동안 꾸준히 노력했던 일에서 마침내 빛을 보는 멋진 한 달입니다! 🎉성취감이 최고조에 달하며 주변의 인정도 받게 됩니다. 특히 문서운이나 시험운이 아주 좋습니다."
     ];
-    const selectedText = monthFortunes[Math.floor(Math.random() * monthFortunes.length)];
+    const selectedText = monthFortunesList[Math.floor(Math.random() * monthFortunesList.length)];
     
     const newMonthlyData = {
         monthKey: currentMonthKey,
@@ -169,7 +167,7 @@ function renderMonthlySidebar() {
 
 function saveToHistory(zodiac, periodText, fortuneText) {
     const now = new Date();
-    const dateString = `${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
+    const dateString = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
     
     const newRecord = {
         date: dateString,
@@ -222,9 +220,4 @@ function openFortuneModal(title, text) {
 function closeFortuneModal() {
     const modal = document.getElementById('fortune-modal');
     modal.style.display = 'none';
-}
-
-function toggleContactForm() {
-    const container = document.getElementById('contact-container');
-    container.classList.toggle('active');
 }
