@@ -17,72 +17,76 @@
 
     <div class="page-wrapper">
         <div class="container">
-            <h1>오늘의 행운을<br>확인해보세요 🔮</h1>
+            <h1>당신의 기운을<br>분석해드립니다 🔮</h1>
             
             <div class="controls">
                 <div class="input-section">
-                    <div class="input-group">
-                        <label>나의 띠 선택</label>
-                        <select id="zodiac-select">
-                            <option value="쥐띠">🐭 쥐띠</option>
-                            <option value="소띠">🐮 소띠</option>
-                            <option value="호랑이띠">🐯 호랑이띠</option>
-                            <option value="토끼띠">🐰 토끼띠</option>
-                            <option value="용띠">🐲 용띠</option>
-                            <option value="뱀띠">🐍 뱀띠</option>
-                            <option value="말띠">🐴 말띠</option>
-                            <option value="양띠">🐑 양띠</option>
-                            <option value="원숭이띠">🐵 원숭이띠</option>
-                            <option value="닭띠">🐔 닭띠</option>
-                            <option value="개띠">🐶 개띠</option>
-                            <option value="돼지띠">🐷 돼지띠</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>태어난 날짜</label>
+                    <div class="input-group" style="flex: 1;">
+                        <label>나의 생년월일</label>
                         <input type="date" id="birth-date" class="modern-input">
+                        <p style="font-size: 13px; color: var(--text-sub); margin-top: 8px; font-weight: 500;">
+                            입력하신 정보를 바탕으로 띠와 운세를 자동 분석합니다.
+                        </p>
                     </div>
                 </div>
 
                 <div class="btn-group">
                     <button class="btn-today" onclick="checkTodayFortune()">오늘의 운세 분석</button>
-                    <button class="btn-month" onclick="checkMonthFortune()">이달의 총운</button>
+                    <button class="btn-month" onclick="checkMonthFortune()">이달의 총운 분석</button>
                 </div>
             </div>
 
             <!-- 분석 중 로딩 UI -->
             <div id="loading-overlay" class="loading-wrap" style="display: none;">
                 <div class="spinner"></div>
-                <p>생년월일과 기운을 분석 중입니다...</p>
+                <p>데이터와 기운을 분석 중입니다...</p>
             </div>
 
             <div id="today-result-container" class="result-card">
                 <div id="today-result-header">
-                    <span class="zodiac-badge" id="res-zodiac">쥐띠</span>
-                    <span class="date-badge" id="res-date">2026.02.21</span>
+                    <span class="zodiac-badge" id="res-zodiac">띠 분석 완료</span>
+                    <span class="date-badge" id="res-date"></span>
                 </div>
+                
+                <div class="infographic-section">
+                    <div class="luck-score-wrap">
+                        <span class="score-label">오늘의 행운 지수</span>
+                        <div class="score-bar-bg">
+                            <div id="luck-score-bar" class="score-bar-fill"></div>
+                        </div>
+                        <span id="luck-score-text" class="score-number">0점</span>
+                    </div>
+                </div>
+
                 <div class="fortune-content">
-                    <h2 id="res-summary">대길(大吉) - 만사형통의 날</h2>
-                    <p id="today-result-text">띠를 선택하고 운세를 확인해보세요!</p>
+                    <div class="summary-wrap" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <span id="res-summary-badge" class="summary-badge">분석</span>
+                        <h2 id="res-title" style="margin: 0; font-size: 24px;">행운의 메시지</h2>
+                    </div>
+                    <p id="today-result-text" class="fortune-description"></p>
                 </div>
+
                 <div class="lucky-items-grid">
                     <div class="lucky-item">
+                        <span class="icon">🔢</span>
                         <span class="label">행운의 숫자</span>
-                        <span class="value" id="luck-num">7</span>
+                        <span class="value" id="luck-num">-</span>
                     </div>
                     <div class="lucky-item">
+                        <span class="icon">🎨</span>
                         <span class="label">행운의 색상</span>
-                        <span class="value" id="luck-color">Indigo</span>
+                        <span class="value" id="luck-color">-</span>
                     </div>
                     <div class="lucky-item">
+                        <span class="icon">📍</span>
                         <span class="label">행운의 방향</span>
-                        <span class="value" id="luck-dir">동쪽</span>
+                        <span class="value" id="luck-dir">-</span>
                     </div>
                 </div>
             </div>
 
             <div class="history-container">
-                <h3>📅 나의 기록</h3>
+                <h3>📅 나의 운세 기록</h3>
                 <div id="history-list"></div>
             </div>
 
@@ -108,7 +112,7 @@
             <h3>🌙 이달의 운세</h3>
             <div id="monthly-result-text">
                 <p style="color: var(--text-sub); text-align: left; margin-top: 20px;">
-                    아직 이번 달 운세를 확인하지 않았습니다. 버튼을 눌러보세요!
+                    생년월일을 입력하고 버튼을 눌러 이달의 기운을 확인해보세요!
                 </p>
             </div>
         </div>

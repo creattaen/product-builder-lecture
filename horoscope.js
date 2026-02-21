@@ -1,12 +1,12 @@
-// 🔮 띠별 운세 전용 스크립트 (horoscope.js)
+// 🔮 띠별 운세 고도화 스크립트 (horoscope.js)
 
 const todayFortunes = [
-    { summary: "대길(大吉) - 기분 좋은 행운의 날", text: "예상치 못한 곳에서 소중한 인연이나 행운이 찾아옵니다. 오늘 당신의 직감을 믿고 과감하게 행동해보세요. 주변 사람들과의 대화 속에서 큰 힌트를 얻을 수 있습니다.", type: "color-good" },
-    { summary: "평온(平穩) - 소소한 행복이 깃든 날", text: "오늘은 평범함 속에 행복이 숨어있습니다. 무리하게 일을 추진하기보다 주변을 정리하며 내실을 다지는 시간을 가져보세요. 따뜻한 차 한 잔이 큰 위로가 됩니다.", type: "color-normal" },
-    { summary: "신중(愼重) - 한 템포 쉬어가는 날", text: "조금 피곤할 수 있는 하루입니다. 무리한 일정은 피하고 충분한 휴식을 취하는 것이 좋습니다. 지금의 인내가 조만간 큰 보상으로 돌아올 것입니다.", type: "color-bad" },
-    { summary: "인연(因緣) - 귀인을 만나는 날", text: "귀인을 만날 수 있는 좋은 운의 흐름입니다. 새로운 만남을 주저하지 마세요. 당신의 친절한 태도가 상대방에게 깊은 인상을 남겨 긍정적인 결과로 이어집니다.", type: "color-good" },
-    { summary: "성찰(省察) - 말을 아껴야 하는 날", text: "말실수를 조심해야 하는 날입니다. 특히 가까운 사이일수록 예의를 지키고, 한 번 더 생각한 후 말을 꺼내세요. 침묵이 오히려 득이 되는 순간이 많습니다.", type: "color-bad" },
-    { summary: "재물(財物) - 금전운이 트이는 날", text: "금전운이 상승하고 있습니다. 소소한 이득이 생길 수 있어요.", type: "color-good" }
+    { summary: "대길(大吉)", title: "만사형통의 날", text: "하늘의 기운이 당신을 향해 있습니다. 평소 미뤄두었던 중요한 결정이나 새로운 시작을 하기에 완벽한 타이밍입니다. 과감하게 움직이세요.", score: 95 },
+    { summary: "희소식(喜消息)", title: "반가운 소식의 날", text: "멀리서 반가운 소식이 들려오거나 잊고 지냈던 인연에게 연락이 올 수 있습니다. 마음을 열고 소통하면 예상치 못한 기회가 찾아옵니다.", score: 85 },
+    { summary: "평온(平穩)", title: "내실을 다지는 날", text: "오늘은 무리한 확장보다 현재의 위치를 점검하고 내실을 다지는 것이 좋습니다. 주변 사람들과 따뜻한 한 끼 식사가 운을 높여줍니다.", score: 70 },
+    { summary: "신중(愼重)", title: "지혜가 필요한 날", text: "생각지 못한 변수가 생길 수 있으니 서두르지 마세요. 돌다리도 두드려보고 건너는 마음가짐이 필요합니다. 인내가 곧 성공의 열쇠입니다.", score: 55 },
+    { summary: "재물(財物)", title: "금전운 상승의 날", text: "금전적인 흐름이 매우 좋습니다. 작은 투자가 큰 성과로 돌아오거나 막혔던 자금 흐름이 원활해지는 시기입니다. 꼼꼼한 가계부 정리를 추천합니다.", score: 90 },
+    { summary: "인연(因緣)", title: "귀인을 만나는 날", text: "당신을 도와줄 소중한 조력자가 나타납니다. 겸손한 자세로 조언을 구하면 해결되지 않던 문제의 실마리를 찾게 될 것입니다.", score: 80 }
 ];
 
 const luckyItems = {
@@ -14,6 +14,12 @@ const luckyItems = {
     colors: ["Indigo", "Soft Pink", "Emerald Green", "Clean White", "Deep Blue", "Amber"],
     directions: ["동쪽", "서쪽", "남쪽", "북쪽", "북동쪽", "남서쪽"]
 };
+
+// 🎂 생년월일로 띠 계산하는 함수
+function getZodiac(year) {
+    const zodiacs = ["원숭이띠", "닭띠", "개띠", "돼지띠", "쥐띠", "소띠", "호랑이띠", "토끼띠", "용띠", "뱀띠", "말띠", "양띠"];
+    return zodiacs[year % 12];
+}
 
 window.onload = () => {
     renderHistory();
@@ -24,41 +30,29 @@ window.onload = () => {
         displayTodayResult(savedTodayData);
     }
 
-    document.getElementById('history-list').addEventListener('click', function(event) {
-        const historyItem = event.target.closest('.history-item');
-        if (historyItem) {
-            const title = historyItem.dataset.title;
-            const fullText = historyItem.dataset.fullText;
-            openFortuneModal(title, fullText);
-        }
-    });
-
     document.getElementById('fortune-modal').addEventListener('click', function(event) {
-        if (event.target === this) {
-            closeFortuneModal();
-        }
+        if (event.target === this) closeFortuneModal();
     });
 };
 
 function checkTodayFortune() {
-    const zodiac = document.getElementById('zodiac-select').value;
-    const birthDate = document.getElementById('birth-date').value;
+    const birthDateValue = document.getElementById('birth-date').value;
 
-    if (!birthDate) {
-        alert("더 디테일한 분석을 위해 생년월일을 선택해주세요! 📅");
+    if (!birthDateValue) {
+        alert("분석을 위해 생년월일을 선택해주세요! 📅");
         return;
     }
 
+    const birthDate = new Date(birthDateValue);
+    const zodiac = getZodiac(birthDate.getFullYear());
     const now = new Date();
-    // Simplified Date Format: YYYY.MM.DD (No day of week)
     const currentDayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
     
     let savedTodayData = JSON.parse(localStorage.getItem('myTodayData'));
 
     if (savedTodayData && savedTodayData.dayKey === currentDayKey) {
-        alert("이미 오늘의 운세 분석을 마쳤습니다. 내일의 행운을 기대해주세요! 🌟");
-        const container = document.getElementById('today-result-container');
-        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        alert("오늘의 분석이 이미 완료되었습니다! 🌟");
+        displayTodayResult(savedTodayData);
         return;
     }
 
@@ -74,17 +68,15 @@ function checkTodayFortune() {
         const lNum = luckyItems.numbers[Math.floor(Math.random() * luckyItems.numbers.length)];
         const lColor = luckyItems.colors[Math.floor(Math.random() * luckyItems.colors.length)];
         const lDir = luckyItems.directions[Math.floor(Math.random() * luckyItems.directions.length)];
-
-        // Create clean date string
         const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
 
         const newTodayData = {
             dayKey: currentDayKey,
             zodiac: zodiac,
-            birth: birthDate,
             summary: selected.summary,
+            title: selected.title,
             text: selected.text,
-            type: selected.type,
+            score: selected.score,
             lNum: lNum,
             lColor: lColor,
             lDir: lDir,
@@ -94,19 +86,29 @@ function checkTodayFortune() {
         localStorage.setItem('myTodayData', JSON.stringify(newTodayData));
         displayTodayResult(newTodayData);
         saveToHistory(zodiac, '오늘의', `${selected.summary}: ${selected.text}`);
-    }, 2000);
+    }, 2500);
 }
 
 function displayTodayResult(data) {
     const container = document.getElementById('today-result-container');
     
-    document.getElementById('res-zodiac').innerText = data.zodiac;
-    document.getElementById('res-date').innerText = data.timestamp; // Clean date
-    document.getElementById('res-summary').innerText = data.summary;
-    document.getElementById('today-result-text').innerText = data.text;
-    document.getElementById('luck-num').innerText = data.lNum;
-    document.getElementById('luck-color').innerText = data.lColor;
-    document.getElementById('luck-dir').innerText = data.lDir;
+    // undefined 방지 및 데이터 삽입
+    document.getElementById('res-zodiac').innerText = data.zodiac || "운세";
+    document.getElementById('res-date').innerText = data.timestamp || "";
+    document.getElementById('res-summary-badge').innerText = data.summary || "분석 완료";
+    document.getElementById('res-title').innerText = data.title || "행운의 메시지";
+    document.getElementById('today-result-text').innerText = data.text || "오늘의 운세를 확인해보세요.";
+    document.getElementById('luck-num').innerText = data.lNum || "-";
+    document.getElementById('luck-color').innerText = data.lColor || "-";
+    document.getElementById('luck-dir').innerText = data.lDir || "-";
+
+    // 인포그래픽 게이지 바 업데이트
+    const scoreBar = document.getElementById('luck-score-bar');
+    const scoreText = document.getElementById('luck-score-text');
+    if (scoreBar && scoreText) {
+        scoreBar.style.width = (data.score || 50) + "%";
+        scoreText.innerText = (data.score || 50) + "점";
+    }
 
     container.style.display = 'block';
     container.className = 'result-card pop-in';
@@ -114,6 +116,14 @@ function displayTodayResult(data) {
 }
 
 function checkMonthFortune() {
+    const birthDateValue = document.getElementById('birth-date').value;
+    if (!birthDateValue) {
+        alert("띠 계산을 위해 생년월일을 먼저 선택해주세요! 📅");
+        return;
+    }
+    const birthDate = new Date(birthDateValue);
+    const zodiac = getZodiac(birthDate.getFullYear());
+
     const now = new Date();
     const currentMonthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
     
@@ -121,12 +131,12 @@ function checkMonthFortune() {
     let savedMonthlyData = JSON.parse(localStorage.getItem('myMonthlyData'));
 
     if (savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
-        alert("이미 이달의 총운 분석을 마쳤습니다. 🌙");
+        alert("이미 이달의 분석을 마쳤습니다. 🌙");
+        renderMonthlySidebar();
         sidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
 
-    const zodiac = document.getElementById('zodiac-select').value;
     const monthFortunesList = [
         "이번 달은 당신의 잠재력이 폭발하는 시기입니다. 직장이나 학교에서 주도적으로 프로젝트를 이끌어보세요. 💰재물운도 상승 곡선을 그리니, 예상치 못한 보너스를 기대해도 좋습니다.",
         "한 템포 쉬어가는 것이 필요한 한 달입니다. 무언가를 억지로 성취하려고 하기보다는 주변을 정돈하고 내면을 다지세요. 🤝인간관계에서 사소한 오해로 약간의 스트레스가 예상됩니다.",

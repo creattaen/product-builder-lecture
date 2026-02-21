@@ -259,37 +259,76 @@ select {
     transform: translateY(-2px);
 }
 
-/* 🎰 Sophisticated Result Card */
+/* 🎰 Fortune Result Card & Infographics */
 .result-card {
     display: none;
     background: white;
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
-    padding: 32px 24px;
+    padding: 40px;
     margin: 40px 0;
     text-align: left;
     box-shadow: var(--shadow-lg);
 }
 
-@media (min-width: 768px) {
-    .result-card { padding: 48px; }
+.infographic-section {
+    margin-bottom: 32px;
+    background: var(--bg);
+    padding: 24px;
+    border-radius: 20px;
 }
 
-#today-result-header {
+.luck-score-wrap {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.zodiac-badge {
-    background: linear-gradient(135deg, var(--primary-soft), #e0e7ff);
-    color: var(--primary);
-    padding: 8px 20px;
-    border-radius: 100px;
+.score-label {
+    font-size: 14px;
     font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 0.02em;
+    color: var(--text-sub);
+}
+
+.score-bar-bg {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.score-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 100px;
+    transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.score-number {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.summary-badge {
+    background: var(--secondary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.fortune-description {
+    font-size: 17px;
+    color: var(--text-main);
+    line-height: 1.8;
+    margin-bottom: 32px;
+    background: rgba(99, 102, 241, 0.03);
+    padding: 20px;
+    border-left: 4px solid var(--primary);
+    border-radius: 0 12px 12px 0;
 }
 
 .lucky-items-grid {
@@ -305,55 +344,84 @@ select {
 }
 
 .lucky-item {
-    background: #f8fafc;
+    background: white;
+    border: 1px solid var(--border);
     padding: 20px 12px;
     border-radius: 20px;
     text-align: center;
     transition: all 0.2s ease;
 }
 
-.lucky-item:hover { background: var(--primary-soft); transform: translateY(-2px); }
+.lucky-item .icon { font-size: 24px; display: block; margin-bottom: 8px; }
+.lucky-item .label { display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); }
+.lucky-item .value { font-size: 15px; font-weight: 800; color: var(--primary); }
 
-/* 🐶 AI Test Redesign */
-.animal-test-container {
-    background: white;
-    border: 1px solid var(--border);
-    padding: 32px 20px;
-    border-radius: var(--radius-xl);
-    margin-bottom: 48px;
-}
-
-@media (min-width: 768px) {
-    .animal-test-container { padding: 48px; }
-}
-
+/* 🐶 AI Test Styling (Centered Text) */
 .upload-area {
     border: 2px dashed #cbd5e1;
     border-radius: 24px;
     background: #f8fafc;
     transition: all 0.3s ease;
     min-height: 260px;
-}
-
-/* 💬 Comments & Footer */
-.footer {
-    margin-top: 64px;
-    padding: 40px 0;
-    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
-.footer-link {
+/* 🤝 Contact Page Premium Redesign */
+.contact-page-form {
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+}
+
+.contact-page-form label {
+    display: block;
+    font-weight: 800;
+    font-size: 13px;
     color: var(--text-sub);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 12px 24px;
-    border-radius: 12px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.contact-page-form input, 
+.contact-page-form textarea {
+    width: 100%;
+    padding: 18px 24px;
+    border-radius: 16px;
+    border: 1.5px solid var(--border);
+    background: #fdfdfd;
+    color: var(--text-main);
+    font-size: 16px;
+    font-family: inherit;
+    box-sizing: border-box;
+    outline: none;
     transition: all 0.2s;
 }
 
-.footer-link:hover { color: var(--primary); background: var(--primary-soft); }
+.contact-page-form input:focus, 
+.contact-page-form textarea:focus {
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.2);
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--primary), #4f46e5);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.5);
+}
 
 /* 🎞 Animations */
 @keyframes slideUp {
