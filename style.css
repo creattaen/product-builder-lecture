@@ -176,6 +176,143 @@ select:focus { border-color: var(--accent-color); }
 .history-item:hover { background: rgba(0,0,0,0.03); }
 .history-item span.date { color: var(--text-muted); font-size: 13px; }
 
+/* 🐶 동물상 테스트 영역 */
+.animal-test-container {
+    background: var(--history-bg);
+    padding: 35px;
+    border-radius: 25px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.animal-test-container h3 {
+    margin-top: 0;
+    color: var(--accent-color);
+    font-size: 22px;
+}
+
+.test-desc {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.upload-area {
+    border: 3px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 40px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--container-bg);
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-area:hover {
+    border-color: var(--accent-color);
+    background: #f8fafc;
+}
+
+.upload-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#face-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 15px;
+}
+
+/* 분석 로딩 */
+#loading-area {
+    margin-top: 20px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(108, 92, 231, 0.1);
+    border-top: 4px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 결과 영역 */
+.result-message {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 25px 0;
+    color: var(--accent-color);
+}
+
+.bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.bar-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.bar-item span {
+    width: 70px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.progress-bg {
+    flex: 1;
+    height: 16px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 1s ease-out;
+}
+
+.dog-color { background: #ff9f43; }
+.cat-color { background: #54a0ff; }
+
+#dog-percent, #cat-percent {
+    width: 45px;
+    text-align: right;
+}
+
+.btn-retry {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-retry:hover {
+    transform: scale(1.05);
+}
+
 /* 🤝 제휴 및 문의 / 💬 댓글 영역 */
 .contact-container, .comments-container {
     margin-top: 40px;

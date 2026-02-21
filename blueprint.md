@@ -1,32 +1,28 @@
-# 🔮 신비한 띠별 운세 🔮 - Blueprint
+# 🔮 신비한 띠별 운세 & 동물상 테스트 🔮 - Blueprint
 
 ## Overview
 
-A simple and visually appealing web application that provides users with daily and monthly horoscope readings based on their selected zodiac sign. The application is designed with a soft, bright, and mystical aesthetic to provide a pleasant and intuitive fortune-telling experience.
+A polished web application that combines traditional horoscope readings with modern AI technology. It offers daily/monthly fortunes and an AI-powered "Animal Look Test" to classify users as "Puppy" or "Cat" looks based on their photos.
 
 ## Implemented Features
 
-*   **Zodiac Selection:** Users can select their zodiac sign from a dropdown list.
-*   **Daily & Monthly Fortunes:** Users can view their fortune for the current day or the entire month.
-*   **Persistent Fortunes:**
-    *   Today's fortune is saved and displayed for the entire day.
-    *   The monthly fortune is saved and displayed for the entire month.
-*   **Fortune History:** A log of previously viewed fortunes is maintained for the user.
-*   **Responsive Design:** Optimized layout for mobile and desktop.
-*   **Soft & Bright Mystical Theme:** A unified, elegant design with soft shadows and readable typography.
-*   **Fortune History Detail View:** Modal-based detailed view for history records.
-*   **Partnership Inquiry Form (Formspree):** Collapsible contact form at the bottom.
-*   **Disqus Comments Integration:** Community section for user interaction.
-*   **Mobile UX Optimization:** 
-    *   Auto-scroll to monthly fortune when viewed.
-    *   Improved mobile layout flow.
+*   **Zodiac Selection:** Dropdown for selecting zodiac signs.
+*   **Persistent Fortunes:** Daily and monthly readings saved in LocalStorage.
+*   **Fortune History:** Detailed history view via modal.
+*   **Soft & Bright Mystical Theme:** Unified, elegant design.
+*   **Disqus Community:** Integrated comments.
+*   **Collapsible Partnership Form:** Formspree-powered contact form.
+*   **Mobile UX:** Auto-scroll and responsive layout.
 
-## Current Plan: Daily Lucky Items & Refinement
+## New Feature: AI Animal Look Test (Current Plan)
 
-1.  **Daily Lucky Items (Enhancement):** Enrich the fortune results by adding personalized "Lucky Items" (Color, Number, and Direction).
-2.  **UI/UX Final Polish:** Continuous improvement based on user feedback.
+1.  **Image Upload UI:** Drag-and-drop or file selection area for user photos.
+2.  **AI Analysis logic:** Integration with TensorFlow.js and a classification model (Teachable Machine).
+3.  **Result Display:** Visually appealing result cards showing the percentage of "Puppy" vs "Cat" look.
+4.  **Refinement:** Ensure the UI matches the existing soft-bright theme.
 
-**Steps for Mobile UX Update:**
-1.  **Update JS:** Add smooth scroll logic to `checkMonthFortune`.
-2.  **Update CSS:** Use flex `order` to move the monthly sidebar higher up in the column on mobile devices.
-3.  **Git Push:** Commit and push the changes.
+**Steps:**
+1.  **Update HTML:** Add the test section and include TensorFlow.js/Teachable Machine libraries.
+2.  **Update CSS:** Style the upload box, image preview, and result progress bars.
+3.  **Update JS:** Implement image handling and model prediction logic.
+4.  **Git Push:** Deploy the new feature.
