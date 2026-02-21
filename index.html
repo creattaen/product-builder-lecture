@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔮 신비한 띠별 운세 🔮</title>
+    <title>신비한 띠별 운세</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,10 +17,10 @@
 
     <div class="page-wrapper">
         <div class="container">
-            <h1>🔮 신비한 띠별 운세 🔮</h1>
+            <h1>오늘의 행운을<br>확인해보세요 🔮</h1>
             
             <div class="controls">
-                <h3>📅 나의 띠 선택</h3>
+                <h3>띠를 선택해주세요</h3>
                 <select id="zodiac-select">
                     <option value="쥐띠">🐭 쥐띠</option>
                     <option value="소띠">🐮 소띠</option>
@@ -37,17 +37,17 @@
                 </select>
 
                 <div class="btn-group">
-                    <button class="btn-today" onclick="checkTodayFortune()">오늘의 운세 보기</button>
-                    <button class="btn-month" onclick="checkMonthFortune()">이달의 운세 보기</button>
+                    <button class="btn-today" onclick="checkTodayFortune()">오늘의 운세</button>
+                    <button class="btn-month" onclick="checkMonthFortune()">이달의 운세</button>
                 </div>
             </div>
 
             <div id="today-result-container">
-                <div id="today-result-text">운세 결과를 확인해보세요!</div>
+                <div id="today-result-text">띠를 선택하고 운세를 확인해보세요!</div>
             </div>
 
             <div class="history-container">
-                <h3>📅 나의 운세 기록</h3>
+                <h3>📅 나의 기록</h3>
                 <div id="history-list"></div>
             </div>
 
@@ -62,7 +62,6 @@
                     (d.head || d.body).appendChild(s);
                     })();
                 </script>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </div>
 
             <div class="contact-container" id="contact-container">
@@ -81,7 +80,7 @@
                         <div class="form-group">
                             <textarea name="message" rows="4" placeholder="문의 내용을 입력해 주세요." required></textarea>
                         </div>
-                        <button type="submit" class="btn-submit">문의하기</button>
+                        <button type="submit" class="btn-submit">문의 전송</button>
                     </form>
                 </div>
             </div>
@@ -90,14 +89,13 @@
         <div class="monthly-sidebar" id="monthly-sidebar">
             <h3>🌙 이달의 운세</h3>
             <div id="monthly-result-text">
-                <p style="color: var(--text-muted); text-align: center; margin-top: 40px;">
-                    아직 이번 달 운세를<br>뽑지 않았습니다.<br><br>좌측 버튼을 눌러 확인하세요!
+                <p style="color: var(--text-sub); text-align: left; margin-top: 20px;">
+                    아직 이번 달 운세를 확인하지 않았습니다. 버튼을 눌러보세요!
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- Fortune Detail Modal -->
     <div id="fortune-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="modal-close" onclick="closeFortuneModal()">&times;</span>

@@ -1,32 +1,26 @@
-# 🔮 신비한 운세 & AI 테스트 - Blueprint (Multi-Page)
+# 🔮 신비한 운세 & AI 테스트 - Blueprint (Modern UI)
 
 ## Overview
 
-The application is split into two distinct specialized pages: a traditional Horoscope service and an AI-powered Animal Look Test. Both share a consistent soft-bright mystical aesthetic.
+A premium web application featuring a modern, trendy aesthetic inspired by contemporary design systems. It focuses on high-quality typography, whitespace, and subtle depth effects.
 
-## Page 1: 🔮 띠별 운세 (index.html)
+## UI Overhaul Goals
 
-*   **Zodiac Selection:** 12 zodiac signs.
-*   **Daily/Monthly Fortunes:** Persistent readings using LocalStorage.
-*   **History:** Detailed history modal.
-*   **Community:** Disqus comments & Contact form.
+*   **Typography:** Adopt "Pretendard" and "Inter" for a clean, professional look.
+*   **Aesthetics:** Use a mix of soft glassmorphism, large border radiuses (32px+), and vibrant yet soft gradients.
+*   **Micro-interactions:** Add smooth hover effects, scale animations, and refined transitions.
+*   **Color Palette:** Vibrant purples, soft pinks, and clean whites with high contrast for readability.
 
-## Page 2: 🐶 AI 동물상 테스트 (animal-test.html)
+## Implemented Features
 
-*   **AI Analysis:** Puppy vs Cat classification using Teachable Machine.
-*   **Interactive UI:** Image upload, progress bars, and custom results.
-*   **Community:** Disqus comments & Contact form.
-
-## Shared Components
-
-*   **Design:** Unified soft-bright mystical theme (`style.css`).
-*   **Navigation:** Top navigation bar to switch between Fortune and AI Test.
-*   **Integrations:** Disqus and Formspree available on both pages.
+*   **Zodiac Selection:** Modernized dropdown and selection cards.
+*   **AI Animal Look Test:** Clean upload area with glassmorphism results.
+*   **Multi-Page Navigation:** Sleek sticky navbar.
+*   **Persistence & Community:** Retained history and Disqus integration.
 
 ## Current Plan
 
-1.  **Refactor Structure:** Split `index.html` and create `animal-test.html`.
-2.  **Split Logic:** Create `horoscope.js` and `animal.js`.
-3.  **Navigation UI:** Add a navigation bar to both pages.
-4.  **Final Polish:** Ensure both pages are fully functional and responsive.
-5.  **Git Push:** Deploy the separated pages.
+1.  **Total Style Redesign:** Overwrite `style.css` with a modern design system.
+2.  **Typography Integration:** Import premium web fonts.
+3.  **Component Polishing:** Redesign buttons, cards, and inputs for a "trendy" feel.
+4.  **Deployment:** Deploy the updated UI.
