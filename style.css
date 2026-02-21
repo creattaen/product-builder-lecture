@@ -252,6 +252,30 @@ main {
     cursor: pointer;
 }
 
+/* 🤝 제휴 및 문의 페이지 전용 스타일 */
+.contact-page-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.contact-page-wrapper .input-group label {
+    color: var(--primary);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+
+.contact-page-wrapper .modern-input {
+    border: 1.5px solid #f1f5f9;
+    background-color: #fcfcfc;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-page-wrapper .modern-input:focus {
+    background-color: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 10px 20px -5px rgba(108, 92, 231, 0.1);
+}
+
 /* 📱 푸터 (우하단 정렬 고정 흐름) */
 .footer {
     padding: 30px 20px;

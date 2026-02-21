@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>제휴 및 문의</title>
+    <title>제휴 및 문의 - 신비한 운세</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,36 +17,47 @@
         </div>
     </nav>
 
-    <div class="page-wrapper">
+    <main>
         <div class="container" style="max-width: 600px;">
             <h1>🤝 제휴 및 문의</h1>
-            <p style="color: var(--text-sub); margin-bottom: 48px; text-align: center; font-weight: 500;">
-                광고 문의, 서비스 제휴 등 궁금한 점을 남겨주시면<br>확인 후 빠르게 답변해 드리겠습니다.
+            <p style="color: var(--text-sub); margin-bottom: 40px; font-weight: 500;">
+                협업 제안이나 서비스 문의 사항을 남겨주시면<br>전문 담당자가 확인 후 연락드리겠습니다.
             </p>
             
-            <div class="contact-page-form">
-                <form action="https://formspree.io/f/xkovqnyn" method="POST" class="contact-form">
-                    <div class="form-group" style="margin-bottom: 24px;">
-                        <label>성함 또는 업체명</label>
-                        <input type="text" name="name" placeholder="성함 또는 기업명을 입력해주세요" required>
+            <div class="contact-page-wrapper">
+                <form action="https://formspree.io/f/xkovqnyn" method="POST">
+                    <div class="input-section" style="max-width: 100%;">
+                        <div class="input-group">
+                            <label>성함 또는 업체명</label>
+                            <input type="text" name="name" class="modern-input" placeholder="이름을 입력해 주세요" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>회신 받을 이메일</label>
+                            <input type="email" name="email" class="modern-input" placeholder="example@email.com" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>문의 내용</label>
+                            <textarea name="message" class="modern-input" rows="8" placeholder="상세한 내용을 입력해 주세요." style="resize: none;" required></textarea>
+                        </div>
                     </div>
-                    <div class="form-group" style="margin-bottom: 24px;">
-                        <label>회신 받을 이메일</label>
-                        <input type="email" name="email" placeholder="example@email.com" required>
+
+                    <div style="margin-top: 20px;">
+                        <button type="submit" class="btn-primary">문의 전송하기</button>
                     </div>
-                    <div class="form-group" style="margin-bottom: 32px;">
-                        <label>문의 내용</label>
-                        <textarea name="message" rows="8" placeholder="상세한 문의 내용을 적어주시면 정확한 답변이 가능합니다." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit" style="width: 100%; padding: 20px;">문의 전송하기</button>
                 </form>
             </div>
 
-            <div style="margin-top: 48px; text-align: center;">
+            <div style="margin-top: 40px;">
                 <a href="index.html" style="color: var(--text-sub); text-decoration: none; font-size: 14px; font-weight: 700;">← 홈으로 돌아가기</a>
             </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+    </footer>
 
 </body>
 </html>
