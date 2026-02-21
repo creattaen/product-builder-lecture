@@ -1,12 +1,8 @@
-// 🐶 AI 동물상 테스트 전용 스크립트 (animal.js)
+// 🐶 AI 동물상 엔진 (animal.js)
 
 const MODEL_URL = "https://teachablemachine.withgoogle.com/models/oFwbTa7Ck/"; 
 
 let model;
-
-window.onload = () => {
-    // Shared functionality if any
-};
 
 async function handleImageUpload(event) {
     const file = event.target.files[0];
@@ -14,20 +10,26 @@ async function handleImageUpload(event) {
 
     const reader = new FileReader();
     reader.onload = async (e) => {
-        const img = document.getElementById('face-image');
+        const img = new Image();
         img.src = e.target.result;
-        img.style.display = 'block';
-        document.getElementById('upload-label').style.display = 'none';
-        
-        await predictAnimalLook(img);
+        img.onload = async () => {
+            // 분석 오버레이 표시
+            const overlay = document.getElementById('loading-overlay');
+            if(overlay) overlay.style.display = 'flex';
+
+            const steps = ["step-1", "step-2", "step-3"];
+            for (let i = 0; i < steps.length; i++) {
+                await new Promise(r => setTimeout(r, 800));
+                document.getElementById(steps[i]).classList.add('active');
+            }
+
+            await predictAnimalLook(img, e.target.result);
+        };
     };
     reader.readAsDataURL(file);
 }
 
-async function predictAnimalLook(imageElement) {
-    document.getElementById('loading-area').style.display = 'block';
-    document.getElementById('result-area').style.display = 'none';
-
+async function predictAnimalLook(imageElement, base64Image) {
     try {
         if (!model) {
             model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
@@ -46,46 +48,36 @@ async function predictAnimalLook(imageElement) {
             }
         });
 
-        displayResults(dogProb, catProb);
+        let message = "";
+        if (dogProb > catProb) {
+            message = `당신은 귀여운 '강아지상' 이시네요! 🐶`;
+        } else if (catProb > dogProb) {
+            message = `당신은 도도한 '고양이상' 이시네요! 🐱`;
+        } else {
+            message = "당신은 강아지와 고양이의 매력을 모두 가진 얼굴이네요! ✨";
+        }
+
+        const resultData = {
+            message,
+            dog: dogProb,
+            cat: catProb,
+            image: base64Image // Store for result page display
+        };
+
+        localStorage.setItem('currentAnimalResult', JSON.stringify(resultData));
+        
+        setTimeout(() => {
+            location.href = 'animal-result.html';
+        }, 500);
 
     } catch (error) {
         console.error("AI 분석 중 오류 발생:", error);
-        alert("분석 중 오류가 발생했습니다. 얼굴이 선명한 다른 사진으로 시도해 주세요.");
-        retryTest();
+        alert("분석 중 오류가 발생했습니다. 다시 시도해 주세요.");
+        location.reload();
     }
 }
 
-function displayResults(dog, cat) {
-    document.getElementById('loading-area').style.display = 'none';
-    document.getElementById('result-area').style.display = 'block';
-
-    const dogBar = document.getElementById('dog-bar');
-    const catBar = document.getElementById('cat-bar');
-    const dogPercent = document.getElementById('dog-percent');
-    const catPercent = document.getElementById('cat-percent');
-    const resultMsg = document.getElementById('result-message');
-
-    setTimeout(() => {
-        dogBar.style.width = dog + "%";
-        catBar.style.width = cat + "%";
-        dogPercent.innerText = Math.round(dog) + "%";
-        catPercent.innerText = Math.round(cat) + "%";
-    }, 100);
-
-    if (dog > cat) {
-        resultMsg.innerText = `당신은 귀여운 '강아지상' 이시네요! (확률: ${Math.round(dog)}%) 🐶`;
-    } else if (cat > dog) {
-        resultMsg.innerText = `당신은 도도한 '고양이상' 이시네요! (확률: ${Math.round(cat)}%) 🐱`;
-    } else {
-        resultMsg.innerText = "당신은 강아지와 고양이를 모두 닮은 매력적인 얼굴이시네요! ✨";
-    }
-}
-
-function retryTest() {
-    document.getElementById('face-image').src = "";
-    document.getElementById('face-image').style.display = 'none';
-    document.getElementById('upload-label').style.display = 'block';
-    document.getElementById('result-area').style.display = 'none';
-    document.getElementById('loading-area').style.display = 'none';
-    document.getElementById('file-input').value = "";
+function toggleContactForm() {
+    const container = document.getElementById('contact-container');
+    if(container) container.classList.toggle('active');
 }

@@ -12,13 +12,11 @@ const fortuneTexts = [
 const colors = ["빨강", "주황", "노랑", "초록", "파랑", "남색", "보라", "검정", "흰색"];
 const directions = ["위", "아래", "왼쪽", "오른쪽"];
 
-// 🎂 생년월일로 띠 계산 (deterministic)
 function getZodiac(year) {
     const zodiacs = ["원숭이띠", "닭띠", "개띠", "돼지띠", "쥐띠", "소띠", "호랑이띠", "토끼띠", "용띠", "뱀띠", "말띠", "양띠"];
     return zodiacs[year % 12];
 }
 
-// 🔑 입력값 기반 해시 생성 (결과값이 입력에 따라 달라지게 함)
 function getHashCode(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -34,10 +32,7 @@ window.onload = () => {
         const savedNickname = localStorage.getItem('userNickname');
         if (savedNickname) document.getElementById('user-nickname').value = savedNickname;
     }
-    
-    // 결과 페이지나 다른 페이지에서 히스토리 렌더링
     renderHistory();
-    renderMonthlySidebar();
 };
 
 function initBirthSelects() {
@@ -76,46 +71,44 @@ async function startFortuneAnalysis() {
     const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const seed = getHashCode(nickname + birthStr + todayStr);
 
-    // 🌌 분석 애니메이션 시작
     const overlay = document.getElementById('analysis-overlay');
-    overlay.style.display = 'flex';
+    if(overlay) overlay.style.display = 'flex';
 
-    const steps = ["step-1", "step-2", "step-3"];
-    for (let i = 0; i < steps.length; i++) {
-        await new Promise(r => setTimeout(r, 1000));
-        document.getElementById(steps[i]).classList.add('active');
-    }
+    await new Promise(r => setTimeout(r, 2500));
 
-    // 데이터 생성 (결정론적 랜덤)
+    // 통합 데이터 생성 (오늘의 운세 + 이달의 운세)
     const fortuneIdx = seed % fortuneTexts.length;
-    const luckScore = 60 + (seed % 41); // 60~100점
-    const luckNum = (seed % 100) + 1; // 1~100
-    const luckColor = colors[seed % colors.length];
-    const luckDir = directions[seed % directions.length];
+    const monthFortuneIdx = (seed + 7) % fortuneTexts.length; // Offset for monthly
+    
     const zodiac = getZodiac(parseInt(year));
+    const now = new Date();
     
     const resultData = {
         nickname,
         zodiac,
-        timestamp: new Date().toLocaleDateString('ko-KR').slice(0, -1),
-        summary: fortuneTexts[fortuneIdx].summary,
-        title: fortuneTexts[fortuneIdx].title,
-        text: fortuneTexts[fortuneIdx].text,
-        score: luckScore,
-        lNum: luckNum,
-        lColor: luckColor,
-        lDir: luckDir
+        timestamp: now.toLocaleDateString('ko-KR').slice(0, -1),
+        displayMonth: now.getMonth() + 1,
+        daily: {
+            summary: fortuneTexts[fortuneIdx].summary,
+            title: fortuneTexts[fortuneIdx].title,
+            text: fortuneTexts[fortuneIdx].text,
+            score: 60 + (seed % 41),
+            lNum: (seed % 100) + 1,
+            lColor: colors[seed % colors.length],
+            lDir: directions[seed % directions.length]
+        },
+        monthly: {
+            summary: fortuneTexts[monthFortuneIdx].summary,
+            text: fortuneTexts[monthFortuneIdx].text.substring(0, 80) + "..." // Simplified for preview
+        }
     };
 
     localStorage.setItem('currentFortuneResult', JSON.stringify(resultData));
-    saveToHistory(zodiac, '오늘의', `${nickname}님: ${resultData.summary}`);
+    saveToHistory(zodiac, '통합 분석', `${nickname}님: ${resultData.daily.summary}`);
 
-    setTimeout(() => {
-        location.href = 'horoscope-result.html';
-    }, 1000);
+    location.href = 'horoscope-result.html';
 }
 
-// 히스토리 및 사이드바 로직 (기존 유지)
 function saveToHistory(zodiac, period, text) {
     let history = JSON.parse(localStorage.getItem('fortuneHistory')) || [];
     const date = new Date().toLocaleString('ko-KR', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
@@ -141,30 +134,6 @@ function renderHistory() {
             <span style="font-size:11px; color:var(--text-sub);">${h.date}</span>
         </div>
     `).join('');
-}
-
-function renderMonthlySidebar() {
-    const box = document.getElementById('monthly-result-text');
-    if (!box) return;
-    const data = JSON.parse(localStorage.getItem('currentFortuneResult'));
-    if (data) {
-        box.innerHTML = `
-            <div style="font-weight:800; color:var(--text-main); font-size:18px;">${data.nickname}님</div>
-            <div style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:12px;">[${data.zodiac}] 이번 달 기운</div>
-            <div style="padding:16px; background:var(--primary-soft); border-radius:12px; font-size:14px; line-height:1.6;">
-                이달의 분석 데이터가 곧 업데이트 됩니다.
-            </div>
-        `;
-    }
-}
-
-function openFortuneModal(title, text) {
-    const modal = document.getElementById('fortune-modal');
-    if (modal) {
-        document.getElementById('modal-title').innerText = title;
-        document.getElementById('modal-text').innerText = text;
-        modal.style.display = 'flex';
-    }
 }
 
 function closeFortuneModal() {

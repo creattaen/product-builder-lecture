@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>분석 결과 - 신비한 띠별 운세</title>
     <link rel="stylesheet" href="style.css">
+    <!-- html2canvas for image saving -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -18,8 +20,9 @@
     </nav>
 
     <div class="page-wrapper">
-        <div class="container">
-            <div id="today-result-container" class="result-card" style="display: block; margin-top: 0;">
+        <div class="container" style="max-width: 800px;">
+            <!-- 📸 이미지 저장 대상 영역 -->
+            <div id="capture-area" class="result-card" style="display: block; margin-top: 0; background: white;">
                 <div id="today-result-header">
                     <span class="zodiac-badge" id="res-zodiac">-</span>
                     <span class="date-badge" id="res-date"></span>
@@ -36,14 +39,18 @@
                 </div>
 
                 <div class="fortune-content">
-                    <div class="summary-wrap" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
-                        <h2 id="res-nickname-title" style="margin: 0; font-size: 32px; font-weight: 800; color: var(--text-main);"></h2>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span id="res-summary-badge" class="summary-badge" style="background: var(--primary);">분석</span>
-                            <span id="res-sub-title" style="font-size: 18px; font-weight: 700; color: var(--primary);"></span>
-                        </div>
+                    <h2 id="res-nickname-title" style="margin: 0; font-size: 42px; font-weight: 900; color: var(--text-main); letter-spacing: -0.04em;"></h2>
+                    <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0 32px;">
+                        <span id="res-summary-badge" class="summary-badge" style="background: var(--primary); padding: 6px 12px; border-radius: 6px;">대길</span>
+                        <span id="res-sub-title" style="font-size: 18px; font-weight: 700; color: var(--primary);">오늘의 총평</span>
                     </div>
-                    <p id="today-result-text" class="fortune-description"></p>
+                    <p id="today-result-text" class="fortune-description" style="margin-bottom: 48px;"></p>
+                </div>
+
+                <!-- 🌙 이달의 운세 통합 표시 -->
+                <div class="monthly-preview" style="background: #fcfcfc; padding: 32px; border-radius: 16px; margin-bottom: 48px; border: 1px solid #f0f0f0;">
+                    <h3 id="monthly-title" style="margin: 0 0 12px 0; font-size: 18px; font-weight: 800; color: var(--primary);"></h3>
+                    <p id="monthly-text" style="margin: 0; font-size: 15px; color: var(--text-sub); line-height: 1.7;"></p>
                 </div>
 
                 <div class="lucky-items-grid">
@@ -63,11 +70,15 @@
                         <span class="value" id="luck-dir">-</span>
                     </div>
                 </div>
+            </div>
 
-                <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <button class="btn-month" onclick="location.href='horoscope.html'">다시 분석하기</button>
-                    <button class="btn-today" onclick="shareResult()">결과 공유하기</button>
-                </div>
+            <!-- 🛠 액션 버튼 -->
+            <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <button class="btn-month" onclick="saveAsImage()">📸 결과 이미지 저장</button>
+                <button class="btn-today" onclick="shareLink()">🔗 링크 공유하기</button>
+            </div>
+            <div style="margin-top: 16px;">
+                <button class="btn-month" style="width: 100%;" onclick="location.href='horoscope.html'">다시 분석하기</button>
             </div>
 
             <div class="history-container">
@@ -75,62 +86,64 @@
                 <div id="history-list"></div>
             </div>
         </div>
-
-        <div class="monthly-sidebar" id="monthly-sidebar">
-            <h3>🌙 이달의 총운</h3>
-            <div id="monthly-result-text">
-                <p style="color: var(--text-sub); text-align: left; margin-top: 20px;">
-                    홈 화면에서 분석을 먼저 진행해주세요!
-                </p>
-            </div>
-        </div>
     </div>
 
     <footer class="footer">
-        <p style="color: var(--text-sub); font-size: 13px;">© 2026 운명과 AI. All rights reserved.</p>
+        <p>© 2026 운명과 AI. All rights reserved.</p>
     </footer>
-
-    <div id="fortune-modal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeFortuneModal()">&times;</span>
-            <h3 id="modal-title"></h3>
-            <p id="modal-text"></p>
-        </div>
-    </div>
 
     <script src="horoscope.js"></script>
     <script>
-        // 결과 페이지 전용 초기화 로직
         window.addEventListener('load', () => {
             const data = JSON.parse(localStorage.getItem('currentFortuneResult'));
             if (data) {
-                displayResultPage(data);
+                document.getElementById('res-zodiac').innerText = data.zodiac;
+                document.getElementById('res-date').innerText = data.timestamp;
+                document.getElementById('res-nickname-title').innerText = data.nickname + "님";
+                document.getElementById('res-summary-badge').innerText = data.daily.summary;
+                document.getElementById('today-result-text').innerText = data.daily.text;
+                document.getElementById('monthly-title').innerText = `${data.displayMonth}월의 기운`;
+                document.getElementById('monthly-text').innerText = data.monthly.text;
+                document.getElementById('luck-num').innerText = data.daily.lNum;
+                document.getElementById('luck-color').innerText = data.daily.lColor;
+                document.getElementById('luck-dir').innerText = data.daily.lDir;
+                
+                setTimeout(() => {
+                    document.getElementById('luck-score-bar').style.width = data.daily.score + "%";
+                    document.getElementById('luck-score-text').innerText = data.daily.score + "점";
+                }, 300);
             } else {
                 location.href = 'horoscope.html';
             }
         });
 
-        function displayResultPage(data) {
-            document.getElementById('res-zodiac').innerText = data.zodiac;
-            document.getElementById('res-date').innerText = data.timestamp;
-            document.getElementById('res-nickname-title').innerText = data.nickname + "님";
-            document.getElementById('res-summary-badge').innerText = data.summary;
-            document.getElementById('res-sub-title').innerText = `[${data.zodiac}] 오늘의 총평`;
-            document.getElementById('today-result-text').innerText = data.text;
-            document.getElementById('luck-num').innerText = data.lNum;
-            document.getElementById('luck-color').innerText = data.lColor;
-            document.getElementById('luck-dir').innerText = data.lDir;
-            
-            const scoreBar = document.getElementById('luck-score-bar');
-            const scoreText = document.getElementById('luck-score-text');
-            setTimeout(() => {
-                scoreBar.style.width = data.score + "%";
-                scoreText.innerText = data.score + "점";
-            }, 300);
+        // 🖼 이미지 저장 기능
+        async function saveAsImage() {
+            const area = document.getElementById('capture-area');
+            const canvas = await html2canvas(area, {
+                backgroundColor: "#ffffff",
+                scale: 2 // High resolution
+            });
+            const link = document.createElement('a');
+            link.download = 'my-fortune-result.png';
+            link.href = canvas.toDataURL();
+            link.click();
         }
 
-        function shareResult() {
-            alert("결과 페이지 주소가 복사되었습니다! 친구들에게 공유해보세요. ✨");
+        // 🔗 링크 공유 기능
+        async function shareLink() {
+            const shareData = {
+                title: '신비한 띠별 운세',
+                text: '인공지능이 분석한 나의 오늘 운세를 확인해보세요! 🔮',
+                url: window.location.origin + window.location.pathname.replace('horoscope-result.html', 'index.html')
+            };
+
+            if (navigator.share) {
+                try { await navigator.share(shareData); } catch (err) { console.log(err); }
+            } else {
+                navigator.clipboard.writeText(shareData.url);
+                alert("공유 링크가 클립보드에 복사되었습니다! ✨");
+            }
         }
     </script>
 </body>

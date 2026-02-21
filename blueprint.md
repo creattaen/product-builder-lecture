@@ -1,27 +1,31 @@
-# 🔮 신비한 운세 & AI 테스트 - Blueprint (Trendy Responsive)
+# 🔮 신비한 운세 & AI 테스트 - Blueprint (Premium Plus-X Style)
 
 ## Overview
 
-A high-end, mobile-first responsive web application. It features a "Trendy & Sleek" UI with fluid layouts, glassmorphism, and smooth micro-interactions, providing a premium app-like experience on any device.
+A high-end web application inspired by "Plus-X" design philosophy: Minimalist, Bold, and Interactive. Features unified fortune analysis and advanced social sharing capabilities (Image Save & Link).
 
-## Design Principles
+## Design System (Inspired by Plus-X)
 
-*   **Mobile-First:** Core layout designed for mobile usability, expanding gracefully to desktop.
-*   **App-like UI:** Sticky navigation, tactile buttons, and rounded corners (32px) for a modern look.
-*   **Motion Design:** Subtle entry animations (Fade-in, Slide-up) and responsive hover states.
-*   **Glassmorphism 2.0:** Layered semi-transparent backgrounds with refined blur effects and thin borders.
+*   **Buttons:** Full-rounded pill shapes with sophisticated hover states and fluid motion.
+*   **Typography:** Large, bold headlines with wide tracking and elegant sub-texts.
+*   **Footer:** Minimalist copyright text positioned at the bottom-right.
+*   **Aesthetics:** High-contrast minimalist color palette with premium indigo/purple accents.
 
-## Responsive Strategy (Current Plan)
+## Key Functional Updates (Current Plan)
 
-1.  **Fluid Typography:** Scaling font sizes based on viewport width.
-2.  **Adaptive Grids:**
-    *   **Horoscope Page:** Side-by-side on desktop, stacked with logical order on mobile.
-    *   **Lucky Items:** 3 columns on desktop, 2 or 1 column on smaller screens.
-3.  **Touch Optimization:** Larger hit targets for mobile users and overflow-scrolling for long lists.
+1.  **Unified Fortune Analysis:** Daily and Monthly fortunes are calculated simultaneously and displayed on one result page.
+2.  **Visual Sharing:** 
+    *   **Save as Image:** Captures the result card as a PNG using `html2canvas`.
+    *   **Link Sharing:** Integrated sharing via Web Share API or Clipboard.
+3.  **Animal Test Evolution:** 
+    *   Split into `animal-test.html` (Input) and `animal-result.html` (Result).
+    *   Mobile-optimized image preview (Square crop/contain).
 
 ## Current Plan
 
-1.  **CSS Overhaul:** Implement fluid responsiveness and modern motion effects in `style.css`.
-2.  **Component Refinement:** Polish all cards, inputs, and badges for a consistent "premium" feel.
-3.  **Animation Integration:** Add CSS-based entry animations to sections.
-4.  **Deployment:** Push the trendy responsive version to GitHub.
+1.  **Style Overhaul:** Rewrite `style.css` for the Plus-X aesthetic.
+2.  **Fortune Logic Update:** Modify `horoscope.js` to generate dual results.
+3.  **Result Pages:** 
+    *   Update `horoscope-result.html` with image save logic.
+    *   Create `animal-result.html`.
+4.  **Deployment:** Deploy the final premium version.
