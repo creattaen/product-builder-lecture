@@ -10,25 +10,26 @@
 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-link">🏠 홈</a>
-            <a href="horoscope.html" class="nav-link active">🔮 띠별 운세</a>
-            <a href="animal-test.html" class="nav-link">🐶 AI 동물상 테스트</a>
-            <a href="contact.html" class="nav-link">🤝 제휴 및 문의</a>
+            <a href="index.html" class="nav-link">HOME</a>
+            <a href="horoscope.html" class="nav-link active">FORTUNE</a>
+            <a href="animal-test.html" class="nav-link">AI TEST</a>
+            <a href="contact.html" class="nav-link">CONTACT</a>
         </div>
     </nav>
 
     <main>
         <div class="container">
-            <h1>당신의 행운을<br>분석해드립니다 🔮</h1>
+            <span class="title-icon">🔮</span>
+            <h1>행운 분석을 위해<br>정보를 입력해주세요</h1>
             <p class="sub-desc">정확한 분석을 위해 정보를 입력해주세요.</p>
             
             <div class="input-section">
                 <div class="input-group">
-                    <label>닉네임</label>
+                    <label>Nickname</label>
                     <input type="text" id="user-nickname" class="modern-input" placeholder="이름 또는 별명">
                 </div>
                 <div class="input-group">
-                    <label>생년월일</label>
+                    <label>Birth Date</label>
                     <div class="birth-select-group">
                         <select id="birth-year" class="modern-input"></select>
                         <select id="birth-month" class="modern-input"></select>
@@ -42,13 +43,12 @@
     </main>
 
     <footer class="footer">
-        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+        <p>© 2026 DESTINY & AI. ALL RIGHTS RESERVED.</p>
     </footer>
 
-    <!-- 🌌 분석 오버레이 -->
     <div id="analysis-overlay" class="full-screen-analysis" style="display: none;">
         <div class="spin-wrap"></div>
-        <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 20px;">운명의 기운을 분석하고 있습니다</h2>
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 20px;">운명의 기운을 분석하고 있습니다</h2>
         <div style="text-align: center;">
             <p id="step-1" class="step">데이터 정합성 확인 중...</p>
             <p id="step-2" class="step">천기누설 로직 가동 중...</p>

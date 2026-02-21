@@ -11,76 +11,72 @@
 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-link">🏠 홈</a>
-            <a href="horoscope.html" class="nav-link active">🔮 띠별 운세</a>
-            <a href="animal-test.html" class="nav-link">🐶 AI 동물상 테스트</a>
-            <a href="contact.html" class="nav-link">🤝 제휴 및 문의</a>
+            <a href="index.html" class="nav-link">HOME</a>
+            <a href="horoscope.html" class="nav-link active">FORTUNE</a>
+            <a href="animal-test.html" class="nav-link">AI TEST</a>
+            <a href="contact.html" class="nav-link">CONTACT</a>
         </div>
     </nav>
 
     <main>
         <div class="container" style="max-width: 800px;">
             <div id="capture-area" class="result-card">
-                <div id="today-result-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px;">
-                    <span class="nav-link active" id="res-zodiac" style="opacity: 1; padding: 0;">-</span>
-                    <span id="res-date" style="color: var(--text-sub); font-size: 13px; font-weight: 700;"></span>
+                <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                    <span id="res-zodiac" style="font-weight: 800; font-size: 12px; color: var(--accent); letter-spacing: 0.1em;">ZODIAC</span>
+                    <span id="res-date" style="color: var(--text-sub); font-size: 12px; font-weight: 700;">DATE</span>
                 </div>
                 
-                <h2 id="res-nickname-title" style="font-size: clamp(36px, 8vw, 56px); font-weight: 900; margin-bottom: 8px;"></h2>
-                <div style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <span id="res-summary-badge" style="background: var(--primary); color: white; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 800;">분석</span>
-                    <span id="res-sub-title" style="font-weight: 800; color: var(--primary); font-size: 18px;">오늘의 총평</span>
+                <h2 id="res-nickname-title" style="font-size: clamp(32px, 8vw, 48px); font-weight: 800; margin-bottom: 8px;"></h2>
+                <div style="margin-bottom: 32px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <span id="res-summary-badge" style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 800;">STATUS</span>
+                    <span id="res-sub-title" style="font-weight: 700; color: var(--primary); font-size: 16px;">오늘의 총평</span>
                 </div>
 
                 <div class="infographic-box">
-                    <span style="font-size: 12px; font-weight: 900; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.1em;">Daily Luck Score</span>
+                    <span style="font-size: 11px; font-weight: 800; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.1em;">Luck Index</span>
                     <div class="bar-bg"><div id="luck-score-bar" class="bar-fill"></div></div>
-                    <span id="luck-score-text" style="font-size: 32px; font-weight: 900; color: var(--primary); font-family: 'Inter', sans-serif;">0%</span>
+                    <span id="luck-score-text" style="font-size: 28px; font-weight: 800; color: var(--primary); font-family: 'Inter', sans-serif;">0%</span>
                 </div>
 
-                <p id="today-result-text" style="font-size: 17px; color: var(--text-main); line-height: 1.8; margin-bottom: 48px; max-width: 500px;"></p>
+                <p id="today-result-text" style="font-size: 16px; color: var(--text-main); line-height: 1.8; margin-bottom: 40px; max-width: 480px;"></p>
 
-                <div style="width: 100%; background: var(--soft-bg); padding: 32px; border-radius: 20px; margin-bottom: 48px; text-align: left; border: 1px solid var(--border);">
-                    <h3 id="monthly-title" style="font-size: 16px; margin-bottom: 12px; color: var(--primary); font-weight: 800;"></h3>
-                    <p id="monthly-text" style="font-size: 14px; color: var(--text-sub); margin: 0; line-height: 1.7; font-weight: 500;"></p>
+                <div style="width: 100%; background: var(--soft-bg); padding: 24px; border-radius: 16px; margin-bottom: 40px; text-align: left;">
+                    <h3 id="monthly-title" style="font-size: 15px; margin-bottom: 8px; color: var(--primary); font-weight: 800;">이달의 기운</h3>
+                    <p id="monthly-text" style="font-size: 14px; color: var(--text-sub); margin: 0; line-height: 1.6; font-weight: 500;"></p>
                 </div>
 
                 <div class="lucky-grid">
                     <div class="lucky-box">
-                        <span style="font-size: 20px; display: block; margin-bottom: 8px;">🔢</span>
-                        <span class="label" style="font-size: 10px; text-transform: uppercase; margin-bottom: 4px;">Number</span>
+                        <span class="label">NUMBER</span>
                         <span class="value" id="luck-num">-</span>
                     </div>
                     <div class="lucky-box">
-                        <span style="font-size: 20px; display: block; margin-bottom: 8px;">🎨</span>
-                        <span class="label" style="font-size: 10px; text-transform: uppercase; margin-bottom: 4px;">Color</span>
+                        <span class="label">COLOR</span>
                         <span class="value" id="luck-color">-</span>
                     </div>
                     <div class="lucky-box">
-                        <span style="font-size: 20px; display: block; margin-bottom: 8px;">📍</span>
-                        <span class="label" style="font-size: 10px; text-transform: uppercase; margin-bottom: 4px;">Direction</span>
+                        <span class="label">DIRECTION</span>
                         <span class="value" id="luck-dir">-</span>
                     </div>
                 </div>
             </div>
 
-            <div style="margin-top: 48px; width: 100%; max-width: 400px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-                    <button class="btn-primary" style="padding: 18px;" onclick="saveAsImage()">이미지 저장</button>
-                    <button class="btn-primary" style="padding: 18px; background: #000;" onclick="shareLink()">링크 공유</button>
+            <div style="margin-top: 40px; width: 100%; max-width: 360px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <button class="btn-primary" style="padding: 16px;" onclick="saveAsImage()">IMAGE SAVE</button>
+                    <button class="btn-primary" style="padding: 16px; background: #000;" onclick="shareLink()">SHARE</button>
                 </div>
-                <button class="btn-secondary" onclick="location.href='horoscope.html'">다시 분석하기</button>
+                <button class="btn-secondary" onclick="location.href='horoscope.html'">ANALYZE AGAIN</button>
             </div>
 
             <div class="comments-container" style="width: 100%; max-width: 800px;">
-                <h3>💬 자유 게시판</h3>
                 <div id="disqus_thread"></div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
-        <p>© 2026 운명과 AI. ALL RIGHTS RESERVED.</p>
+        <p>© 2026 DESTINY & AI. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script src="horoscope.js"></script>
@@ -88,19 +84,19 @@
         window.addEventListener('load', () => {
             const data = JSON.parse(localStorage.getItem('currentFortuneResult'));
             if (data) {
-                document.getElementById('res-zodiac').innerText = data.zodiac;
-                document.getElementById('res-date').innerText = data.timestamp;
-                document.getElementById('res-nickname-title').innerText = data.nickname + "님";
-                document.getElementById('res-summary-badge').innerText = data.daily.summary;
-                document.getElementById('today-result-text').innerText = data.daily.text;
-                document.getElementById('monthly-title').innerText = `${data.displayMonth}월의 기운`;
-                document.getElementById('monthly-text').innerText = data.monthly.text;
-                document.getElementById('luck-num').innerText = data.daily.lNum;
-                document.getElementById('luck-color').innerText = data.daily.lColor;
-                document.getElementById('luck-dir').innerText = data.daily.lDir;
+                document.getElementById('res-zodiac').innerText = data.zodiac || "";
+                document.getElementById('res-date').innerText = data.timestamp || "";
+                document.getElementById('res-nickname-title').innerText = (data.nickname || "사용자") + "님";
+                document.getElementById('res-summary-badge').innerText = data.daily.summary || "분석";
+                document.getElementById('today-result-text').innerText = data.daily.text || "";
+                document.getElementById('monthly-title').innerText = `${data.displayMonth || 2}월의 총운`;
+                document.getElementById('monthly-text').innerText = data.monthly.text || "";
+                document.getElementById('luck-num').innerText = data.daily.lNum || "-";
+                document.getElementById('luck-color').innerText = data.daily.lColor || "-";
+                document.getElementById('luck-dir').innerText = data.daily.lDir || "-";
                 setTimeout(() => {
-                    document.getElementById('luck-score-bar').style.width = data.daily.score + "%";
-                    document.getElementById('luck-score-text').innerText = data.daily.score + "%";
+                    document.getElementById('luck-score-bar').style.width = (data.daily.score || 0) + "%";
+                    document.getElementById('luck-score-text').innerText = (data.daily.score || 0) + "%";
                 }, 300);
             } else { location.href = 'horoscope.html'; }
         });
