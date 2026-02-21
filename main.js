@@ -154,10 +154,10 @@ function renderMonthlySidebar() {
 
     if (savedMonthlyData && savedMonthlyData.monthKey === currentMonthKey) {
         resultBox.innerHTML = `
-            <div style="margin-bottom: 10px; font-weight: bold; color: #fff;">
+            <div style="margin-bottom: 10px; font-weight: bold;">
                 [${savedMonthlyData.zodiac}] ${savedMonthlyData.displayMonth}월의 운세
             </div>
-            <div style="padding: 15px; border-radius: 10px; font-size: 15px; color: #fff; background: rgba(255,255,255,0.1);">
+            <div style="padding: 15px; border-radius: 10px; font-size: 15px; background: rgba(128,128,128,0.1);">
                 ${savedMonthlyData.text}
             </div>
         `;
