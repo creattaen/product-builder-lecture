@@ -22,6 +22,7 @@ function getZodiac(year) {
 }
 
 window.onload = () => {
+    initBirthSelects();
     renderHistory();
     renderMonthlySidebar();
     
@@ -35,16 +36,49 @@ window.onload = () => {
     });
 };
 
-function checkTodayFortune() {
-    const birthDateValue = document.getElementById('birth-date').value;
+// 생년월일 셀렉트 박스 초기화
+function initBirthSelects() {
+    const yearSelect = document.getElementById('birth-year');
+    const monthSelect = document.getElementById('birth-month');
+    const daySelect = document.getElementById('birth-day');
+    
+    if (!yearSelect || !monthSelect || !daySelect) return;
 
-    if (!birthDateValue) {
-        alert("분석을 위해 생년월일을 선택해주세요! 📅");
+    const currentYear = new Date().getFullYear();
+    
+    // 연도 (1920 ~ 현재)
+    let yearOptions = '<option value="">연도</option>';
+    for (let i = currentYear; i >= 1920; i--) {
+        yearOptions += `<option value="${i}">${i}년</option>`;
+    }
+    yearSelect.innerHTML = yearOptions;
+
+    // 월 (1 ~ 12)
+    let monthOptions = '<option value="">월</option>';
+    for (let i = 1; i <= 12; i++) {
+        monthOptions += `<option value="${i}">${i}월</option>`;
+    }
+    monthSelect.innerHTML = monthOptions;
+
+    // 일 (1 ~ 31)
+    let dayOptions = '<option value="">일</option>';
+    for (let i = 1; i <= 31; i++) {
+        dayOptions += `<option value="${i}">${i}일</option>`;
+    }
+    daySelect.innerHTML = dayOptions;
+}
+
+function checkTodayFortune() {
+    const year = document.getElementById('birth-year').value;
+    const month = document.getElementById('birth-month').value;
+    const day = document.getElementById('birth-day').value;
+
+    if (!year || !month || !day) {
+        alert("분석을 위해 생년월일을 모두 선택해주세요! 📅");
         return;
     }
 
-    const birthDate = new Date(birthDateValue);
-    const zodiac = getZodiac(birthDate.getFullYear());
+    const zodiac = getZodiac(parseInt(year));
     const now = new Date();
     const currentDayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
     
@@ -68,6 +102,8 @@ function checkTodayFortune() {
         const lNum = luckyItems.numbers[Math.floor(Math.random() * luckyItems.numbers.length)];
         const lColor = luckyItems.colors[Math.floor(Math.random() * luckyItems.colors.length)];
         const lDir = luckyItems.directions[Math.floor(Math.random() * luckyItems.directions.length)];
+        
+        // 날짜 표기에서 괄호() 제거 및 포맷 최적화
         const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
 
         const newTodayData = {
@@ -92,22 +128,20 @@ function checkTodayFortune() {
 function displayTodayResult(data) {
     const container = document.getElementById('today-result-container');
     
-    // undefined 방지 및 데이터 삽입
-    document.getElementById('res-zodiac').innerText = data.zodiac || "운세";
-    document.getElementById('res-date').innerText = data.timestamp || "";
-    document.getElementById('res-summary-badge').innerText = data.summary || "분석 완료";
-    document.getElementById('res-title').innerText = data.title || "행운의 메시지";
-    document.getElementById('today-result-text').innerText = data.text || "오늘의 운세를 확인해보세요.";
-    document.getElementById('luck-num').innerText = data.lNum || "-";
-    document.getElementById('luck-color').innerText = data.lColor || "-";
-    document.getElementById('luck-dir').innerText = data.lDir || "-";
+    document.getElementById('res-zodiac').innerText = data.zodiac;
+    document.getElementById('res-date').innerText = data.timestamp;
+    document.getElementById('res-summary-badge').innerText = data.summary;
+    document.getElementById('res-title').innerText = data.title;
+    document.getElementById('today-result-text').innerText = data.text;
+    document.getElementById('luck-num').innerText = data.lNum;
+    document.getElementById('luck-color').innerText = data.lColor;
+    document.getElementById('luck-dir').innerText = data.lDir;
 
-    // 인포그래픽 게이지 바 업데이트
     const scoreBar = document.getElementById('luck-score-bar');
     const scoreText = document.getElementById('luck-score-text');
     if (scoreBar && scoreText) {
-        scoreBar.style.width = (data.score || 50) + "%";
-        scoreText.innerText = (data.score || 50) + "점";
+        scoreBar.style.width = data.score + "%";
+        scoreText.innerText = data.score + "점";
     }
 
     container.style.display = 'block';
@@ -116,13 +150,12 @@ function displayTodayResult(data) {
 }
 
 function checkMonthFortune() {
-    const birthDateValue = document.getElementById('birth-date').value;
-    if (!birthDateValue) {
+    const year = document.getElementById('birth-year').value;
+    if (!year) {
         alert("띠 계산을 위해 생년월일을 먼저 선택해주세요! 📅");
         return;
     }
-    const birthDate = new Date(birthDateValue);
-    const zodiac = getZodiac(birthDate.getFullYear());
+    const zodiac = getZodiac(parseInt(year));
 
     const now = new Date();
     const currentMonthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
@@ -177,6 +210,7 @@ function renderMonthlySidebar() {
 
 function saveToHistory(zodiac, periodText, fortuneText) {
     const now = new Date();
+    // 기록 저장 시에도 괄호() 제거
     const dateString = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
     
     const newRecord = {

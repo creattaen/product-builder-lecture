@@ -188,6 +188,12 @@ h1 {
     letter-spacing: 0.05em;
 }
 
+.birth-select-group {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 10px;
+}
+
 .modern-input, select {
     appearance: none;
     background-color: #fff;
