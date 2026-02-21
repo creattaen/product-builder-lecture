@@ -1,14 +1,68 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔮 신비한 띠별 운세 🔮</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <h1>🔮 신비한 띠별 운세 🔮</h1>
+            
+            <div class="controls">
+                <select id="zodiac-select">
+                    <option value="쥐띠">🐭 쥐띠</option>
+                    <option value="소띠">🐮 소띠</option>
+                    <option value="호랑이띠">🐯 호랑이띠</option>
+                    <option value="토끼띠">🐰 토끼띠</option>
+                    <option value="용띠">🐲 용띠</option>
+                    <option value="뱀띠">🐍 뱀띠</option>
+                    <option value="말띠">🐴 말띠</option>
+                    <option value="양띠">🐑 양띠</option>
+                    <option value="원숭이띠">🐵 원숭이띠</option>
+                    <option value="닭띠">🐔 닭띠</option>
+                    <option value="개띠">🐶 개띠</option>
+                    <option value="돼지띠">🐷 돼지띠</option>
+                </select>
+
+                <div class="btn-group">
+                    <button class="btn-today" onclick="checkTodayFortune()">오늘의 운세 보기</button>
+                    <button class="btn-month" onclick="checkMonthFortune()">이달의 운세 보기</button>
+                </div>
+            </div>
+
+            <div id="today-result-container">
+                <div id="today-result-text">운세 결과를 확인해보세요!</div>
+            </div>
+
+            <div class="history-container">
+                <h3>📅 나의 운세 기록</h3>
+                <div id="history-list"></div>
+            </div>
+        </div>
+
+        <div class="monthly-sidebar" id="monthly-sidebar">
+            <h3>🌙 이달의 운세</h3>
+            <div id="monthly-result-text">
+                <p style="color: #a9a9a9; text-align: center; margin-top: 40px;">
+                    아직 이번 달 운세를<br>뽑지 않았습니다.<br><br>좌측 버튼을 눌러 확인하세요!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fortune Detail Modal -->
+    <div id="fortune-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeFortuneModal()">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
