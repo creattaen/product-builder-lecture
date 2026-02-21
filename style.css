@@ -110,8 +110,16 @@ p.sub-desc {
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 32px; /* 입력창 사이 간격 확대 */
-    margin-bottom: 56px;
+    align-items: center; /* 내부 요소 중앙 정렬 */
+    gap: 32px;
+    margin: 0 auto 56px; /* 부모 컨테이너 내에서 중앙 정렬 */
+}
+
+.input-group { 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .input-group label {
@@ -122,6 +130,7 @@ p.sub-desc {
     display: block;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    text-align: center; /* 라벨도 중앙 정렬 */
 }
 
 .modern-input, select {
